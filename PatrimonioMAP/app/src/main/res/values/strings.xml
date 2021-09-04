@@ -2,4 +2,10 @@
     <string name="app_name">PatrimonioMAP</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <string-array name="test_array">
+        <item>Sitio restaurado 1</item>
+        <item>Sitio restaurado 2</item>
+        <item>Sitio restaurado 3</item>
+    </string-array>
 </resources>
