@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TC2007B_Security.iml" filepath="$PROJECT_DIR$/.idea/TC2007B_Security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Esencia_Patrimonio.iml" filepath="$PROJECT_DIR$/.idea/modules/Esencia_Patrimonio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Esencia_Patrimonio.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Esencia_Patrimonio.app.iml" />
     </modules>
   </component>
 </project>
