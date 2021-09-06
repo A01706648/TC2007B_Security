@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Esencia Patrimonio</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoicnViYml4czAxMSIsImEiOiJja3QwYW40NW0wM2prMnpvdHdheGJneTNwIn0.4MK1-4oZpK9gL_gWdWwnYw</string>
 </resources>
