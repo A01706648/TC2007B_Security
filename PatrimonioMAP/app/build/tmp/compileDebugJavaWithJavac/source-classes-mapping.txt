@@ -1,0 +1,2 @@
+com/example/patrimoniomap/BuildConfig.java
+ com.example.patrimoniomap.BuildConfig
