@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:title="Mapa"
+            android:id="@+id/view_map"
+            android:checked="true"/>
+        <item
+            android:title="Búsqueda avanzada"
+            android:id="@+id/view_busquedaAvanzada"
+            android:checked="true"/>
+        <item
+            android:title="Acerca de nosotros"
+            android:id="@+id/view_acercaDeNosotros"
+            android:checked="true"/>
+        <item
+            android:title="Donar"
+            android:id="@+id/view_donar"
+            android:checked="true"/>
+        <item
+            android:title="Login"
+            android:id="@+id/view_login"
+            android:checked="true"/>
+        <item
+            android:title="Register"
+            android:id="@+id/view_register"
+            android:checked="true"/>
+
+    </group>
+</menu>
