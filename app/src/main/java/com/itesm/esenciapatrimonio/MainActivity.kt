@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        //compact activity
+
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -54,16 +56,18 @@ class MainActivity : AppCompatActivity() {
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync { mapboxMap ->
 
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
+        val mapStyle = getString(R.string.map_style)
+            mapboxMap.setStyle(mapStyle) {
 
-        // Map is set up and the style has loaded. Now you can add data or make other map adjustments
+                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
                 Log.d("salida","mapa cargado")
 
             }
 
         }
-
     }
+
+
 
     override fun onStart() {
         super.onStart()

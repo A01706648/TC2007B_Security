@@ -14,6 +14,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/header_lateral_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/sitio_restaurado.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/sobre_nosotros.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/menu/lateral_menu.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.35572916666666665" />
       </map>
