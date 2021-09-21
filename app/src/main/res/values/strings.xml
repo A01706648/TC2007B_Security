@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Esencia Patrimonio</string>
     <string name="mapbox_access_token">pk.eyJ1IjoicnViYml4czAxMSIsImEiOiJja3QwYW40NW0wM2prMnpvdHdheGJneTNwIn0.4MK1-4oZpK9gL_gWdWwnYw</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">ZpZUnTb4ivF4gjumtcCZ1jmqEJM2d0BNkppz7gP1</string>
+    <string name="back4app_client_key">RTttDQqzt9tRehiUjiaL1QiwCLBkdzxYU9nES4Al</string>
 </resources>
