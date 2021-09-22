@@ -3,27 +3,31 @@ package com.itesm.esenciapatrimonio
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.appbar.AppBarLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.mapbox.mapboxsdk.Mapbox
+import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
 import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
 
 class MainActivity : AppCompatActivity() {
     //mapBox
-    private var mapView: MapView? = null
+
 
     //navigation view
     private lateinit var topAppBar: Toolbar
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var navigationView:NavigationView
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainBinding
 
     /**
      * Android onCreate
@@ -32,94 +36,51 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Mapbox
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.topAppBar)
         initializeNavbar()
-
         /**
          * Mapbox initialize
          **/
-        mapView = findViewById(R.id.mapView)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapboxMap ->
-
-            mapboxMap.setStyle(getString(R.string.map_style)) {
-                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-
-            }
-
-        }
     }
 
     /**
      * Drawer Layout
      **/
     private fun initializeNavbar(){
-        topAppBar = findViewById(R.id.topAppBar)
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.navigation_view)
-        topAppBar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
-
-        //compact activity
-
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            menuItem.isChecked = true
-
-            // todo 1) Cambiar de vista mediante navigation bar
-            
-            //R.id.view_acercaDeNosotros -> {
-            //true
-            //}
-
-            drawerLayout.closeDrawer(GravityCompat.END)
-            true
-        }
-
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navigationView
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.view_map, R.id.view_about_us
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
-    private fun goToAboutUs() {
-        setContentView(R.layout.sobre_nosotros)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.lateral_menu, menu)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     /**
      * Mapbox components
      */
-    override fun onStart() {
-        super.onStart()
-        mapView?.onStart()
-    }
+    /*
 
-    override fun onResume() {
-        super.onResume()
-        mapView?.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView?.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView?.onStop()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView?.onSaveInstanceState(outState)
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView?.onLowMemory()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView?.onDestroy()
-    }
+    */
 }

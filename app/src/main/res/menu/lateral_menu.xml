@@ -11,12 +11,12 @@
             app:showAsAction="ifRoom"/>
         <item
             android:title="Búsqueda avanzada"
-            android:id="@+id/view_busquedaAvanzada"
+            android:id="@+id/view_advanced_search"
             android:checked="true"
             app:showAsAction="ifRoom"/>
         <item
             android:title="Acerca de nosotros"
-            android:id="@+id/view_acercaDeNosotros"
+            android:id="@+id/view_about_us"
             android:checked="true"
             app:showAsAction="ifRoom"/>
         <item
