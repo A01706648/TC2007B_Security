@@ -13,16 +13,21 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
+import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 
 class MainActivity : AppCompatActivity() {
     //mapBox
     private var mapView: MapView? = null
+
     //navigation view
     private lateinit var topAppBar: Toolbar
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var navigationView:NavigationView
 
+    /**
+     * Android onCreate
+     */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +35,27 @@ class MainActivity : AppCompatActivity() {
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
 
         setContentView(R.layout.activity_main)
+        initializeNavbar()
+
         /**
-         * Drawer Layout
+         * Mapbox initialize
          **/
+        mapView = findViewById(R.id.mapView)
+        mapView?.onCreate(savedInstanceState)
+        mapView?.getMapAsync { mapboxMap ->
+
+            mapboxMap.setStyle(getString(R.string.map_style)) {
+                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
+
+            }
+
+        }
+    }
+
+    /**
+     * Drawer Layout
+     **/
+    private fun initializeNavbar(){
         topAppBar = findViewById(R.id.topAppBar)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigation_view)
@@ -40,31 +63,31 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        //compact activity
+
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
+
+            // todo 1) Cambiar de vista mediante navigation bar
+            
+            //R.id.view_acercaDeNosotros -> {
+            //true
+            //}
+
             drawerLayout.closeDrawer(GravityCompat.END)
             true
         }
 
-        /**
-         * Mapbox
-        **/
-        mapView = findViewById(R.id.mapView)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapboxMap ->
-
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-
-        // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-                Log.d("salida","mapa cargado")
-
-            }
-
-        }
-
     }
 
+    private fun goToAboutUs() {
+        setContentView(R.layout.sobre_nosotros)
+    }
+
+    /**
+     * Mapbox components
+     */
     override fun onStart() {
         super.onStart()
         mapView?.onStart()
