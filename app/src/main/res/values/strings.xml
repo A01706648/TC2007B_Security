@@ -2,4 +2,5 @@
     <string name="app_name">Esencia Patrimonio</string>
     <string name="header_lateral_menu">Menú</string>
     <string name="mapbox_access_token">pk.eyJ1IjoicnViYml4czAxMSIsImEiOiJja3QwYW40NW0wM2prMnpvdHdheGJneTNwIn0.4MK1-4oZpK9gL_gWdWwnYw</string>
+    <string name="map_style">mapbox://styles/rubbixs011/ckt0c9m3y003817pr2fmj7ub2</string>
 </resources>
