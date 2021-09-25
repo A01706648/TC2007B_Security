@@ -4,18 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-<<<<<<< HEAD:app/src/main/res/layout/sobre_nosotros.xml
+    android:layout_height="match_parent">
+<!--<<<<<< HEAD:app/src/main/res/layout/sobre_nosotros.xml
     android:id="@+id/about_us"
     android:background="#15CDCD">
 =======
     android:background="#15CDCD"
     android:id="@+id/about_us"
     >
->>>>>>> 41c5237347e8936e22e073589f7d05c763d30e6b:app/src/main/res/layout/fragment_about_us.xml
+>>>>>>> 41c5237347e8936e22e073589f7d05c763d30e6b:app/src/main/res/layout/fragment_about_us.xml> -->
 
 
-
+<!--
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="438dp"
@@ -27,43 +27,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />-->
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg"
+        android:contentDescription="Imagen de fondo" />
 
-    <TextView
-        android:id="@+id/sobreNosotros"
-        android:layout_width="258dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center_horizontal"
-        android:text="Sobre Nosotros"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.202"
-        tools:ignore="RtlCompat" />
-
-    <TextView
-        android:id="@+id/descripcionOrganizacion"
-        android:layout_width="319dp"
-        android:layout_height="436dp"
-        android:text="Escencia Patrimonio es una organización sin fines de lucro que se dedica a promover, difundir, permitir y peermer la divulgación, proteger, conservar, restaurar y recuperar el Patrimonio Cultural. Enfatizando prioridades locales, regionales y nacionales y usando diferentes medios de educación y comunicación para lograr la conciencia social sobre el Patrimonio."
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:elevation="10dp"
+        app:cardBackgroundColor="#CCFFFFFF"
+        app:cardCornerRadius="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fondo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sobreNosotros"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/fondo">
+
+        <TextView
+            android:id="@+id/aboutUsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif"
+            android:text="Sobre nosotros"
+            android:textColor="@color/black"
+            android:textSize="35dp" />
+
+        <TextView
+            android:id="@+id/descripcionOrganizacion"
+            android:layout_width="wrap_content"
+            android:layout_height="393dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="sans-serif"
+            android:text="\nEscencia Patrimonio es una organización sin fines de lucro que se dedica a promover, difundir, permitir y peermer la divulgación, proteger, conservar, restaurar y recuperar el Patrimonio Cultural. Enfatizando prioridades locales, regionales y nacionales y usando diferentes medios de educación y comunicación para lograr la conciencia social sobre el Patrimonio."
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
