@@ -21,7 +21,7 @@
             app:showAsAction="ifRoom"/>
         <item
             android:title="Donar"
-            android:id="@+id/view_donar"
+            android:id="@+id/view_donate"
             android:checked="true"
             app:showAsAction="ifRoom"/>
         <item
