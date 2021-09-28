@@ -14,12 +14,20 @@ import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentMapBinding
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MapFragment: Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
     //components
     private var mapView: MapView? = null
+
+    /**
+     *Test Json array to markers
+     */
+    var strJson = ("{ \"Site\" :[{ \"lat\":\"20.693474\" , \"long\":\"-100.471939\",\"name\":\"Juriquilla\"}," +
+                                "{\"lat\":\"20.612482937993608\" , \"long\":\"-100.40523130451855\",\"name\":\"Tec\"}] }")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +50,23 @@ class MapFragment: Fragment() {
             //todo 1) syncronize with the data base
             //todo 2) for coordinate_x, coordinate_y in ResstoredSite table add a marker
             //todo 3) set an event for each marker onClick
-            mapboxMap.addMarker(com.mapbox.mapboxsdk.annotations.MarkerOptions()
-                .position(com.mapbox.mapboxsdk.geometry.LatLng(20.693474, -100.471939))
-                .title("Juriquilla QRO"))
+            /**
+             * Por cada sitio restaurado en la base de datos se agrega
+             * un marcador poniendo las coordenadas guardadas, el nombre y el id
+             */
+            val jsonObject = JSONObject(strJson)
+            val jsonArray = jsonObject.optJSONArray("Site")
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val lat = jsonObject.optString("lat").toDouble()
+                val long = jsonObject.optString("long").toDouble()
+                val name = jsonObject.optString("name").toString()
+                mapboxMap.addMarker(
+                    com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                        .position(com.mapbox.mapboxsdk.geometry.LatLng(lat, long))
+                        .title(name)
+                )
+            }
         }
 
         return root
