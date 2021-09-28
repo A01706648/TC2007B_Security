@@ -7,8 +7,13 @@ import com.parse.Parse
 import com.parse.ParseObject
 import com.parse.GetCallback
 import com.parse.ParseQuery
+import com.parse.ParseException
 import android.content.Context
 
+
+typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
+typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
+typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -48,6 +53,13 @@ public class ParseApp /*: Application()*/ {
 
     }
 */
+    lateinit var returnRestoreSite:MutableList<SRestoreSite>;
+    lateinit var returnPicture:MutableList<SPicture>;
+    lateinit var returnComparePicture:MutableList<SComparePicture>;
+    lateinit var pCallbackSite:CallbackGetRestoreSite;
+    lateinit var pCallbackPicture:CallbackGetPicture;
+    lateinit var pCallbackCompare:CallbackGetCompare;
+
     fun initParse()
     {
         /*
@@ -65,16 +77,16 @@ public class ParseApp /*: Application()*/ {
         */
     }
 
-    fun getPicture(objectId: String):SPicture
+    fun getPicture(objectId: String, callback: CallbackGetRestoreSite):Unit
     {
         var returnPicture:SPicture = SPicture(objectId, Picture(), "","", EPicType.undefined);
 
-        return returnPicture;
+
     }
 
-    fun getRestoreSite(objectId: String):SRestoreSite
+    fun getRestoreSite(objectId: String, pCallback: CallbackGetRestoreSite):Unit
     {
-        var returnRestoreSite:SRestoreSite = SRestoreSite(
+        returnRestoreSite = mutableListOf(SRestoreSite(
             objectId
             , ""
             ,""
@@ -82,29 +94,34 @@ public class ParseApp /*: Application()*/ {
             ,0
             ,""
             ,0.0
-            , 0.0)
+            , 0.0))
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
-        query.getInBackground(objectId) {`object`, e ->
-            if (e == null) {
-                // object will be your game score
-                returnRestoreSite.site_name = `object`.getString("site_name").toString()
-                returnRestoreSite.information = `object`.getString("information").toString()
-                returnRestoreSite.est_year = `object`.getInt("est_year")
-                returnRestoreSite.restore_year = `object`.getInt("restore_year")
-                returnRestoreSite.address = `object`.getString("address").toString()
-                returnRestoreSite.coordinate_x = `object`.getDouble("coordinate_x")
-                returnRestoreSite.coordinate_y = `object`.getDouble("coordinate_y")
 
-            } else {
-                // something went wrong
+        if(pCallback != null) {
+            pCallbackSite = pCallback;
+
+            query.getInBackground(objectId) { `object`, e ->
+                if (e == null) {
+                    // object will be your game score
+                    returnRestoreSite[0].site_name = `object`.getString("site_name").toString()
+                    returnRestoreSite[0].information = `object`.getString("information").toString()
+                    returnRestoreSite[0].est_year = `object`.getInt("est_year")
+                    returnRestoreSite[0].restore_year = `object`.getInt("restore_year")
+                    returnRestoreSite[0].address = `object`.getString("address").toString()
+                    returnRestoreSite[0].coordinate_x = `object`.getDouble("coordinate_x")
+                    returnRestoreSite[0].coordinate_y = `object`.getDouble("coordinate_y")
+
+                    this.pCallbackSite(returnRestoreSite)
+
+                } else {
+                    // something went wrong
+                }
             }
         }
 
-        return returnRestoreSite;
+        return;
     }
-
-
 
     fun getComparePicture(objectId: String):SComparePicture
     {
@@ -125,19 +142,44 @@ public class ParseApp /*: Application()*/ {
         return listOf(returnPicture);
     }
 
-    fun getAllRestoreSite():List<SRestoreSite>
+    fun getAllRestoreSite(pCallback: CallbackGetRestoreSite):Unit
     {
-        val returnRestoreSite:SRestoreSite = SRestoreSite(
-            ""
-            , ""
-            ,""
-            ,0
-            ,0
-            ,""
-            ,0.0
-            , 0.0)
+        this.returnRestoreSite = mutableListOf()
 
-        return listOf(returnRestoreSite);
+        var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
+        //query.whereExists("site_name");
+        query.orderByAscending("site_name");
+        //progressDialog!!.show();
+
+        if(pCallback != null) {
+            pCallbackSite = pCallback;
+
+            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                //progressDialog!!.hide()
+                if (e == null) {
+                    Log.d("Parse", "Retrieved " + objectList?.size + " Site")
+                    lateinit var obj:ParseObject
+                    if (objectList != null) {
+                        for(obj in objectList){
+                            this.returnRestoreSite.add(SRestoreSite(
+                                obj.getString("objectId").toString(), obj.getString("site_name").toString(), obj.getString("information").toString(), obj.getInt("est_year"), obj.getInt("restore_year"), obj.getString("address").toString(), obj.getDouble("coordinate_x"), obj.getDouble("coordinate_y")
+                            ))
+                        }
+
+                        this.pCallbackSite(this.returnRestoreSite);
+                    }
+                    else
+                    {
+                        Log.d("Parse", "Error: objectList null")
+                    }
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
+
     }
 
     fun getAllComparePicture():List<SComparePicture>

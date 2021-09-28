@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var navigationView:NavigationView
 
+    fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
+    {
+        Log.d("Parse", "SiteName ${listRestoreSite[0].site_name}");
+    }
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,12 +75,13 @@ class MainActivity : AppCompatActivity() {
                 .applicationId(getString(R.string.back4app_app_id)) // if defined
                 .clientKey(getString(R.string.back4app_client_key))
                 .server(getString(R.string.back4app_server_url))
+                //.enableLocalDataStore()
                 .build()
         )
 
-        val SRestoreSite = oParse.getRestoreSite("oxLgAoPbTk");
+        //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
+        oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
 
-        Log.d("Parse", "SiteName ${SRestoreSite.site_name}");
 /*
         val firstObject = ParseObject("FirstClass")
         firstObject.put("message","Hey ! First message from android. Parse is now connected")
