@@ -1,13 +1,17 @@
 package com.itesm.esenciapatrimonio
 
-import android.content.Context
 import android.os.Build
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.appbar.AppBarLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -16,7 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
 import com.itesm.esenciapatrimonio.Permissions
-
+import com.parse.Parse
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,12 +34,34 @@ class MainActivity : AppCompatActivity() {
 
     var context: Context = this
 
+    fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
+    {
+        Log.d("Parse", "SiteName ${listRestoreSite[0].site_name}");
+    }
+
     /**
      * Android onCreate
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val oParse = ParseApp();
+        //oParse.initParse();
+
+        Parse.enableLocalDatastore(this)
+        Parse.initialize(
+            Parse.Configuration.Builder(this)
+                .applicationId(getString(R.string.back4app_app_id)) // if defined
+                .clientKey(getString(R.string.back4app_client_key))
+                .server(getString(R.string.back4app_server_url))
+                //.enableLocalDataStore()
+                .build()
+        )
+
+        //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
+        oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+
         //Mapbox
 
         binding = ActivityMainBinding.inflate(layoutInflater)
