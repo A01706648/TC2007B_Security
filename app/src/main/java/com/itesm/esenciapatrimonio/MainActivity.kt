@@ -4,6 +4,7 @@ import android.os.Build
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -11,19 +12,27 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.appbar.AppBarLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.mapbox.mapboxsdk.Mapbox
-import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.Style
+import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
+import com.itesm.esenciapatrimonio.Permissions
 import com.parse.Parse
 
 class MainActivity : AppCompatActivity() {
-    //mapBox
-    private var mapView: MapView? = null
+
     //navigation view
     private lateinit var topAppBar: Toolbar
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var navigationView:NavigationView
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainBinding
+
+    var context: Context = this
 
     fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
     {
@@ -38,41 +47,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Android onCreate
+     */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Mapbox
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
-
-        setContentView(R.layout.activity_main)
-        /**
-         * Drawer Layout
-         **/
-        topAppBar = findViewById(R.id.topAppBar)
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.navigation_view)
-        topAppBar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
-
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            menuItem.isChecked = true
-            drawerLayout.closeDrawer(GravityCompat.END)
-            true
-        }
-
-        /**
-         * Mapbox
-        **/
-        mapView = findViewById(R.id.mapView)
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapboxMap ->
-
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-
-        // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-                Log.d("salida","mapa cargado")
 
         val oParse = ParseApp();
         //oParse.initParse();
@@ -90,69 +70,53 @@ class MainActivity : AppCompatActivity() {
         //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
         oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
 
-/*
-        val firstObject = ParseObject("FirstClass")
-        firstObject.put("message","Hey ! First message from android. Parse is now connected")
-        firstObject.saveInBackground {
-            if (it != null){
-                it.localizedMessage?.let { message -> Log.e("MainActivity", message) }
-            }else{
-                Log.d("MainActivity","Object saved.")
-            }
-        }
+        //Mapbox
 
-        val ioObject = ParseObject("ioObject");
-        ioObject.getInt("ioObject");
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
+        setContentView(binding.root)
 
-        val query = ParseQuery.getQuery<ParseObject>("GameScore")
-        query.getInBackground("xWMyZ4YEGZ") { `object`, e ->
-            if (e == null) {
-                // object will be your game score
-            } else {
-                // something went wrong
-            }
-        }
-*/
+        //Solicitar permisos
+        val permissions: Permissions = Permissions()
+        permissions.requestPermissions(context)
 
-            }
-
-        }
-
+        setSupportActionBar(binding.appBarMain.topAppBar)
+        initializeNavbar()
     }
 
-    override fun onStart() {
-        super.onStart()
-        mapView?.onStart()
+    /**
+     * Drawer Layout
+     **/
+    private fun initializeNavbar(){
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navigationView
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.view_map, R.id.view_advanced_search, R.id.view_about_us
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
-    override fun onResume() {
-        super.onResume()
-        mapView?.onResume()
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.lateral_menu, menu)
+        return true
     }
 
-    override fun onPause() {
-        super.onPause()
-        mapView?.onPause()
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onStop() {
-        super.onStop()
-        mapView?.onStop()
-    }
+    /**
+     * Mapbox components
+     */
+    /*
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView?.onSaveInstanceState(outState)
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView?.onLowMemory()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView?.onDestroy()
-    }
+    */
 }
