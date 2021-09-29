@@ -27,7 +27,13 @@ class MainActivity : AppCompatActivity() {
 
     fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
     {
-        Log.d("Parse", "SiteName ${listRestoreSite[0].site_name}");
+        lateinit var oSite:SRestoreSite;
+
+        for(oSite in listRestoreSite)
+        {
+            Log.d("Parse", "ObjectId ${oSite.objectId}");
+            Log.d("Parse", "SiteName ${oSite.site_name}");
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

@@ -14,6 +14,7 @@ import android.content.Context
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
 typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
 typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
+typealias CallbackCheckExist = (Boolean)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -59,6 +60,10 @@ public class ParseApp /*: Application()*/ {
     lateinit var pCallbackSite:CallbackGetRestoreSite;
     lateinit var pCallbackPicture:CallbackGetPicture;
     lateinit var pCallbackCompare:CallbackGetCompare;
+
+    var bIsUpdatedSite:Boolean = false;
+    var bIsUpdatedPicture:Boolean = false;
+    var bIsUpdatedCompare:Boolean = false;
 
     fun initParse()
     {
@@ -142,14 +147,69 @@ public class ParseApp /*: Application()*/ {
         return listOf(returnPicture);
     }
 
+    private fun getSiteListFromParse(objectList: List<ParseObject>?)
+    {
+        lateinit var obj:ParseObject
+        if (objectList != null) {
+            for(obj in objectList){
+                this.returnRestoreSite.add(SRestoreSite(
+                    obj.getString("objectId").toString()
+                    , obj.getString("site_name").toString()
+                    , obj.getString("information").toString()
+                    , obj.getInt("est_year")
+                    , obj.getInt("restore_year")
+                    , obj.getString("address").toString()
+                    , obj.getDouble("coordinate_x")
+                    , obj.getDouble("coordinate_y")
+                ))
+            }
+
+            this.pCallbackSite(this.returnRestoreSite);
+        }
+        else
+        {
+            Log.d("Parse", "Error: objectList null")
+        }
+    }
+
     fun getAllRestoreSite(pCallback: CallbackGetRestoreSite):Unit
     {
         this.returnRestoreSite = mutableListOf()
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
-        //query.whereExists("site_name");
         query.orderByAscending("site_name");
-        //progressDialog!!.show();
+        if(this.bIsUpdatedSite)
+        {
+            query.fromLocalDatastore();
+        }
+
+        if(pCallback != null) {
+            pCallbackSite = pCallback;
+
+            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                if (e == null) {
+                    Log.d("Parse", "Retrieved " + objectList?.size + " Site")
+                    this.bIsUpdatedSite = true;
+                    this.getSiteListFromParse(objectList);
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
+    }
+
+    fun getAllRestoreSiteByName(siteName:String, pCallback: CallbackGetRestoreSite):Unit
+    {
+        this.returnRestoreSite = mutableListOf()
+
+        var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
+        query.whereEqualTo("site_name", siteName);
+        if(this.bIsUpdatedSite)
+        {
+            query.fromLocalDatastore();
+        }
 
         if(pCallback != null) {
             pCallbackSite = pCallback;
@@ -160,13 +220,7 @@ public class ParseApp /*: Application()*/ {
                     Log.d("Parse", "Retrieved " + objectList?.size + " Site")
                     lateinit var obj:ParseObject
                     if (objectList != null) {
-                        for(obj in objectList){
-                            this.returnRestoreSite.add(SRestoreSite(
-                                obj.getString("objectId").toString(), obj.getString("site_name").toString(), obj.getString("information").toString(), obj.getInt("est_year"), obj.getInt("restore_year"), obj.getString("address").toString(), obj.getDouble("coordinate_x"), obj.getDouble("coordinate_y")
-                            ))
-                        }
-
-                        this.pCallbackSite(this.returnRestoreSite);
+                        this.getSiteListFromParse(objectList);
                     }
                     else
                     {
@@ -179,7 +233,45 @@ public class ParseApp /*: Application()*/ {
         }
 
         return;
+    }
 
+
+    fun isSiteNameExist(siteName:String, pCallback:CallbackCheckExist)
+    {
+        var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
+        query.whereEqualTo("site_name", siteName);
+        if(this.bIsUpdatedSite)
+        {
+            query.fromLocalDatastore();
+        }
+
+        if(pCallback != null) {
+
+            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                //progressDialog!!.hide()
+                if (e == null) {
+                    Log.d("Parse", "Retrieved " + objectList?.size + " Site")
+
+                    if (objectList != null) {
+                        var bExist = false;
+                        if(objectList.isNotEmpty())
+                        {
+                            bExist = true;
+                        }
+
+                        pCallback(bExist);
+                    }
+                    else
+                    {
+                        Log.d("Parse", "Error: objectList null")
+                    }
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
     }
 
     fun getAllComparePicture():List<SComparePicture>
