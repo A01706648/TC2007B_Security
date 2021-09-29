@@ -1,12 +1,12 @@
 package com.itesm.esenciapatrimonio
 
+import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,11 +15,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
-import com.mapbox.mapboxsdk.maps.MapView
+import com.itesm.esenciapatrimonio.Permissions
+
 
 class MainActivity : AppCompatActivity() {
-    //mapBox
-
 
     //navigation view
     private lateinit var topAppBar: Toolbar
@@ -28,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    var context: Context = this
 
     /**
      * Android onCreate
@@ -41,11 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        //Solicitar permisos
+        val permissions: Permissions = Permissions()
+        permissions.requestPermissions(context)
+
         setSupportActionBar(binding.appBarMain.topAppBar)
         initializeNavbar()
-        /**
-         * Mapbox initialize
-         **/
     }
 
     /**

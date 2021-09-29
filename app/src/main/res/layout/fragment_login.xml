@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/login">
+
+    <!-- Fondo -->
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg"
+        tools:ignore="ContentDescription" />
+
+    <!-- Carta -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#CCFFFFFF"
+        app:cardCornerRadius="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        tools:layout_editor_absoluteX="20dp">
+
+        <!-- Layout para la carta -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/Titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="sans-serif"
+                android:text="Iniciar sesión"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="HardcodedText" />
+
+            <!-- Carta para usuario -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/editTextTextPersonName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Titulo"
+                app:layout_constraintVertical_bias="0.24000001"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="4dp">
+
+                <!-- app:boxStroke... quita la linea de abajo
+                     mientras la app se ejecuta en el teléfono -->
+                <EditText
+                    android:id="@+id/Usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Usuario"
+                    android:textColorHint="#757575"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    tools:ignore="HardcodedText"
+                    android:importantForAutofill="no"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Carta para contraseña -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/editTextTextPassword2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+                app:cardElevation="4dp">
+
+                <!-- app:boxStroke... quita la linea de abajo
+                     mientras la app se ejecuta en el teléfono -->
+                <EditText
+                    android:id="@+id/contrasena"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Contraseña"
+                    android:textColorHint="#757575"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    tools:ignore="HardcodedText"
+                    android:importantForAutofill="no"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Iniciar sesión"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.8"
+                tools:cornerRadius="8dp"
+                tools:ignore="HardcodedText, DuplicateSpeakableTextCheck"
+                android:elevation="4dp"
+                android:translationZ="4dp"
+                android:stateListAnimator="@null"
+                android:drawableLeft="@drawable/ic_baseline_login_24"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

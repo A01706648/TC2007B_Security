@@ -47,9 +47,10 @@ class MapFragment: Fragment() {
                 // Map is set up and the style has loaded. Now you can add data or make other map adjustments
 
             }
-            //todo 1) syncronize with the data base
-            //todo 2) for coordinate_x, coordinate_y in ResstoredSite table add a marker
-            //todo 3) set an event for each marker onClick
+            //todo 1) request permission to acces device location
+            //todo 2) syncronize with the data base
+            //todo 3) for coordinate_x, coordinate_y in ResstoredSite table add a marker
+            //todo 4) set an event for each marker onClick
             /**
              * Por cada sitio restaurado en la base de datos se agrega
              * un marcador poniendo las coordenadas guardadas, el nombre y el id
