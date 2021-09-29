@@ -62,8 +62,6 @@ class MainActivity : AppCompatActivity() {
         //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
         oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
 
-        //Mapbox
-
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
@@ -72,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         val permissions: Permissions = Permissions()
         permissions.requestPermissions(context)
 
+        //Iniciar el menu lateral
         setSupportActionBar(binding.appBarMain.topAppBar)
         initializeNavbar()
     }
@@ -104,11 +103,4 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-    /**
-     * Mapbox components
-     */
-    /*
-
-    */
 }

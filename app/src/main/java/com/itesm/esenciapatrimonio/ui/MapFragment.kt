@@ -29,6 +29,9 @@ class MapFragment: Fragment() {
     var strJson = ("{ \"Site\" :[{ \"lat\":\"20.693474\" , \"long\":\"-100.471939\",\"name\":\"Juriquilla\"}," +
                                 "{\"lat\":\"20.612482937993608\" , \"long\":\"-100.40523130451855\",\"name\":\"Tec\"}] }")
 
+    //Guardar datos del sitio
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
