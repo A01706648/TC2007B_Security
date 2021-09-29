@@ -22,14 +22,14 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         app:cardBackgroundColor="#CCFFFFFF"
         app:cardCornerRadius="14dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        tools:layout_editor_absoluteX="20dp"
-        app:cardElevation="8dp">
+        tools:layout_editor_absoluteX="20dp">
 
         <!-- Layout para la carta -->
         <androidx.constraintlayout.widget.ConstraintLayout
