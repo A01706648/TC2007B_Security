@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         {
             Log.d("Parse", "ObjectId ${oSite.objectId}");
             Log.d("Parse", "SiteName ${oSite.site_name}");
+            Log.d("Parse", "X ${oSite.coordinate_x}");
+            Log.d("Parse", "Y ${oSite.coordinate_y}");
         }
     }
 
