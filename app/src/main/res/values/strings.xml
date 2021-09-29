@@ -3,4 +3,7 @@
     <string name="header_lateral_menu">Menú</string>
     <string name="mapbox_access_token">pk.eyJ1IjoicnViYml4czAxMSIsImEiOiJja3QwYW40NW0wM2prMnpvdHdheGJneTNwIn0.4MK1-4oZpK9gL_gWdWwnYw</string>
     <string name="map_style">mapbox://styles/rubbixs011/ckt0c9m3y003817pr2fmj7ub2</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">ZpZUnTb4ivF4gjumtcCZ1jmqEJM2d0BNkppz7gP1</string>
+    <string name="back4app_client_key">RTttDQqzt9tRehiUjiaL1QiwCLBkdzxYU9nES4Al</string>
 </resources>

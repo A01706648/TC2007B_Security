@@ -1,13 +1,17 @@
 package com.itesm.esenciapatrimonio
 
 import android.os.Build
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.appbar.AppBarLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -15,11 +19,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
-import com.mapbox.mapboxsdk.maps.MapView
+import com.itesm.esenciapatrimonio.Permissions
+import com.parse.Parse
 
 class MainActivity : AppCompatActivity() {
-    //mapBox
-
 
     //navigation view
     private lateinit var topAppBar: Toolbar
@@ -29,23 +32,47 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    var context: Context = this
+
+    fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
+    {
+        Log.d("Parse", "SiteName ${listRestoreSite[0].site_name}");
+    }
+
     /**
      * Android onCreate
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Mapbox
+
+        val oParse = ParseApp();
+        //oParse.initParse();
+
+        Parse.enableLocalDatastore(this)
+        Parse.initialize(
+            Parse.Configuration.Builder(this)
+                .applicationId(getString(R.string.back4app_app_id)) // if defined
+                .clientKey(getString(R.string.back4app_client_key))
+                .server(getString(R.string.back4app_server_url))
+                //.enableLocalDataStore()
+                .build()
+        )
+
+        //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
+        oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
+        //Solicitar permisos
+        val permissions: Permissions = Permissions()
+        permissions.requestPermissions(context)
+
+        //Iniciar el menu lateral
         setSupportActionBar(binding.appBarMain.topAppBar)
         initializeNavbar()
-        /**
-         * Mapbox initialize
-         **/
     }
 
     /**
@@ -59,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.view_map, R.id.view_about_us
+                R.id.view_map, R.id.view_advanced_search, R.id.view_about_us
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -76,11 +103,4 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-    /**
-     * Mapbox components
-     */
-    /*
-
-    */
 }
