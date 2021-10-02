@@ -1,5 +1,7 @@
 package com.itesm.esenciapatrimonio
 
-class RestoredSiteActivity {
+import androidx.appcompat.app.AppCompatActivity
 
+class RestoredSiteActivity : AppCompatActivity() {
+    
 }
