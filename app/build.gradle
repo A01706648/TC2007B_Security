@@ -53,4 +53,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     //Mapbox
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2'
+    //Parse
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:1.26.0"
 }
