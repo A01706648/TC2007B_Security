@@ -62,7 +62,7 @@
                 android:fontFamily="sans-serif-light"
                 android:text="Escencia Patrimonio es una organización sin fines de lucro que se dedica a promover, difundir, permitir y peermer la divulgación, proteger, conservar, restaurar y recuperar el Patrimonio Cultural. Enfatizando prioridades locales, regionales y nacionales y usando diferentes medios de educación y comunicación para lograr la conciencia social sobre el Patrimonio."
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
