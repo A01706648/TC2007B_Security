@@ -110,7 +110,7 @@ public class ParseApp /*: Application()*/ {
                     returnRestoreSite[0].restore_year = `object`.getInt("restore_year")
                     returnRestoreSite[0].address = `object`.getString("address").toString()
                     returnRestoreSite[0].coordinate_x = `object`.getDouble("coordinate_x")
-                    returnRestoreSite[0].coordinate_y = `object`.getDouble("coordinate_y")
+                    returnRestoreSite[0].coordinate_y = `object`.getDouble("coodinate_y")
 
                     this.pCallbackSite(returnRestoreSite)
 
