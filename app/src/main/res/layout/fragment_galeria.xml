@@ -57,7 +57,7 @@
                         android:fontFamily="sans-serif"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="26sp"
+                        android:textSize="30sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
