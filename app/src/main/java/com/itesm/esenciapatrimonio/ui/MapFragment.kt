@@ -1,33 +1,36 @@
 package com.itesm.esenciapatrimonio.ui
 
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
+import com.itesm.esenciapatrimonio.SRestoreSite
 import com.itesm.esenciapatrimonio.databinding.FragmentMapBinding
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.annotations.Marker
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
+import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.maps.MapView
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.Style
 import org.json.JSONArray
 import org.json.JSONObject
 
 class MapFragment: Fragment() {
+
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
     //components
     private var mapView: MapView? = null
+    private var parseCallbackUse_MapboxMap: MapboxMap? = null
 
-    /**
-     *Test Json array to markers
-     */
-    var strJson = ("{ \"Site\" :[{ \"lat\":\"20.693474\" , \"long\":\"-100.471939\",\"name\":\"Juriquilla\"}," +
-                                "{\"lat\":\"20.612482937993608\" , \"long\":\"-100.40523130451855\",\"name\":\"Tec\"}] }")
+    //restored site array from database
+    lateinit var restoredSite: MutableList<SRestoreSite>
+    lateinit var restoredSiteMarkers: MutableList<Marker>
 
     //Guardar datos del sitio
 
@@ -49,32 +52,69 @@ class MapFragment: Fragment() {
             mapboxMap.setStyle(getString(R.string.map_style)) {
                 // Map is set up and the style has loaded. Now you can add data or make other map adjustments
 
+                //todo opcional) Mostrar el mapa desde la ubicación del usuario
+                val locationOne = LatLng(20.76853263116804, -100.46317287806771)
+                val locationTwo = LatLng(20.49847887794351, -100.35621872052026)
+
+                val latLngBounds = LatLngBounds.Builder()
+                    .include(locationOne)
+                    .include(locationTwo)
+                    .build()
+                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
+
+                this.parseCallbackUse_MapboxMap = mapboxMap
+                val oParse = ParseApp();
+                oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+
+                //comparar de la lista de marcadores el marcador seleccionado
+                //obteniendo el indice llevar al sitio correspondiente
+                /*
+                var index: Int
+                mapboxMap.setOnMarkerClickListener { marker ->
+                    for (i in 0 until restoredSiteMarkers.size) {
+                        if (marker.title == restoredSiteMarkers[i].title) {
+                            index = i
+                        }
+                    }
+                }
+                //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
+
+                 */
             }
-            //todo 1) request permission to acces device location
-            //todo 2) syncronize with the data base
-            //todo 3) for coordinate_x, coordinate_y in ResstoredSite table add a marker
-            //todo 4) set an event for each marker onClick
-            /**
-             * Por cada sitio restaurado en la base de datos se agrega
-             * un marcador poniendo las coordenadas guardadas, el nombre y el id
-             */
-            val jsonObject = JSONObject(strJson)
-            val jsonArray = jsonObject.optJSONArray("Site")
-            for (i in 0 until jsonArray.length()) {
-                val jsonObject = jsonArray.getJSONObject(i)
-                val lat = jsonObject.optString("lat").toDouble()
-                val long = jsonObject.optString("long").toDouble()
-                val name = jsonObject.optString("name").toString()
-                mapboxMap.addMarker(
-                    com.mapbox.mapboxsdk.annotations.MarkerOptions()
-                        .position(com.mapbox.mapboxsdk.geometry.LatLng(lat, long))
-                        .title(name)
-                )
-            }
+
         }
 
         return root
     }
+
+    /*
+     * Por cada sitio restaurado en la base de datos se agrega
+     * un marcador poniendo las coordenadas guardadas, el nombre y el id
+     */
+    fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit{
+        restoredSite = listRestoreSite
+        restoredSiteMarkers = mutableListOf()
+        for (i in 0 until listRestoreSite.size) {
+            val Site = restoredSite[i]
+            val marker = com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                .position(
+                    com.mapbox.mapboxsdk.geometry.LatLng(
+                        Site.coordinate_x,
+                        Site.coordinate_y
+                    )
+                )
+                .title(Site.site_name)
+            this.parseCallbackUse_MapboxMap?.addMarker(marker)
+            restoredSiteMarkers.add(marker.marker)
+        }
+    }
+
+    //todo 4) set an event for each marker onClick
+    /*
+    fun onMarkerClickListener(): MapboxMap.OnMarkerClickListener? {
+
+    }
+     */
 
     /**
      * Map Lidecycle Methods
