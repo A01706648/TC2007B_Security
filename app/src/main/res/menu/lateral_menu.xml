@@ -29,11 +29,6 @@
             android:id="@+id/view_login"
             android:checked="true"
             app:showAsAction="ifRoom"/>
-        <item
-            android:title="Register"
-            android:id="@+id/view_register"
-            android:checked="true"
-            app:showAsAction="ifRoom"/>
 
     </group>
 </menu>

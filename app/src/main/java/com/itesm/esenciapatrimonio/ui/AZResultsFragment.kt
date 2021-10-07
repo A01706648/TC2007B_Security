@@ -1,7 +1,3 @@
-/**
- * Delete this file
- */
-
 package com.itesm.esenciapatrimonio.ui
 
 import android.os.Bundle
@@ -9,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.itesm.esenciapatrimonio.databinding.FragmentAboutUsBinding
-import com.itesm.esenciapatrimonio.databinding.FragmentAdvancedSearchBinding
+import com.itesm.esenciapatrimonio.databinding.FragmentAzResultsBinding
 
-class AdvancedSearchFragment: Fragment() {
-    private var _binding: FragmentAdvancedSearchBinding? = null
+class AZResultsFragment: Fragment() {
+    private var _binding: FragmentAzResultsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,8 +16,7 @@ class AdvancedSearchFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentAdvancedSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentAzResultsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         return root
