@@ -32,6 +32,9 @@ class MapFragment: Fragment() {
     lateinit var restoredSite: MutableList<SRestoreSite>
     lateinit var restoredSiteMarkers: MutableList<Marker>
 
+    //Guardar datos del sitio
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
