@@ -226,6 +226,7 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:textSize="20sp"
+
                 android:background="@drawable/save_changes"
                 tools:ignore="MissingConstraints" />
 

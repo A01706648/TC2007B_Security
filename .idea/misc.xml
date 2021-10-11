@@ -8,6 +8,7 @@
         <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/drawable/save_changes.xml" value="0.2203125" />
         <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/layout/fragment_add_photos.xml" value="0.33" />
+        <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/layout/fragment_big_photo.xml" value="0.25" />
         <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/layout/fragment_sitio_restaurado.xml" value="0.1" />
         <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/layout/header_lateral_menu.xml" value="0.11770833333333333" />
         <entry key="..\:/Users/Michelle Calzada/OneDrive/Documentos/Tec/5_semestre/Seguridad/TC2007B_Security/app/src/main/res/layout/sitio_restaurado.xml" value="0.25" />
@@ -23,10 +24,8 @@
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/fragment_advanced_search.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_az_results.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/fragment_historia_completa.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_sitio_restaurado.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_temporal.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_sitio_restaurado.xml" value="0.1" />
         <entry key="app/src/main/res/layout/header_lateral_menu.xml" value="0.22" />
         <entry key="app/src/main/res/layout/sitio_restaurado.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/sobre_nosotros.xml" value="0.35572916666666665" />
