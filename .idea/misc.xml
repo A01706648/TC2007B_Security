@@ -18,8 +18,10 @@
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/fragment_advanced_search.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_az_results.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_historia_completa.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_sitio_restaurado.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_sitio_restaurado.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_temporal.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/header_lateral_menu.xml" value="0.22" />
         <entry key="app/src/main/res/layout/sitio_restaurado.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/sobre_nosotros.xml" value="0.35572916666666665" />

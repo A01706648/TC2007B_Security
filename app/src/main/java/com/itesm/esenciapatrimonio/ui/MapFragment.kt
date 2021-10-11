@@ -1,5 +1,6 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +32,6 @@ class MapFragment: Fragment() {
     //restored site array from database
     lateinit var restoredSite: MutableList<SRestoreSite>
     lateinit var restoredSiteMarkers: MutableList<Marker>
-
-    //Guardar datos del sitio
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,16 +67,22 @@ class MapFragment: Fragment() {
                 //comparar de la lista de marcadores el marcador seleccionado
                 //obteniendo el indice llevar al sitio correspondiente
                 /*
-                var index: Int
                 mapboxMap.setOnMarkerClickListener { marker ->
+                    var index: Int = 0
+
                     for (i in 0 until restoredSiteMarkers.size) {
                         if (marker.title == restoredSiteMarkers[i].title) {
                             index = i
                         }
                     }
+                    //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
+                    val name = restoredSite[index].site_name
+                    val address = restoredSite[index].address
+                    val info = restoredSite[index].information
+                    val year = restoredSite[index].restore_year
+                    val est_year = restoredSite[index].est_year
+                    goToRestoredSite()
                 }
-                //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
-
                  */
             }
 
@@ -110,11 +114,16 @@ class MapFragment: Fragment() {
     }
 
     //todo 4) set an event for each marker onClick
-    /*
-    fun onMarkerClickListener(): MapboxMap.OnMarkerClickListener? {
-
+    fun goToRestoredSite() {
+        val fragmentManager = fragmentManager
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, R.id.view_restored_site)
+        fragmentTransaction?.addToBackStack(null)
+        fragmentTransaction?.commit()
     }
-     */
+    //funcion para que android deje de chingar
+    private fun Any?.replace(navHostFragmentContentMain: Int, viewRestoredSite: Int) {
+    }
 
     /**
      * Map Lidecycle Methods
