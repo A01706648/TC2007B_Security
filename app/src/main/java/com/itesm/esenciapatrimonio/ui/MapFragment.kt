@@ -1,6 +1,5 @@
 package com.itesm.esenciapatrimonio.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
-import org.json.JSONArray
-import org.json.JSONObject
 
 class MapFragment: Fragment() {
 
@@ -66,7 +62,6 @@ class MapFragment: Fragment() {
 
                 //comparar de la lista de marcadores el marcador seleccionado
                 //obteniendo el indice llevar al sitio correspondiente
-                /*
                 mapboxMap.setOnMarkerClickListener { marker ->
                     var index: Int = 0
 
@@ -76,14 +71,11 @@ class MapFragment: Fragment() {
                         }
                     }
                     //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
-                    val name = restoredSite[index].site_name
-                    val address = restoredSite[index].address
-                    val info = restoredSite[index].information
-                    val year = restoredSite[index].restore_year
-                    val est_year = restoredSite[index].est_year
-                    goToRestoredSite()
+                    val site = restoredSite[index]
+                    //pasar estos parametros al constructor de la clase RestoredSiteFragment
+                    goToRestoredSite(site)
                 }
-                 */
+
             }
 
         }
@@ -114,15 +106,14 @@ class MapFragment: Fragment() {
     }
 
     //todo 4) set an event for each marker onClick
-    fun goToRestoredSite() {
+    fun goToRestoredSite(site: SRestoreSite): Boolean {
         val fragmentManager = fragmentManager
         val fragmentTransaction = fragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, R.id.view_restored_site)
+        val fragment = RestoredSiteFragment()
+        fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
-    }
-    //funcion para que android deje de chingar
-    private fun Any?.replace(navHostFragmentContentMain: Int, viewRestoredSite: Int) {
+        return true
     }
 
     /**
@@ -163,3 +154,4 @@ class MapFragment: Fragment() {
         mapView?.onDestroy()
     }
 }
+
