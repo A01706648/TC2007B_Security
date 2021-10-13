@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.SRestoreSite
+import com.itesm.esenciapatrimonio.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentMapBinding
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.Marker
@@ -113,6 +114,9 @@ class MapFragment: Fragment() {
         val fragmentManager = fragmentManager
         val fragmentTransaction = fragmentManager?.beginTransaction()
         val fragment = RestoredSiteFragment()
+
+        TransactionData.restoredSite = mutableListOf(site)
+
         fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
