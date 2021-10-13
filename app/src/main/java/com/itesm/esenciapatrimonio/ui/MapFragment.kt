@@ -106,6 +106,9 @@ class MapFragment: Fragment() {
     }
 
     //todo 4) set an event for each marker onClick
+    /*
+
+     */
     fun goToRestoredSite(site: SRestoreSite): Boolean {
         val fragmentManager = fragmentManager
         val fragmentTransaction = fragmentManager?.beginTransaction()
