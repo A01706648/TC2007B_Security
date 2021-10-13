@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAboutUsBinding
 
 class AboutUsFragment: Fragment() {
@@ -24,6 +25,7 @@ class AboutUsFragment: Fragment() {
 
         _binding = FragmentAboutUsBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
 
         return root
     }
