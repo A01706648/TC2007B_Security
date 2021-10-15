@@ -136,6 +136,14 @@
                 tools:cornerRadius="8dp"
                 tools:ignore="HardcodedText, DuplicateSpeakableTextCheck" />
 
+            <ProgressBar
+                android:id="@+id/Ejecutando"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
