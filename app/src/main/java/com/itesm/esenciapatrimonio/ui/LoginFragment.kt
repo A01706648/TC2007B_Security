@@ -38,22 +38,18 @@ class LoginFragment: Fragment() {
     ): View? {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val user = usuario.text.toString()
-        val password = contrasena.text.toString()
-
-        login(user, password)
-
-
-        return root
+        return binding.root
     }
 
-    fun goToMapView(cont: Int){
-
-        usuario.setError("Prueba superada")
-        contrasena.setError("Intentos = " + cont)
+    override fun onViewCreate(view: View, savedInstanceState: Bundle?){
+        super.onViewCreate(view, savedInstanceState)
+        binding.button3.setOnClickListener{
+            login("user","password")
+        }
     }
+
+
 /*
     private fun showAlert(title: String, message: String) {
         val builder = AlertDialog.Builder(this)
@@ -83,7 +79,8 @@ class LoginFragment: Fragment() {
             contrasena.setError("La contraseña es requerida")
         }else{/*
             //progressDialog?.show()
-            ParseUser.logInInBackground(user,password) { parseUser: ParseUser?, parseException: ParseException? ->
+            ParseUser.logInInBackground(user,password) { parseUser:
+            ParseUser?, parseException: ParseException? ->
                 //progressDialog?.dismiss()
                 if (parseUser != null) {
                     //showAlert("Successful Login", "Welcome back " + user + " !")
