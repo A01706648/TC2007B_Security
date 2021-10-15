@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:text="+"
                         android:textSize="20sp"
-                        android:background="@drawable/add_photo"
+
                         tools:layout_editor_absoluteX="55dp"
                         tools:layout_editor_absoluteY="135dp"
                         tools:ignore="MissingConstraints" />
@@ -180,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:text="+"
                         android:textSize="20sp"
-                        android:background="@drawable/add_photo"
+
                         tools:layout_editor_absoluteX="235dp"
                         tools:layout_editor_absoluteY="135dp"
                         tools:ignore="MissingConstraints" />
@@ -193,7 +193,7 @@
                 android:text="+"
                 android:textSize="20sp"
 
-                android:background="@drawable/save_changes"
+
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
