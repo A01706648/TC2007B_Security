@@ -5,7 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.itesm.esenciapatrimonio.DetallesAdapter
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentAzResultsBinding
 import com.itesm.esenciapatrimonio.databinding.FragmentSitioRestauradoBinding
@@ -30,27 +35,36 @@ class RestoredSiteFragment: Fragment() {
         _binding!!.Titulo.text = site.site_name
 
         _binding!!.descripcion.text = site.information
+        _binding!!.placeID.setTextIsSelectable(true)
 
         _binding!!.Direccion.text = "Dirección: "+site.address
+        _binding!!.Direccion.setTextIsSelectable(true)
 
         _binding!!.Coordenadas.text = "Coordenadas:\n\tX: "+site.coordinate_x.toString()+"\n\tY: "+site.coordinate_y.toString()
+        _binding!!.Coordenadas.setTextIsSelectable(true)
 
         _binding!!.placeID.text = "Id del lugar: "+site.objectId
+        _binding!!.placeID.setTextIsSelectable(false)
+        _binding!!.placeID.isVisible = false
 
-        //val titulo = findViewById(R.id.Titulo) as TextView
-        //titulo.text = site.site_name
+        _binding!!.dates.text = "Fechas\n\tEst year: "+site.est_year.toString()+"\n\tAño de restauración: "+site.restore_year
+        _binding!!.dates.setTextIsSelectable(true)
+        _binding!!.dates.isVisible = false
 
-        //val descripcion = findViewById(R.id.descripcion) as TextView
-        //descripcion.text = site.information
+        _binding!!.verMasDetalles.setOnClickListener {
+            _binding!!.verMasDetalles.isVisible = false
+            _binding!!.placeID.isVisible = true
+            _binding!!.dates.isVisible = true
+        }
 
-        //val direccion = findViewById(R.id.Direccion) as TextView
-        //direccion.text = site.address
+        // Sirve para ocultar el boton
+        //_binding!!.verMasDetalles.isVisible = false
 
-        //val coords = findViewById(R.id.Coordenadas) as TextView
-        //coords.text = site.coordinate_x.toString()+site.coordinate_y.toString()
+        // Cambiar el tamano del placdid
+        //_binding!!.placeID.height = 500
 
-        //val id = findViewById(R.id.placeID) as TextView
-        //id.text = site.objectId
+        //val recyclerview = _binding!!.masDetalles.recycledViewPool
+        //val adapter = DetallesAdapter()
 
         return root
     }
