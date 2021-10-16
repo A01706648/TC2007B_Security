@@ -42,12 +42,12 @@ class LoginFragment: Fragment() {
         return binding.root
     }
 
-    override fun onViewCreate(view: View, savedInstanceState: Bundle?){
-        super.onViewCreate(view, savedInstanceState)
-        binding.button3.setOnClickListener{
-            login("user","password")
-        }
-    }
+    //override fun onViewCreate(view: View, savedInstanceState: Bundle?){
+    //    super.onViewCreate(view, savedInstanceState)
+    //    binding.button3.setOnClickListener{
+    //        login("user","password")
+    //    }
+    //}
 
 
 /*
@@ -92,12 +92,12 @@ class LoginFragment: Fragment() {
                 }
             }*/
 
-            if(Puser == username && Ppassword == password){
-                goToMapView(cont)
+            //if(Puser == username && Ppassword == password){
+            //    goToMapView(cont)
 
-            }else{
-                cont++
-            }
+            //}else{
+            //    cont++
+            //}
         }
     }
 
