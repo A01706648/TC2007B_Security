@@ -1,9 +1,14 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
@@ -59,7 +64,14 @@ class MapFragment: Fragment() {
 
                 this.parseCallbackUse_MapboxMap = mapboxMap
                 val oParse = ParseApp();
-                oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+                //Verificar que el dispositivo este conectado a internet o utilizando datos
+                val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+                if (activeNetwork != null && activeNetwork.isConnected) {
+                    oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+                }else {
+                    Toast.makeText(context,"Error de conexin, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
+                }
 
                 //comparar de la lista de marcadores el marcador seleccionado
                 //obteniendo el indice llevar al sitio correspondiente
@@ -106,9 +118,10 @@ class MapFragment: Fragment() {
         }
     }
 
-    //todo 4) set an event for each marker onClick
     /*
-
+    Despliega un nuevo fragmento y le pasa los datos del sitio restaurado correspondiente
+    Para pasar los datos se usa el objeto TransactionData, de esta manera se puede pasar un
+    objeto personalizado, en este caso un objeto SRestoreSite
      */
     fun goToRestoredSite(site: SRestoreSite): Boolean {
         val fragmentManager = fragmentManager
