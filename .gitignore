@@ -25,4 +25,4 @@ local.properties
 .gradle/buildOutputCleanup/*.bin
 .gradle/checksums/*.bin
 .gradle/checksums/*.lock
-
+.gradle/buildOutputCleanup/cache.properties
