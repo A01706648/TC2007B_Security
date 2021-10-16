@@ -21,28 +21,28 @@ public enum class EPicType(var type:Int)
     undefined(0)
 }
 
-public data class SRestoreSite(var objectId:String
-                                , var site_name:String
-                                , var information:String
-                                , var est_year:Int
-                                , var restore_year:Int
-                                , var address:String
-                                , var coordinate_x:Double
-                                , var coordinate_y:Double
+public data class SRestoreSite(var objectId:String = ""
+                                , var site_name:String = "not defined name"
+                                , var information:String = "not defined information"
+                                , var est_year:Int = 0
+                                , var restore_year:Int = 0
+                                , var address:String = "not defeined address"
+                                , var coordinate_x:Double = 0.0
+                                , var coordinate_y:Double = 0.0
                                 )
 
-public data class SPicture(var objectId:String
+public data class SPicture(var objectId:String = ""
                             , var file:Picture
-                            , var image_name:String
-                            , var site_id:String
-                            , var pic_type:EPicType
+                            , var image_name:String = ""
+                            , var site_id:String = ""
+                            , var pic_type:EPicType = EPicType.undefined
                             )
 
-public data class SComparePicture(var objectId:String
-                                    , var oldPic_id:String
-                                    , var newPic_id:String
-                                    , var site_id:String
-                                    , var description:String
+public data class SComparePicture(var objectId:String = ""
+                                    , var oldPic_id:String = ""
+                                    , var newPic_id:String = ""
+                                    , var site_id:String = ""
+                                    , var description:String = ""
                                     )
 
 public class ParseApp /*: Application()*/ {
@@ -91,15 +91,7 @@ public class ParseApp /*: Application()*/ {
 
     fun getRestoreSite(objectId: String, pCallback: CallbackGetRestoreSite):Unit
     {
-        returnRestoreSite = mutableListOf(SRestoreSite(
-            objectId
-            , ""
-            ,""
-            ,0
-            ,0
-            ,""
-            ,0.0
-            , 0.0))
+        returnRestoreSite = mutableListOf(SRestoreSite(objectId = objectId))
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
 
