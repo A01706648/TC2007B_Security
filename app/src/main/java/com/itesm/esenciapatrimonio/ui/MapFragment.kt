@@ -27,6 +27,7 @@ class MapFragment: Fragment() {
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
+
     //components
     private var mapView: MapView? = null
     private var parseCallbackUse_MapboxMap: MapboxMap? = null
@@ -51,8 +52,6 @@ class MapFragment: Fragment() {
         mapView?.getMapAsync { mapboxMap ->
             mapboxMap.setStyle(getString(R.string.map_style)) {
                 // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-
-                //todo opcional) Mostrar el mapa desde la ubicación del usuario
                 val locationOne = LatLng(20.76853263116804, -100.46317287806771)
                 val locationTwo = LatLng(20.49847887794351, -100.35621872052026)
 
@@ -62,15 +61,18 @@ class MapFragment: Fragment() {
                     .build()
                 mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
 
+                // Lama a Parse para cargar los datos
                 this.parseCallbackUse_MapboxMap = mapboxMap
                 val oParse = ParseApp();
+
                 //Verificar que el dispositivo este conectado a internet o utilizando datos
                 val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
                 if (activeNetwork != null && activeNetwork.isConnected) {
+                    //Si el dispositivo esta conectado carga los datos de parse en el mapa
                     oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
                 }else {
-                    Toast.makeText(context,"Error de conexin, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
+                    Toast.makeText(context,"Error de conexion, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
                 }
 
                 //comparar de la lista de marcadores el marcador seleccionado
