@@ -16,11 +16,9 @@ import com.parse.ParseException
 import com.parse.ParseUser
 import com.parse.LogInCallback
 
-//<<<<<<< HEAD
+
 import com.itesm.esenciapatrimonio.R
-//import com.itesm.esenciapatrimonio.databinding.FragmentAdvancedSearchBinding
-//=======
-//>>>>>>> 8cc3df98f71052e06bf3a946e926cc84431da525
+
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
 
 class LoginFragment: Fragment() {
@@ -38,38 +36,23 @@ class LoginFragment: Fragment() {
     ): View? {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val user = usuario.text.toString()
-        val password = contrasena.text.toString()
-
-        login(user, password)
-
-
-        return root
+        return binding.root
     }
 
-    fun goToMapView(cont: Int){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        super.onViewCreated(view, savedInstanceState)
+        binding.button3.setOnClickListener{
+            val user:String = binding.Usuario.text.toString()
+            val password:String = binding.contrasena.text.toString()
 
-        usuario.setError("Prueba superada")
-        contrasena.setError("Intentos = " + cont)
+            login(user,password)
+        }
     }
-/*
-    private fun showAlert(title: String, message: String) {
-        val builder = AlertDialog.Builder(this)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton("OK") { dialog, which ->
-                dialog.cancel()
-                // don't forget to change the line below with the names of your Activities
-                val intent = Intent(this, LoginFragment::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-            }
-        val ok = builder.create()
-        ok.show()
-    }
-*/
+
+
+
+
     fun login(username: String, password: String) {
 
         var cont:Int = 0
@@ -77,30 +60,29 @@ class LoginFragment: Fragment() {
         val Puser:String = "user"
         val Ppassword:String = "password"
 
-        if(!TextUtils.isEmpty(username)){
-            usuario.setError("El nombre del usuario es requerido")
-        }else if(!TextUtils.isEmpty(password)){
-            contrasena.setError("La contraseña es requerida")
-        }else{/*
-            //progressDialog?.show()
-            ParseUser.logInInBackground(user,password) { parseUser: ParseUser?, parseException: ParseException? ->
-                //progressDialog?.dismiss()
-                if (parseUser != null) {
-                    //showAlert("Successful Login", "Welcome back " + user + " !")
-                } else {
-                    //ParseUser.logOut()
-                    if (parseException != null) {
-                        Toast.makeText(this, parseException.message, Toast.LENGTH_LONG).show()
+        if(username == ""){
+
+            Toast.makeText(activity,"El usuario es requerido",Toast.LENGTH_SHORT).show()
+        }else if(password == ""){
+
+            Toast.makeText(activity,"La contraseña es requerida",Toast.LENGTH_SHORT).show()
+        }else{
+
+            ParseUser.logInInBackground(username,password,
+                ({ user, e ->
+                    if(user != null) {
+                        //ir al map
+                        Toast.makeText(activity, "Logeado con parse", Toast.LENGTH_LONG).show()
+                        //val fragmentManager = fragmentManager
+                        //val fragmentTransaction = fragmentManager?.beginTransaction()
+                        //val fragment = MapFragment()
+
+                    } else {
+                        Toast.makeText(activity, "Contraseña y/o usuario equivocados parse", Toast.LENGTH_LONG).show()
                     }
-                }
-            }*/
 
-            if(Puser == username && Ppassword == password){
-                goToMapView(cont)
-
-            }else{
-                cont++
-            }
+                })
+            )
         }
     }
 
