@@ -61,7 +61,7 @@ class MapFragment: Fragment() {
                     .build()
                 mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
 
-                // Lama a Parse para cargar los datos
+                // Llama a Parse para cargar los datos
                 this.parseCallbackUse_MapboxMap = mapboxMap
                 val oParse = ParseApp();
 

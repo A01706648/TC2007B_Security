@@ -1,6 +1,7 @@
 package com.itesm.esenciapatrimonio.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,14 +26,27 @@ class AZResultsFragment: Fragment() {
         val root: View = binding.root
 
         // Cargar los datos de parse y guaradrlos en el arereglo restoredSite
+        val parse = ParseApp()
+        parse.getAllRestoreSite(this::getRestoredSite)
 
         // Ordenar los datos de restoredSite por nombre
+        val sortedRestoredSite = restoredSite.sortedBy { it.site_name }
 
         // Mostrar en la view cada elemento de la lista como boton
+        for (i in sortedRestoredSite) {
+            Log.d("lista ordenada", "${i.site_name}")
+        }
 
         // Al hacer click en el boton llevar al fragmento del sitio restaurado corrrespondiente
 
         return root
+    }
+
+    /*
+    Funcion para obetener los datos de parse
+     */
+    fun getRestoredSite(listRestoredSite:MutableList<SRestoreSite>):Unit{
+        restoredSite = listRestoredSite
     }
 
     override fun onDestroyView() {
