@@ -65,7 +65,9 @@ public class ParseApp /*: Application()*/ {
     lateinit var pCallbackPicture:CallbackGetPicture;
     lateinit var pCallbackCompare:CallbackGetCompare;
 
-    lateinit var listImageTest:MutableList<Bitmap>
+    companion object TestData{
+        var listImageTest:MutableList<Bitmap> = mutableListOf()
+    }
 
     var bIsUpdatedSite:Boolean = false;
     var bIsUpdatedPicture:Boolean = false;
@@ -345,7 +347,7 @@ public class ParseApp /*: Application()*/ {
                             }
                         }
 
-                        listImageTest = listImage
+                        TestData.listImageTest = listImage
                         pCallback(listImage)
                     }
                     //this.bIsUpdatedSite = true;
