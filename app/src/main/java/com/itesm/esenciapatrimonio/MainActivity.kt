@@ -27,11 +27,7 @@ import com.parse.Parse
 
 class MainActivity : AppCompatActivity() {
 
-    //navigation view
-    private lateinit var topAppBar: Toolbar
-    private lateinit var drawerLayout:DrawerLayout
-    private lateinit var navigationView:NavigationView
-
+    //variable para la configuración del menu de navegacion
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
