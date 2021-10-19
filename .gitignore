@@ -26,3 +26,5 @@ local.properties
 .gradle/checksums/*.bin
 .gradle/checksums/*.lock
 .gradle/buildOutputCleanup/cache.properties
+.gradle/7.0.2/javaCompile/*.bin
+.gradle/7.0.2/javaCompile/*.lock
