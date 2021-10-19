@@ -55,12 +55,12 @@
 
             <!-- Carta para usuario -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/cardforSitename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="14dp"
                 app:cardElevation="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
+                app:layout_constraintBottom_toTopOf="@+id/cardforDescripcion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
 
             <!-- Carta para contraseña -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/editTextTextPassword2"
+                android:id="@+id/cardforDescripcion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -98,7 +98,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2">
+                app:layout_constraintTop_toBottomOf="@+id/cardforSitename">
 
                 <!-- app:boxStroke... quita la linea de abajo
                      mientras la app se ejecuta en el teléfono -->
