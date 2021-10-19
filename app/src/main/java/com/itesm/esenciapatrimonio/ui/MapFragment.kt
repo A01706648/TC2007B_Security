@@ -1,15 +1,20 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.SRestoreSite
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentMapBinding
+import com.itesm.esenciapatrimonio.transactions.GoToRestoredSite
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -22,6 +27,7 @@ class MapFragment: Fragment() {
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
+
     //components
     private var mapView: MapView? = null
     private var parseCallbackUse_MapboxMap: MapboxMap? = null
@@ -46,8 +52,6 @@ class MapFragment: Fragment() {
         mapView?.getMapAsync { mapboxMap ->
             mapboxMap.setStyle(getString(R.string.map_style)) {
                 // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-
-                //todo opcional) Mostrar el mapa desde la ubicación del usuario
                 val locationOne = LatLng(20.76853263116804, -100.46317287806771)
                 val locationTwo = LatLng(20.49847887794351, -100.35621872052026)
 
@@ -57,9 +61,19 @@ class MapFragment: Fragment() {
                     .build()
                 mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
 
+                // Llama a Parse para cargar los datos
                 this.parseCallbackUse_MapboxMap = mapboxMap
                 val oParse = ParseApp();
-                oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+
+                //Verificar que el dispositivo este conectado a internet o utilizando datos
+                val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+                if (activeNetwork != null && activeNetwork.isConnected) {
+                    //Si el dispositivo esta conectado carga los datos de parse en el mapa
+                    oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+                }else {
+                    Toast.makeText(context,"Error de conexion, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
+                }
 
                 //comparar de la lista de marcadores el marcador seleccionado
                 //obteniendo el indice llevar al sitio correspondiente
@@ -72,9 +86,9 @@ class MapFragment: Fragment() {
                         }
                     }
                     //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
-                    val site = restoredSite[index]
-                    //pasar estos parametros al constructor de la clase RestoredSiteFragment
-                    goToRestoredSite(site)
+                    //los datos son guardados en un objeto TransactionData para utilizarlos en el constructor del sitio restaurado
+                    TransactionData.restoredSite = mutableListOf(restoredSite[index])
+                    GoToRestoredSite(this, RestoredSiteFragment()).makeTransaction()
                 }
 
             }
@@ -104,20 +118,6 @@ class MapFragment: Fragment() {
             this.parseCallbackUse_MapboxMap?.addMarker(marker)
             restoredSiteMarkers.add(marker.marker)
         }
-    }
-
-    //todo 4) set an event for each marker onClick
-    fun goToRestoredSite(site: SRestoreSite): Boolean {
-        val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager?.beginTransaction()
-        val fragment = RestoredSiteFragment()
-
-        TransactionData.restoredSite = mutableListOf(site)
-
-        fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
-        fragmentTransaction?.addToBackStack(null)
-        fragmentTransaction?.commit()
-        return true
     }
 
     /**
