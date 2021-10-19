@@ -2,6 +2,8 @@ package com.itesm.esenciapatrimonio
 
 import android.os.Build
 import android.content.Context
+import android.graphics.Bitmap
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -47,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun ParseTest_GetPicture(listImage:MutableList<Bitmap>):Unit{
+        Log.d("Parse", "Images Number ${listImage.size}")
+    }
+
     /**
      * Android onCreate
      */
@@ -68,7 +74,10 @@ class MainActivity : AppCompatActivity() {
         )
 
         //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
-        oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+        //oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+        //val oSite = SRestoreSite(site_name = "TestSite")
+        //oParse.addRestoreSite(oSite, this::ParseTest_GetRestoreSite)
+        oParse.getAllPicture(this::ParseTest_GetPicture)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

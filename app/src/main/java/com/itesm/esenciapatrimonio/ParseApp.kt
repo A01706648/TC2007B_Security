@@ -9,12 +9,16 @@ import com.parse.GetCallback
 import com.parse.ParseQuery
 import com.parse.ParseException
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
 
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
 typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
 typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
 typealias CallbackCheckExist = (Boolean)->Unit
+typealias CallbackImage = (MutableList<Bitmap>)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -164,9 +168,35 @@ public class ParseApp /*: Application()*/ {
         }
     }
 
+    fun addRestoreSite(oSite:SRestoreSite, pCallback: CallbackGetRestoreSite):Unit{
+        val newSiteObject = ParseObject("RestoreSite")
+
+        newSiteObject.put("site_name", oSite.site_name)
+        newSiteObject.put("information", oSite.information)
+        newSiteObject.put("est_year", oSite.est_year)
+        newSiteObject.put("restore_year", oSite.restore_year.toString())
+        newSiteObject.put("address", oSite.address)
+        newSiteObject.put("coordinate_x", oSite.coordinate_x)
+        newSiteObject.put("coodinate_y", oSite.coordinate_y)
+
+        newSiteObject.saveInBackground { e ->
+
+            if (e == null) {
+                //We saved the object and fetching data again
+                if(pCallback != null)
+                {
+                    pCallback(mutableListOf(oSite))
+                }
+            } else {
+                //We have an error.We are showing error message here.
+                Log.d("Parse", "Error: " + e.message)
+            }
+        }
+    }
+
     fun getAllRestoreSite(pCallback: CallbackGetRestoreSite):Unit
     {
-        this.returnRestoreSite = mutableListOf()
+        this.returnRestoreSite = mutableListOf(SRestoreSite())
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.orderByAscending("site_name");
@@ -194,7 +224,7 @@ public class ParseApp /*: Application()*/ {
 
     fun getAllRestoreSiteByName(siteName:String, pCallback: CallbackGetRestoreSite):Unit
     {
-        this.returnRestoreSite = mutableListOf()
+        this.returnRestoreSite = mutableListOf(SRestoreSite())
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.whereEqualTo("site_name", siteName);
@@ -276,6 +306,54 @@ public class ParseApp /*: Application()*/ {
             , "");
 
         return listOf(returnComparePicture);
+    }
+
+    fun getComparePictureBySite(siteName: String)
+    {
+
+    }
+
+    fun getAllPicture(pCallback:CallbackImage)
+    {
+        //this.returnRestoreSite = mutableListOf(SRestoreSite())
+
+        var query = ParseQuery.getQuery<ParseObject>("Picture")
+        query.orderByAscending("site_id");
+ //       if(this.bIsUpdatedSite)
+//        {
+//            query.fromLocalDatastore();
+//        }
+
+        if(pCallback != null) {
+            //pCallbackSite = pCallback;
+
+            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                if (e == null) {
+                    Log.d("Parse", "Retrieved Image" + objectList?.size + " Site")
+
+                    var listImage:MutableList<Bitmap> = mutableListOf()
+
+                    if (objectList != null) {
+                        for(obj in objectList) {
+                            //obj.getParseFile("file").toString()
+                            val bitmap = BitmapFactory.decodeStream(obj.getParseFile("file").toString().byteInputStream())
+
+                            if(bitmap != null) {
+                                listImage.add(bitmap)
+                            }
+                        }
+
+                        pCallback(listImage)
+                    }
+                    //this.bIsUpdatedSite = true;
+                    //this.getSiteListFromParse(objectList);
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
     }
 
 
