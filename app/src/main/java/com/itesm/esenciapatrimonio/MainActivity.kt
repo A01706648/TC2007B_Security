@@ -2,12 +2,15 @@ package com.itesm.esenciapatrimonio
 
 import android.os.Build
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.graphics.Bitmap
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar

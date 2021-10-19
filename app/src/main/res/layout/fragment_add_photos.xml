@@ -87,7 +87,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
                                 <ImageView
-                                    android:id="@+id/Imagenantigua"
+                                    android:id="@+id/imagenAntigua"
                                     android:layout_width="match_parent"
                                     android:layout_height="170dp"
                                     android:contentDescription="Cargando"
@@ -129,7 +129,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
                                 <ImageView
-                                    android:id="@+id/Imagenactual"
+                                    android:id="@+id/imagenActual"
                                     android:layout_width="match_parent"
                                     android:layout_height="170dp"
                                     android:contentDescription="Cargando"

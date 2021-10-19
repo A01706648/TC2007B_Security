@@ -8,6 +8,7 @@
     android:id="@+id/view_restored_site" >
 
     <!-- Fondo -->
+
     <ImageView
         android:id="@+id/fondo"
         android:layout_width="match_parent"
@@ -65,6 +66,7 @@
                         tools:text="Nombre del lugar" />
 
                     <!-- Descripción -->
+
                     <TextView
                         android:id="@+id/descripcion"
                         android:layout_width="match_parent"
@@ -72,12 +74,16 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="16dp"
                         android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/verHistoria"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/Titulo"
+                        app:layout_constraintVertical_chainStyle="packed"
                         tools:ignore="HardcodedText"
                         tools:text="Descripción / Información / Historia completa del lugar en forma de resumen. No cabe todo el texto aquí, está bien jaja. El texto que sigue es sólo de pruebas, no pasa si se mueve o lo que sea, ntp." />
 
@@ -85,10 +91,9 @@
                         android:id="@+id/verHistoria"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:elevation="4dp"
-                        android:text="Ver historia"
+                        android:text="Ver historia completa"
                         android:textSize="11sp"
                         android:translationZ="4dp"
                         app:cornerRadius="8dp"
@@ -177,7 +182,7 @@
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <ImageView
-                                    android:id="@+id/Imagenantigua"
+                                    android:id="@+id/imagenAntigua"
                                     android:layout_width="match_parent"
                                     android:layout_height="170dp"
                                     android:contentDescription="Cargando"
@@ -226,7 +231,7 @@
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <ImageView
-                                    android:id="@+id/Imagenactual"
+                                    android:id="@+id/imagenActual"
                                     android:layout_width="match_parent"
                                     android:layout_height="170dp"
                                     android:contentDescription="Cargando"
