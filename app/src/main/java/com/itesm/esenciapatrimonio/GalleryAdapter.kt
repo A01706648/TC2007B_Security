@@ -1,0 +1,92 @@
+package com.itesm.esenciapatrimonio
+
+import android.text.TextUtils.replace
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.recyclerview.widget.RecyclerView
+import com.itesm.esenciapatrimonio.ui.FullScreenImageFragment
+import com.itesm.esenciapatrimonio.ui.GalleryFragment
+import com.squareup.picasso.Picasso
+
+class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
+
+    private var listener: GalleryAdapterClickEvents? = null
+
+    fun setListener(listener: GalleryAdapterClickEvents){
+        this.listener = listener
+    }
+
+    interface GalleryAdapterClickEvents {
+        fun onClick(url: String)
+    }
+
+    private val categorias = arrayOf("Card 1", "Card 2", "Any string")
+
+    private val imagenes_antiguas = arrayOf(
+        "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2074&q=80",
+        "https://images.unsplash.com/photo-1598228723793-52759bba239c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1974&q=80",
+        "https://images.unsplash.com/photo-1568092775154-7fa176a29c0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1974&q=80"
+    )
+
+    private val imagenes_actuales = arrayOf(
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80",
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80",
+        "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80"
+    )
+
+    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+        var imagen_antigua : ImageView
+        var imagen_actual : ImageView
+        var categoria : TextView
+
+
+        init{
+            imagen_antigua = itemView.findViewById(R.id.imagenAntigua)
+            imagen_actual = itemView.findViewById(R.id.imagenActual)
+            categoria = itemView.findViewById(R.id.categoriaCarta)
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recycler_gallery_block, parent, false)
+        return ViewHolder(v)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.categoria.text = categorias[position]
+        Picasso.get().load(imagenes_antiguas[position]).into(holder.imagen_antigua)
+        Picasso.get().load(imagenes_actuales[position]).into(holder.imagen_actual)
+
+        holder.imagen_antigua.setOnClickListener{v: View ->
+            listener?.onClick(imagenes_antiguas[position])
+
+            //val fragmentManager = fragmentManager
+            //val fragmentTransaction = fragmentManager?.beginTransaction()
+
+            //val fragment = FullScreenImageFragment()
+
+            //fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            //fragmentTransaction?.addToBackStack(null)
+            //fragmentTransaction?.commit()
+
+        }
+
+        holder.imagen_actual.setOnClickListener{v: View ->
+            listener?.onClick(imagenes_actuales[position])
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return categorias.size
+    }
+
+}
