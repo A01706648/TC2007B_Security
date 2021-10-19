@@ -18,7 +18,7 @@ typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
 typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
 typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
 typealias CallbackCheckExist = (Boolean)->Unit
-typealias CallbackImage = (MutableList<Bitmap>)->Unit
+typealias CallbackImage = (MutableList<String>)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -66,7 +66,7 @@ public class ParseApp /*: Application()*/ {
     lateinit var pCallbackCompare:CallbackGetCompare;
 
     companion object TestData{
-        var listImageTest:MutableList<Bitmap> = mutableListOf()
+        var listImageTest:MutableList<String> = mutableListOf()
     }
 
     var bIsUpdatedSite:Boolean = false;
@@ -178,7 +178,7 @@ public class ParseApp /*: Application()*/ {
         newSiteObject.put("site_name", oSite.site_name)
         newSiteObject.put("information", oSite.information)
         newSiteObject.put("est_year", oSite.est_year)
-        newSiteObject.put("restore_year", oSite.restore_year.toString())
+        newSiteObject.put("restore_year", oSite.restore_year)
         newSiteObject.put("address", oSite.address)
         newSiteObject.put("coordinate_x", oSite.coordinate_x)
         newSiteObject.put("coodinate_y", oSite.coordinate_y)
@@ -335,15 +335,17 @@ public class ParseApp /*: Application()*/ {
                 if (e == null) {
                     Log.d("Parse", "Retrieved Image" + objectList?.size + " Site")
 
-                    var listImage:MutableList<Bitmap> = mutableListOf()
+                    var listImage:MutableList<String> = mutableListOf()
 
                     if (objectList != null) {
                         for(obj in objectList) {
                             //obj.getParseFile("file").toString()
-                            val bitmap = BitmapFactory.decodeStream(obj.getParseFile("file").toString().byteInputStream())
-
-                            if(bitmap != null) {
-                                listImage.add(bitmap)
+                            //val oFile = obj.getParseFile("file")
+                            //oFile?.getUrl()
+                            //val bitmap = BitmapFactory.decodeStream(obj.getParseFile("file").toString().byteInputStream())
+                            val imageUrl = obj.getParseFile("file")?.url
+                            if(imageUrl != null) {
+                                listImage.add(imageUrl)
                             }
                         }
 

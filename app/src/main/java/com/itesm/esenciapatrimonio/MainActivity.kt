@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun ParseTest_GetPicture(listImage:MutableList<Bitmap>):Unit{
+    fun ParseTest_GetPicture(listImage:MutableList<String>):Unit{
         Log.d("Parse", "Images Number ${listImage.size}")
     }
 
