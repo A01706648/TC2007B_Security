@@ -19,6 +19,7 @@ typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
 typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
 typealias CallbackCheckExist = (Boolean)->Unit
 typealias CallbackImage = (MutableList<String>)->Unit
+typealias CallbackDeleteSite = (String)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -193,6 +194,35 @@ public class ParseApp /*: Application()*/ {
                 }
             } else {
                 //We have an error.We are showing error message here.
+                Log.d("Parse", "Error: " + e.message)
+            }
+        }
+    }
+
+    fun deleteRestoreSite(siteName:String, pCallback:CallbackDeleteSite){
+        var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
+        query.whereEqualTo("site_name", siteName);
+
+        query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+            if (e == null) {
+                Log.d("Parse", "Delete " + objectList?.size + " Site")
+
+                if(objectList != null) {
+                    for ((index, obj) in objectList.withIndex()) {
+                        obj.deleteInBackground{ e ->
+                            if(e == null){
+                                if(index == objectList.size - 1){
+                                    pCallback(siteName)
+                                }
+                            }
+                            else{
+                                Log.d("Parse", "Delete Error:" + e.message)
+                            }
+                        }
+                    }
+                }
+
+            } else {
                 Log.d("Parse", "Error: " + e.message)
             }
         }

@@ -22,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
 import com.google.android.material.navigation.NavigationView
 import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
 import com.itesm.esenciapatrimonio.Permissions
@@ -39,21 +40,64 @@ class MainActivity : AppCompatActivity() {
 
     var context: Context = this
 
-    fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
-    {
-        lateinit var oSite:SRestoreSite;
 
-        for(oSite in listRestoreSite)
+
+    class ParseTestWorker(appContext: Context, workerParams: WorkerParameters):
+        Worker(appContext, workerParams){
+        fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
         {
-            Log.d("Parse", "ObjectId ${oSite.objectId}");
-            Log.d("Parse", "SiteName ${oSite.site_name}");
-            Log.d("Parse", "X ${oSite.coordinate_x}");
-            Log.d("Parse", "Y ${oSite.coordinate_y}");
-        }
-    }
+            lateinit var oSite:SRestoreSite;
 
-    fun ParseTest_GetPicture(listImage:MutableList<String>):Unit{
-        Log.d("Parse", "Images Number ${listImage.size}")
+            for(oSite in listRestoreSite)
+            {
+                Log.d("Parse", "ObjectId ${oSite.objectId}");
+                Log.d("Parse", "SiteName ${oSite.site_name}");
+                Log.d("Parse", "X ${oSite.coordinate_x}");
+                Log.d("Parse", "Y ${oSite.coordinate_y}");
+            }
+        }
+
+        var isSiteAdded = false
+
+        fun ParseTest_AddRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
+        {
+            lateinit var oSite:SRestoreSite;
+
+            for(oSite in listRestoreSite)
+            {
+                Log.d("Parse", "Add Site Name: ${oSite.site_name}")
+            }
+
+            isSiteAdded = true
+        }
+
+        fun ParseTest_GetPicture(listImage:MutableList<String>):Unit{
+            Log.d("Parse", "Images Number ${listImage.size}")
+        }
+
+        fun ParseTest_DeleteSite(siteName:String):Unit{
+            Log.d("Parse", "Site Delete:" + siteName)
+        }
+
+        fun ParseTest_Test(){
+            val oParse = ParseApp();
+            //oParse.initParse();
+
+//oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
+            //oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+            val oSite = SRestoreSite(site_name = "TestSite")
+            oParse.addRestoreSite(oSite, this::ParseTest_AddRestoreSite)
+            while(!isSiteAdded){}
+            oParse.deleteRestoreSite("TestSite", this::ParseTest_DeleteSite)
+            //oParse.getAllPicture(this::ParseTest_GetPicture)
+        }
+
+        override fun doWork(): Result {
+
+            ParseTest_Test()
+
+            return Result.success()
+        }
     }
 
     /**
@@ -62,9 +106,6 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val oParse = ParseApp();
-        //oParse.initParse();
 
         Parse.enableLocalDatastore(this)
         Parse.initialize(
@@ -76,11 +117,11 @@ class MainActivity : AppCompatActivity() {
                 .build()
         )
 
-        //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
-        //oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
-        //val oSite = SRestoreSite(site_name = "TestSite")
-        //oParse.addRestoreSite(oSite, this::ParseTest_GetRestoreSite)
-        oParse.getAllPicture(this::ParseTest_GetPicture)
+        //Test Parse
+        val ParseTestWorkRequest: WorkRequest = OneTimeWorkRequestBuilder<ParseTestWorker>().build()
+        WorkManager
+            .getInstance(this)
+            .enqueue(ParseTestWorkRequest)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
