@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         //oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
         //val oSite = SRestoreSite(site_name = "TestSite")
         //oParse.addRestoreSite(oSite, this::ParseTest_GetRestoreSite)
-        oParse.getAllPicture(this::ParseTest_GetPicture)
+        //oParse.getAllPicture(this::ParseTest_GetPicture)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

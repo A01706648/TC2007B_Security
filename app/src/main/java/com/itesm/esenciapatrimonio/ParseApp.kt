@@ -178,7 +178,7 @@ public class ParseApp /*: Application()*/ {
         newSiteObject.put("site_name", oSite.site_name)
         newSiteObject.put("information", oSite.information)
         newSiteObject.put("est_year", oSite.est_year)
-        newSiteObject.put("restore_year", oSite.restore_year.toString())
+        newSiteObject.put("restore_year", oSite.restore_year)
         newSiteObject.put("address", oSite.address)
         newSiteObject.put("coordinate_x", oSite.coordinate_x)
         newSiteObject.put("coodinate_y", oSite.coordinate_y)
