@@ -12,12 +12,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg"
         tools:ignore="ContentDescription" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -55,6 +57,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="HardcodedText" />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="0dp"
@@ -62,10 +65,13 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/TituloFotos"
                         app:layout_constraintWidth_max="400dp">
+
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardView4"
                             android:layout_width="0dp"
@@ -77,6 +83,7 @@
                             app:layout_constraintEnd_toStartOf="@id/cardView5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
+
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/antigua"
                                 android:layout_width="match_parent"
@@ -86,16 +93,19 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
+
                                 <ImageView
-                                    android:id="@+id/Imagenantigua"
+                                    android:id="@+id/imagenAntigua"
                                     android:layout_width="match_parent"
-                                    android:layout_height="170dp"
+                                    android:layout_height="match_parent"
+                                    android:alpha="0.8"
                                     android:contentDescription="Cargando"
                                     android:scaleType="centerCrop"
-                                    android:alpha="0.4"
+                                    app:srcCompat="@drawable/ic_baseline_add_circle_24"
                                     tools:ignore="HardcodedText"
-                                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                                    tools:srcCompat="@drawable/ic_baseline_add_circle_24" />
                             </androidx.cardview.widget.CardView>
+
                             <TextView
                                 android:id="@+id/textAntigua"
                                 android:layout_width="wrap_content"
@@ -107,6 +117,7 @@
                                 android:textColor="#000000"
                                 tools:ignore="HardcodedText" />
                         </androidx.cardview.widget.CardView>
+
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardView5"
                             android:layout_width="0dp"
@@ -118,9 +129,10 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/cardView4"
                             app:layout_constraintTop_toTopOf="parent">
+
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/actual"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="170dp"
                                 android:maxWidth="1dp"
                                 app:cardCornerRadius="10dp"
@@ -128,16 +140,19 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
+
                                 <ImageView
-                                    android:id="@+id/Imagenactual"
+                                    android:id="@+id/imagenActual"
                                     android:layout_width="match_parent"
                                     android:layout_height="170dp"
+                                    android:alpha="0.8"
                                     android:contentDescription="Cargando"
                                     android:scaleType="centerCrop"
+                                    app:srcCompat="@drawable/ic_baseline_add_circle_24"
                                     tools:ignore="HardcodedText"
-                                    android:alpha="0.4"
-                                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                                    tools:srcCompat="@drawable/ic_baseline_add_circle_24" />
                             </androidx.cardview.widget.CardView>
+
                             <TextView
                                 android:id="@+id/textActual"
                                 android:layout_width="wrap_content"
@@ -149,52 +164,39 @@
                                 android:textColor="#000000"
                                 tools:ignore="HardcodedText" />
                         </androidx.cardview.widget.CardView>
-                        <TextView
-                            android:id="@+id/textView2"
+
+                        <EditText
+                            android:id="@+id/tipoFoto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="sans-serif"
+                            android:hint="Tipo de fotografía"
+                            android:inputType="text"
+                            android:minHeight="48dp"
                             android:textAlignment="center"
                             android:textColor="#000000"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/cardView4"
-                            tools:text="Tipo de fotografías" />
+                            tools:ignore="HardcodedText" />
+
+                        <Button
+                            android:id="@+id/imageUpload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="32dp"
+                            android:text="Guardar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tipoFoto" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                    <Button
-                        android:id="@+id/buttonAddOldPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+"
-                        android:textSize="20sp"
 
-                        tools:layout_editor_absoluteX="55dp"
-                        tools:layout_editor_absoluteY="135dp"
-                        tools:ignore="MissingConstraints" />
-                    <Button
-                        android:id="@+id/buttonAddActualPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+"
-                        android:textSize="20sp"
-
-                        tools:layout_editor_absoluteX="235dp"
-                        tools:layout_editor_absoluteY="135dp"
-                        tools:ignore="MissingConstraints" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-            <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:textSize="20sp"
-
-
-                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

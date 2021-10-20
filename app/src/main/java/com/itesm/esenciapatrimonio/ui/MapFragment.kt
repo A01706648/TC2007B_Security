@@ -14,6 +14,7 @@ import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.SRestoreSite
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentMapBinding
+import com.itesm.esenciapatrimonio.transactions.GoToRestoredSite
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -62,16 +63,16 @@ class MapFragment: Fragment() {
 
                 // Llama a Parse para cargar los datos
                 this.parseCallbackUse_MapboxMap = mapboxMap
-                val oParse = ParseApp();
+                //val oParse = ParseApp();
 
                 //Verificar que el dispositivo este conectado a internet o utilizando datos
                 val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
                 if (activeNetwork != null && activeNetwork.isConnected) {
                     //Si el dispositivo esta conectado carga los datos de parse en el mapa
-                    oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+                    ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite)
                 }else {
-                    Toast.makeText(context,"Error de conexion, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
+                    Toast.makeText(context,R.string.network_error, Toast.LENGTH_SHORT).show()
                 }
 
                 //comparar de la lista de marcadores el marcador seleccionado
@@ -85,9 +86,9 @@ class MapFragment: Fragment() {
                         }
                     }
                     //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
-                    val site = restoredSite[index]
-                    //pasar estos parametros al constructor de la clase RestoredSiteFragment
-                    goToRestoredSite(site)
+                    //los datos son guardados en un objeto TransactionData para utilizarlos en el constructor del sitio restaurado
+                    TransactionData.restoredSite = mutableListOf(restoredSite[index])
+                    GoToRestoredSite(this, RestoredSiteFragment()).makeTransaction()
                 }
 
             }
@@ -117,24 +118,6 @@ class MapFragment: Fragment() {
             this.parseCallbackUse_MapboxMap?.addMarker(marker)
             restoredSiteMarkers.add(marker.marker)
         }
-    }
-
-    /*
-    Despliega un nuevo fragmento y le pasa los datos del sitio restaurado correspondiente
-    Para pasar los datos se usa el objeto TransactionData, de esta manera se puede pasar un
-    objeto personalizado, en este caso un objeto SRestoreSite
-     */
-    fun goToRestoredSite(site: SRestoreSite): Boolean {
-        val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager?.beginTransaction()
-        val fragment = RestoredSiteFragment()
-
-        TransactionData.restoredSite = mutableListOf(site)
-
-        fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
-        fragmentTransaction?.addToBackStack(null)
-        fragmentTransaction?.commit()
-        return true
     }
 
     /**

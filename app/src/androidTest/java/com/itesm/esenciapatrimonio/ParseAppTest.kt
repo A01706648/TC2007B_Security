@@ -18,7 +18,7 @@ import kotlin.jvm.Throws
 @RunWith(AndroidJUnit4::class)
 class ParseAppTest : AppCompatActivity()//: TestCase()
 {
-    val oParse = ParseApp();
+    //val oParse = ParseApp();
 
     fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
     {
@@ -49,7 +49,7 @@ class ParseAppTest : AppCompatActivity()//: TestCase()
     @Test
     @Throws(Exception::class)
     fun getAllRestoreSite(){
-        oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+        ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite);
     }
 
     @Test

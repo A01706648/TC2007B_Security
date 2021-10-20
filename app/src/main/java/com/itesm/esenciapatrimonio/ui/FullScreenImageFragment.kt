@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAboutUsBinding
+import com.itesm.esenciapatrimonio.databinding.FragmentFullscreenImageBinding
+import com.squareup.picasso.Picasso
 
-class AboutUsFragment: Fragment() {
-    private var _binding: FragmentAboutUsBinding? = null
+class FullScreenImageFragment(private val imageURL: String): Fragment() {
+
+    private var _binding: FragmentFullscreenImageBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,8 +23,10 @@ class AboutUsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentAboutUsBinding.inflate(inflater, container, false)
+        _binding = FragmentFullscreenImageBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        Picasso.get().load(imageURL).into(binding.imagenCompleta)
 
         return root
     }
@@ -33,4 +35,5 @@ class AboutUsFragment: Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

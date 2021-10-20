@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <!-- Fondo -->
+
     <ImageView
         android:id="@+id/fondo"
         android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                 <!-- Layout para la carta -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <!-- Título -->
                     <TextView
@@ -54,33 +55,25 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="sans-serif"
+                        android:text="Galería"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="30dp"
+                        android:textSize="30sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="HardcodedText"
-                        tools:text="Nombre del lugar" />
+                        tools:text="Galería" />
 
-                    <!-- Descripción -->
-                    <TextView
-                        android:id="@+id/descripcion"
-                        android:layout_width="match_parent"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerGaleria"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="sans-serif-light"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:nestedScrollingEnabled="false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Titulo"
-                        tools:ignore="HardcodedText"
-                        tools:text="Descripción / Información / Historia completa del lugar en forma de resumen. No cabe todo el texto aquí, está bien jaja. El texto que sigue es sólo de pruebas, no pasa si se mueve o lo que sea, ntp. \n\nPrueba con saltos de línea para ver que se renderice el texto adecuadamente. \n\nNo debería haber problema porque existe una scrollview. \n\nWotefo jdsfhdsajd, háganle un chems y una fursona al Dany pa que se afurre sdfjhajd. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin risus lectus, at malesuada velit ornare eu. Vivamus et cursus mi, quis dictum turpis. Cras ut arcu metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec hendrerit scelerisque fermentum. Nullam et commodo diam, eget posuere augue. Duis malesuada nisi id est cursus, at vehicula neque dictum. Pellentesque mattis nisl velit, ut ultrices ipsum fermentum vel. In a purus ut diam dapibus posuere ut at magna. \n\nIn posuere et ipsum id elementum. In hendrerit risus ac enim aliquam, in scelerisque massa semper. Suspendisse sem ipsum, porta non sem id, varius facilisis sapien. Fusce vitae augue eu lorem congue ullamcorper ac et dolor. Vivamus varius rhoncus massa, a pellentesque turpis pretium in. Ut erat diam, laoreet vel pharetra vitae, imperdiet sit amet libero. Donec sed arcu et nibh consectetur aliquam." />
+                        app:layout_constraintTop_toBottomOf="@+id/Titulo">
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,6 +83,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/nuevoBloque"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:text="+"
+        android:textSize="45sp"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText">
+
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

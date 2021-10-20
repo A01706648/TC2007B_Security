@@ -6,4 +6,5 @@
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <string name="back4app_app_id">ZpZUnTb4ivF4gjumtcCZ1jmqEJM2d0BNkppz7gP1</string>
     <string name="back4app_client_key">RTttDQqzt9tRehiUjiaL1QiwCLBkdzxYU9nES4Al</string>
+    <string name="network_error">Error de conexión, verifique que su dispositivo esté conectado a internet</string>
 </resources>
