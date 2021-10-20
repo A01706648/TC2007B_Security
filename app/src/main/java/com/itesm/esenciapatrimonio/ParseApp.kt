@@ -515,7 +515,11 @@ public object ParseApp /*: Application()*/ {
 
     fun getAllComparePictureBySite(siteName:String, pCallback:(MutableList<SComparePicture>)->Unit)
     {
-        var query = ParseQuery.getQuery<ParseObject>("ComparePicture")
+        var queryCompare = ParseQuery.getQuery<ParseObject>("ComparePicture")
+        var querySite = ParseQuery.getQuery<ParseObject>("RestoreSite")
+
+        querySite.whereEqualTo("site_name", siteName);
+        queryCompare.whereMatchesQuery("site_id", querySite)
         /*
         if(this.bIsUpdatedSite)
         {
@@ -524,7 +528,7 @@ public object ParseApp /*: Application()*/ {
 
         if(pCallback != null) {
 
-            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+            queryCompare.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
                 if (e == null) {
                     Log.d("Parse", "Compare " + objectList?.size + " Site")
 
@@ -557,10 +561,6 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
-    fun getComparePictureBySite(siteName: String)
-    {
-
-    }
 
     fun getAllPicture(pCallback:(MutableList<SPicture>)->Unit)
     {

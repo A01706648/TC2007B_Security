@@ -24,7 +24,7 @@ class RestoredSiteFragment: Fragment() {
     ): View? {
         _binding = FragmentSitioRestauradoBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val site = TransactionData.restoredSite[0];
+        val  site = TransactionData.restoredSite[0];
 
         //Log.d("Sitio restaurado", "${site.site_name}")
 
