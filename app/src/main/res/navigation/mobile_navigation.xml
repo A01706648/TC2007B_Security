@@ -10,7 +10,8 @@
         android:id="@+id/view_map"
         android:name="com.itesm.esenciapatrimonio.ui.MapFragment"
         android:label="Mapa"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map"
+        />
     <fragment
         android:id="@+id/view_advanced_search"
         android:name="com.itesm.esenciapatrimonio.ui.AZResultsFragment"
@@ -31,11 +32,6 @@
         android:name="com.itesm.esenciapatrimonio.ui.DonateFragment"
         android:label="Donar"
         tools:layout="@layout/fragment_donacion" />
-    <fragment
-        android:id="@+id/RegistrarUsuario"
-        android:name="com.itesm.esenciapatrimonio.ui.AdminRegistrarUsuarioFragment"
-        android:label="Registrar"
-        tools:layout="@layout/fragment_register_user"/>
 
 
 </navigation>
