@@ -30,11 +30,7 @@ import com.parse.Parse
 
 class MainActivity : AppCompatActivity() {
 
-    //navigation view
-    private lateinit var topAppBar: Toolbar
-    private lateinit var drawerLayout:DrawerLayout
-    private lateinit var navigationView:NavigationView
-
+    //variable para la configuración del menu de navegacion
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -118,10 +114,13 @@ class MainActivity : AppCompatActivity() {
         )
 
         //Test Parse
+        /*
         val ParseTestWorkRequest: WorkRequest = OneTimeWorkRequestBuilder<ParseTestWorker>().build()
         WorkManager
             .getInstance(this)
             .enqueue(ParseTestWorkRequest)
+         */
+        ParseApp.dummyInit()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

@@ -50,6 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
+                android:text="¡Gracias por donar!"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -59,8 +60,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
-                tools:ignore="HardcodedText"
-                tools:text="¡Gracias por donar!" />
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/continuarBoton"

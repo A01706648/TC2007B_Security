@@ -52,8 +52,6 @@ class AZResultsFragment: Fragment() {
         //Adaptador del Recycler View
         adapter = AZResultAdapter(sortedRestoredSite, this)
         recycler?.adapter = adapter
-
-        //Al hacer click en el boton correspondiente se ejecuta la transaccion de fragmentos
     }
 
     override fun onDestroyView() {
