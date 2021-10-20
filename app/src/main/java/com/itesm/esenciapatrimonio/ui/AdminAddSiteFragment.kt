@@ -63,8 +63,8 @@ class AdminAddSiteFragment: Fragment() {
                         coordinate_x = list[0].toDouble(),
                         coordinate_y = list[1].toDouble())
 
-                    val oParse = ParseApp()
-                    oParse.addRestoreSite(oNewSite, {listSite-> })
+                    //val oParse = ParseApp()
+                    ParseApp.addRestoreSite(oNewSite, {listSite-> })
                         // For debug:
                         //Toast.makeText(context, "Salida de coordenadas "+list[0]+" "+list[1], Toast.LENGTH_SHORT).show()
                 }

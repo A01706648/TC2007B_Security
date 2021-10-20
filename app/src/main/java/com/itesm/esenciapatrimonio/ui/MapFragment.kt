@@ -63,14 +63,14 @@ class MapFragment: Fragment() {
 
                 // Llama a Parse para cargar los datos
                 this.parseCallbackUse_MapboxMap = mapboxMap
-                val oParse = ParseApp();
+                //val oParse = ParseApp();
 
                 //Verificar que el dispositivo este conectado a internet o utilizando datos
                 val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
                 if (activeNetwork != null && activeNetwork.isConnected) {
                     //Si el dispositivo esta conectado carga los datos de parse en el mapa
-                    oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
+                    ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite)
                 }else {
                     Toast.makeText(context,"Error de conexion, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
                 }

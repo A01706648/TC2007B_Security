@@ -67,12 +67,12 @@ class AdminAddPhotosFragment: Fragment() {
 
                     //uploadImage()
 
-                val oParse = ParseApp()
-                oParse.addPicture(imageNow, "imageNowTest"){
+                //val oParse = ParseApp()
+                ParseApp.addPicture(imageNow, "imageNowTest"){
                     obj -> Log.d("Parse", "Save file Now")
                 }
 
-                oParse.addPicture(imageOld, "imageNowTest"){
+                ParseApp.addPicture(imageOld, "imageNowTest"){
                         obj -> Log.d("Parse", "Save file old")
                 }
 

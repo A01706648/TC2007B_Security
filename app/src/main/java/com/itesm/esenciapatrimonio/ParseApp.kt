@@ -59,7 +59,7 @@ public data class SComparePicture(var objectId:String = ""
                                     , var description:String = ""
                                     )
 
-public class ParseApp /*: Application()*/ {
+public object ParseApp /*: Application()*/ {
     /*
     override fun onCreate()
     {
@@ -75,9 +75,7 @@ public class ParseApp /*: Application()*/ {
     lateinit var pCallbackPicture:CallbackGetPicture;
     lateinit var pCallbackCompare:CallbackGetCompare;
 
-    companion object TestData{
-        var listImageTest:MutableList<String> = mutableListOf()
-    }
+    var listImageTest:MutableList<String> = mutableListOf()
 
     var bIsUpdatedSite:Boolean = false;
     var bIsUpdatedPicture:Boolean = false;
@@ -163,7 +161,7 @@ public class ParseApp /*: Application()*/ {
         if (objectList != null) {
             for(obj in objectList){
                 this.returnRestoreSite.add(SRestoreSite(
-                    obj.getString("objectId").toString()
+                    obj.objectId//obj.getString("objectId").toString()
                     , obj.getString("site_name").toString()
                     , obj.getString("information").toString()
                     , obj.getInt("est_year")
@@ -426,7 +424,7 @@ public class ParseApp /*: Application()*/ {
                             }
                         }
 
-                        TestData.listImageTest = listImage
+                        listImageTest = listImage
                         pCallback(listImage)
                     }
                     //this.bIsUpdatedSite = true;
@@ -446,5 +444,4 @@ public class ParseApp /*: Application()*/ {
 
         ParseUser.logInWithInBackground("google", authData)
     }
-
 }

@@ -65,8 +65,8 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
 
 
  */
-        Picasso.get().load(ParseApp.TestData.listImageTest[0]).into(holder.imagen_antigua)
-        Picasso.get().load(ParseApp.TestData.listImageTest[1]).into(holder.imagen_actual)
+        Picasso.get().load(ParseApp.listImageTest[0]).into(holder.imagen_antigua)
+        Picasso.get().load(ParseApp.listImageTest[1]).into(holder.imagen_actual)
 
 
 

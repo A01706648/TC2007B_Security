@@ -80,15 +80,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun ParseTest_Test(){
-            val oParse = ParseApp();
+            //val oParse = ParseApp();
             //oParse.initParse();
 
 //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
-            //oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite);
-            val oSite = SRestoreSite(site_name = "TestSite")
-            oParse.addRestoreSite(oSite, this::ParseTest_AddRestoreSite)
-            while(!isSiteAdded){}
-            oParse.deleteRestoreSite("TestSite", this::ParseTest_DeleteSite)
+            ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+            //val oSite = SRestoreSite(site_name = "TestSite")
+            //oParse.addRestoreSite(oSite, this::ParseTest_AddRestoreSite)
+            //while(!isSiteAdded){}
+            //oParse.deleteRestoreSite("TestSite", this::ParseTest_DeleteSite)
             //oParse.getAllPicture(this::ParseTest_GetPicture)
         }
 
