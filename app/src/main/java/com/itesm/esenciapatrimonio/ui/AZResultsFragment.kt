@@ -26,8 +26,8 @@ class AZResultsFragment: Fragment() {
         val root: View = binding.root
 
         // Cargar los datos de parse y guaradrlos en el arereglo restoredSite
-        val parse = ParseApp()
-        parse.getAllRestoreSite(this::getRestoredSite)
+        //val parse = ParseApp()
+        ParseApp.getAllRestoreSite(this::getRestoredSite)
 
         return root
     }

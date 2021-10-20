@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Gallery
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.R
@@ -30,7 +31,6 @@ class RestoredSiteFragment: Fragment() {
         _binding!!.Titulo.text = site.site_name
 
         _binding!!.descripcion.text = site.information
-        _binding!!.descripcion.text = "Descripción / Información / Historia completa del lugar en forma de resumen. No cabe todo el texto aquí, está bien jaja. El texto que sigue es sólo de pruebas, no pasa si se mueve o lo que sea, ntp. \n\nPrueba con saltos de línea para ver que se renderice el texto adecuadamente. \n\nNo debería haber problema porque existe una scrollview. \n\nWotefo jdsfhdsajd, háganle un chems y una fursona al Dany pa que se afurre sdfjhajd. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin risus lectus, at malesuada velit ornare eu. Vivamus et cursus mi, quis dictum turpis. Cras ut arcu metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec hendrerit scelerisque fermentum. Nullam et commodo diam, eget posuere augue. Duis malesuada nisi id est cursus, at vehicula neque dictum. Pellentesque mattis nisl velit, ut ultrices ipsum fermentum vel. In a purus ut diam dapibus posuere ut at magna. \n\nIn posuere et ipsum id elementum. In hendrerit risus ac enim aliquam, in scelerisque massa semper. Suspendisse sem ipsum, porta non sem id, varius facilisis sapien. Fusce vitae augue eu lorem congue ullamcorper ac et dolor. Vivamus varius rhoncus massa, a pellentesque turpis pretium in. Ut erat diam, laoreet vel pharetra vitae, imperdiet sit amet libero. Donec sed arcu et nibh consectetur aliquam."
         _binding!!.placeID.setTextIsSelectable(true)
 
         _binding!!.Direccion.text = "Dirección: "+site.address
@@ -65,7 +65,7 @@ class RestoredSiteFragment: Fragment() {
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
 
-            val fragment = GalleryFragment()
+            val fragment = AdminAddPhotosFragment()
 
             fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
             fragmentTransaction?.addToBackStack(null)

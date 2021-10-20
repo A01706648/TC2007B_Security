@@ -1,20 +1,34 @@
 package com.itesm.esenciapatrimonio
 
+import android.R.attr
 import android.app.Application
 import android.graphics.Picture
 import android.util.Log
-import com.parse.Parse
-import com.parse.ParseObject
-import com.parse.GetCallback
-import com.parse.ParseQuery
-import com.parse.ParseException
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
+import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.core.net.toFile
+import com.parse.*
+import java.io.File
+import java.time.Instant
+import android.R.attr.bitmap
+
+import java.io.ByteArrayOutputStream
+
+
+
 
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
 typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
 typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
 typealias CallbackCheckExist = (Boolean)->Unit
+typealias CallbackImage = (MutableList<String>)->Unit
+typealias CallbackDeleteSite = (String)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -45,7 +59,7 @@ public data class SComparePicture(var objectId:String = ""
                                     , var description:String = ""
                                     )
 
-public class ParseApp /*: Application()*/ {
+public object ParseApp /*: Application()*/ {
     /*
     override fun onCreate()
     {
@@ -60,6 +74,8 @@ public class ParseApp /*: Application()*/ {
     lateinit var pCallbackSite:CallbackGetRestoreSite;
     lateinit var pCallbackPicture:CallbackGetPicture;
     lateinit var pCallbackCompare:CallbackGetCompare;
+
+    var listImageTest:MutableList<String> = mutableListOf()
 
     var bIsUpdatedSite:Boolean = false;
     var bIsUpdatedPicture:Boolean = false;
@@ -145,7 +161,7 @@ public class ParseApp /*: Application()*/ {
         if (objectList != null) {
             for(obj in objectList){
                 this.returnRestoreSite.add(SRestoreSite(
-                    obj.getString("objectId").toString()
+                    obj.objectId//obj.getString("objectId").toString()
                     , obj.getString("site_name").toString()
                     , obj.getString("information").toString()
                     , obj.getInt("est_year")
@@ -164,9 +180,102 @@ public class ParseApp /*: Application()*/ {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun addPicture(oFile:Bitmap, fileName:String = "undefined name ${Instant.now().toString()}", pCallback:(ParseObject)->Unit){
+        val newPictureObject = ParseObject("Picture")
+
+//        val isFile = oFile.isFile
+//        val isExist = oFile.exists()
+        val stream = ByteArrayOutputStream()
+
+        oFile.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
+        val byteArray = stream.toByteArray()
+
+        val oParseFile:ParseFile =  ParseFile(byteArray)
+        newPictureObject.put("file", oParseFile)
+        newPictureObject.put("image_name", fileName)
+
+        oParseFile.saveInBackground(
+            SaveCallback { e ->
+                if(e == null) {
+                    newPictureObject.saveInBackground { e ->
+
+                        if (e == null) {
+                            //We saved the object and fetching data again
+                            if (pCallback != null) {
+                                pCallback(newPictureObject)
+                            }
+                        } else {
+                            //We have an error.We are showing error message here.
+                            Log.d("Parse", "Error: " + e.message)
+                        }
+                    }
+                }
+                else{
+                    Log.d("Parse", "Save File Error " + e.message)
+                }
+            })
+    }
+
+    fun addRestoreSite(oSite:SRestoreSite, pCallback: CallbackGetRestoreSite):Unit{
+        val newSiteObject = ParseObject("RestoreSite")
+
+        newSiteObject.put("site_name", oSite.site_name)
+        newSiteObject.put("information", oSite.information)
+        newSiteObject.put("est_year", oSite.est_year)
+        newSiteObject.put("restore_year", oSite.restore_year)
+        newSiteObject.put("address", oSite.address)
+        newSiteObject.put("coordinate_x", oSite.coordinate_x)
+        newSiteObject.put("coodinate_y", oSite.coordinate_y)
+
+        newSiteObject.saveInBackground { e ->
+
+            if (e == null) {
+                //We saved the object and fetching data again
+                if(pCallback != null)
+                {
+                    pCallback(mutableListOf(oSite))
+                }
+            } else {
+                //We have an error.We are showing error message here.
+                Log.d("Parse", "Error: " + e.message)
+            }
+        }
+    }
+
+    fun deleteRestoreSite(siteName:String, pCallback:CallbackDeleteSite){
+        var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
+        query.whereEqualTo("site_name", siteName);
+
+        query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+            if (e == null) {
+                Log.d("Parse", "Delete " + objectList?.size + " Site")
+
+                if(objectList != null) {
+                    for ((index, obj) in objectList.withIndex()) {
+                        obj.deleteInBackground{ e ->
+                            if(e == null){
+                                if(index == objectList.size - 1){
+                                    pCallback(siteName)
+                                }
+                            }
+                            else{
+                                Log.d("Parse", "Delete Error:" + e.message)
+                            }
+                        }
+                    }
+                }
+
+            } else {
+                Log.d("Parse", "Error: " + e.message)
+            }
+        }
+    }
+
     fun getAllRestoreSite(pCallback: CallbackGetRestoreSite):Unit
     {
-        this.returnRestoreSite = mutableListOf()
+        this.returnRestoreSite = mutableListOf(SRestoreSite())
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.orderByAscending("site_name");
@@ -194,7 +303,7 @@ public class ParseApp /*: Application()*/ {
 
     fun getAllRestoreSiteByName(siteName:String, pCallback: CallbackGetRestoreSite):Unit
     {
-        this.returnRestoreSite = mutableListOf()
+        this.returnRestoreSite = mutableListOf(SRestoreSite())
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.whereEqualTo("site_name", siteName);
@@ -278,5 +387,61 @@ public class ParseApp /*: Application()*/ {
         return listOf(returnComparePicture);
     }
 
+    fun getComparePictureBySite(siteName: String)
+    {
 
+    }
+
+    fun getAllPicture(pCallback:CallbackImage)
+    {
+        //this.returnRestoreSite = mutableListOf(SRestoreSite())
+
+        var query = ParseQuery.getQuery<ParseObject>("Picture")
+        query.orderByAscending("site_id");
+ //       if(this.bIsUpdatedSite)
+//        {
+//            query.fromLocalDatastore();
+//        }
+
+        if(pCallback != null) {
+            //pCallbackSite = pCallback;
+
+            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                if (e == null) {
+                    Log.d("Parse", "Retrieved Image" + objectList?.size + " Site")
+
+                    var listImage:MutableList<String> = mutableListOf()
+
+                    if (objectList != null) {
+                        for(obj in objectList) {
+                            //obj.getParseFile("file").toString()
+                            //val oFile = obj.getParseFile("file")
+                            //oFile?.getUrl()
+                            //val bitmap = BitmapFactory.decodeStream(obj.getParseFile("file").toString().byteInputStream())
+                            val imageUrl = obj.getParseFile("file")?.url
+                            if(imageUrl != null) {
+                                listImage.add(imageUrl)
+                            }
+                        }
+
+                        listImageTest = listImage
+                        pCallback(listImage)
+                    }
+                    //this.bIsUpdatedSite = true;
+                    //this.getSiteListFromParse(objectList);
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
+    }
+
+    fun googleLogin(user:String, tokenString:String)
+    {
+        val authData:Map<String, String> = mapOf("access_token" to tokenString, "id" to user)
+
+        ParseUser.logInWithInBackground("google", authData)
+    }
 }

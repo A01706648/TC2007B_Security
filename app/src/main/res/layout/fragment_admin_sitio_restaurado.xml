@@ -78,7 +78,7 @@
                         android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@+id/guardarHistoria"
+                        app:layout_constraintBottom_toTopOf="@+id/guardarNameAndDesc"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
                         tools:text="Descripción / Información / Historia completa del lugar en forma de resumen. No cabe todo el texto aquí, está bien jaja. El texto que sigue es sólo de pruebas, no pasa si se mueve o lo que sea, ntp." />
 
                     <Button
-                        android:id="@+id/guardarHistoria"
+                        android:id="@+id/guardarNameAndDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginBottom="8dp"
@@ -126,7 +126,7 @@
                 <!-- Layout para la carta -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <!-- Título -->
                     <TextView
@@ -147,139 +147,14 @@
                         tools:ignore="HardcodedText" />
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/TituloFotos"
-                        app:layout_constraintWidth_max="400dp">
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardView4"
-                            android:layout_width="0dp"
-                            android:layout_height="200dp"
-                            android:layout_marginEnd="8dp"
-                            app:cardBackgroundColor="#DD15CDCD"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="4dp"
-                            app:layout_constraintEnd_toStartOf="@id/cardView5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/antigua"
-                                android:layout_width="match_parent"
-                                android:layout_height="170dp"
-                                app:cardCornerRadius="10dp"
-                                app:cardElevation="4dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <ImageView
-                                    android:id="@+id/imagenAntigua"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="170dp"
-                                    android:contentDescription="Cargando"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/load"
-                                    tools:ignore="HardcodedText"
-                                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-
-                            </androidx.cardview.widget.CardView>
-
-                            <TextView
-                                android:id="@+id/textAntigua"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="175dp"
-                                android:fontFamily="sans-serif"
-                                android:text="Antigüa"
-                                android:textColor="#000000"
-                                tools:ignore="HardcodedText" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardView5"
-                            android:layout_width="0dp"
-                            android:layout_height="200dp"
-                            android:layout_marginStart="8dp"
-                            app:cardBackgroundColor="#DDB8C442"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="4dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/cardView4"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/actual"
-                                android:layout_width="wrap_content"
-                                android:layout_height="170dp"
-                                android:maxWidth="1dp"
-                                app:cardCornerRadius="10dp"
-                                app:cardElevation="4dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <ImageView
-                                    android:id="@+id/imagenActual"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="170dp"
-                                    android:contentDescription="Cargando"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/load"
-                                    tools:ignore="HardcodedText"
-                                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-
-                            </androidx.cardview.widget.CardView>
-
-                            <TextView
-                                android:id="@+id/textActual"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="175dp"
-                                android:fontFamily="sans-serif"
-                                android:text="Actual"
-                                android:textColor="#000000"
-                                tools:ignore="HardcodedText" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/nombreCategoria"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:textAlignment="center"
-                            android:textColor="#000000"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/cardView4"
-                            tools:text="Nombre de la categoría" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
                     <Button
                         android:id="@+id/verGaleria"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:elevation="4dp"
-                        android:text="Ver galería"
+                        android:text="Administrar fotografías"
                         android:textSize="11sp"
                         android:translationZ="4dp"
                         app:cornerRadius="8dp"
@@ -287,7 +162,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/TituloFotos"
                         tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
