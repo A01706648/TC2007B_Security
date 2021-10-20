@@ -28,15 +28,37 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
         fun onClick(url: String)
     }
 
-    private val categorias = arrayOf("Card 1")
+    companion object {
+        private lateinit var categorias: Array<String>// = arrayOf("Card 1")
 
-    private val imagenes_antiguas = arrayOf(
+        private lateinit var imagenes_antiguas: Array<String> /*= arrayOf(
         "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2074&q=80"
     )
+    */
 
-    private val imagenes_actuales = arrayOf(
+        private lateinit var imagenes_actuales: Array<String>/* = arrayOf(
         "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80"
-    )
+    )*/
+
+        fun initData()
+        {
+            val listCategorias:MutableList<String> = mutableListOf()
+            val listImagenes_antiguas:MutableList<String> = mutableListOf()
+            val listImagenes_actuales:MutableList<String> = mutableListOf()
+
+            for(comp in TransactionData.listCompare){
+                listCategorias.add(comp.description)
+                listImagenes_actuales.add(comp.newPic_id)
+                listImagenes_antiguas.add(comp.oldPic_id)
+            }
+
+            categorias = listCategorias.toTypedArray()
+            imagenes_actuales = listImagenes_actuales.toTypedArray()
+            imagenes_antiguas = listImagenes_antiguas.toTypedArray()
+        }
+    }
+
+
 
     private var listCompare :MutableList<SComparePicture> ?= null
 

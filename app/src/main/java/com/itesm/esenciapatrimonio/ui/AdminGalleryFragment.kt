@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminGaleriaBinding
 
 class AdminGalleryFragment: Fragment() {
@@ -23,6 +24,16 @@ class AdminGalleryFragment: Fragment() {
 
         _binding = FragmentAdminGaleriaBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        _binding!!.nuevoBloque.setOnClickListener{
+            val fragmentManager = fragmentManager
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+
+            val fragment = AdminAddPhotosFragment()
+
+            fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            fragmentTransaction?.commit()
+        }
 
         return root
     }
