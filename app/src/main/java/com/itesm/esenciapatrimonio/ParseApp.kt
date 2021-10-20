@@ -3,15 +3,16 @@ package com.itesm.esenciapatrimonio
 import android.app.Application
 import android.graphics.Picture
 import android.util.Log
-import com.parse.Parse
-import com.parse.ParseObject
-import com.parse.GetCallback
-import com.parse.ParseQuery
-import com.parse.ParseException
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.Image
+import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.core.net.toFile
+import com.parse.*
+import java.time.Instant
 
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
@@ -19,6 +20,7 @@ typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
 typealias CallbackGetCompare = (MutableList<SComparePicture>)->Unit
 typealias CallbackCheckExist = (Boolean)->Unit
 typealias CallbackImage = (MutableList<String>)->Unit
+typealias CallbackDeleteSite = (String)->Unit
 
 public enum class EPicType(var type:Int)
 {
@@ -172,6 +174,28 @@ public class ParseApp /*: Application()*/ {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun addPicture(oFile:Uri, fileName:String = "undefined name ${Instant.now().toString()}", pCallback:(ParseObject)->Unit){
+        val newPictureObject = ParseObject("Picture")
+        val oParseFile:ParseFile =  ParseFile(oFile.toFile())
+        newPictureObject.put("file", oParseFile)
+        newPictureObject.put("image_name", fileName)
+
+        newPictureObject.saveInBackground { e ->
+
+            if (e == null) {
+                //We saved the object and fetching data again
+                if(pCallback != null)
+                {
+                    pCallback(newPictureObject)
+                }
+            } else {
+                //We have an error.We are showing error message here.
+                Log.d("Parse", "Error: " + e.message)
+            }
+        }
+    }
+
     fun addRestoreSite(oSite:SRestoreSite, pCallback: CallbackGetRestoreSite):Unit{
         val newSiteObject = ParseObject("RestoreSite")
 
@@ -193,6 +217,35 @@ public class ParseApp /*: Application()*/ {
                 }
             } else {
                 //We have an error.We are showing error message here.
+                Log.d("Parse", "Error: " + e.message)
+            }
+        }
+    }
+
+    fun deleteRestoreSite(siteName:String, pCallback:CallbackDeleteSite){
+        var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
+        query.whereEqualTo("site_name", siteName);
+
+        query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+            if (e == null) {
+                Log.d("Parse", "Delete " + objectList?.size + " Site")
+
+                if(objectList != null) {
+                    for ((index, obj) in objectList.withIndex()) {
+                        obj.deleteInBackground{ e ->
+                            if(e == null){
+                                if(index == objectList.size - 1){
+                                    pCallback(siteName)
+                                }
+                            }
+                            else{
+                                Log.d("Parse", "Delete Error:" + e.message)
+                            }
+                        }
+                    }
+                }
+
+            } else {
                 Log.d("Parse", "Error: " + e.message)
             }
         }
@@ -363,5 +416,11 @@ public class ParseApp /*: Application()*/ {
         return;
     }
 
+    fun googleLogin(user:String, tokenString:String)
+    {
+        val authData:Map<String, String> = mapOf("access_token" to tokenString, "id" to user)
+
+        ParseUser.logInWithInBackground("google", authData)
+    }
 
 }
