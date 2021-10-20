@@ -65,7 +65,8 @@ class RestoredSiteFragment: Fragment() {
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
 
-            val fragment = AdminAddPhotosFragment()
+            //val fragment = AdminAddPhotosFragment()
+            val fragment = GalleryFragment()
 
             fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
             fragmentTransaction?.addToBackStack(null)
