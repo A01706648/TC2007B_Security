@@ -24,8 +24,19 @@ class ThanksDonationFragment: Fragment() {
         _binding = FragmentDonacionGraciasBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        _binding!!.continuarBoton.setOnClickListener{
+
+        }
+
         return root
     }
+
+    interface IOnBackPressed {
+        fun onBackPressed(): Boolean
+    }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
