@@ -81,21 +81,24 @@ public object ParseApp /*: Application()*/ {
     var bIsUpdatedPicture:Boolean = false;
     var bIsUpdatedCompare:Boolean = false;
 
-    fun initParse()
+    private lateinit var mapSiteObjectId: MutableMap<String, String>
+
+
+    fun dummyInit()
     {
-        /*
-        Parse.initialize(
-            Parse.Configuration.Builder(this)
-                .applicationId(getString(R.string.back4app_app_id)) // if defined
-                .clientKey(getString(R.string.back4app_client_key))
-                .server(getString(R.string.back4app_server_url))
-                .build()
-        )
 
+    }
 
+    fun init()
+    {
+        //Do the get All for all the Picture, Compare and Restore site table
+        getAllRestoreSite {listSite ->
+            mapSiteObjectId = mutableMapOf()
 
-        Log.d("Parse","Init")
-        */
+            for(oSite in listSite){
+                mapSiteObjectId[oSite.site_name] = oSite.objectId
+            }
+        }
     }
 
     fun getPicture(objectId: String, callback: CallbackGetRestoreSite):Unit
@@ -279,10 +282,11 @@ public object ParseApp /*: Application()*/ {
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.orderByAscending("site_name");
+        /*
         if(this.bIsUpdatedSite)
         {
             query.fromLocalDatastore();
-        }
+        }*/
 
         if(pCallback != null) {
             pCallbackSite = pCallback;

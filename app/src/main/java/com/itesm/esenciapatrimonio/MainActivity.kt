@@ -114,10 +114,13 @@ class MainActivity : AppCompatActivity() {
         )
 
         //Test Parse
+        /*
         val ParseTestWorkRequest: WorkRequest = OneTimeWorkRequestBuilder<ParseTestWorker>().build()
         WorkManager
             .getInstance(this)
             .enqueue(ParseTestWorkRequest)
+         */
+        ParseApp.dummyInit()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
