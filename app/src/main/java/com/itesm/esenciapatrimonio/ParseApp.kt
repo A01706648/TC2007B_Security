@@ -1,5 +1,6 @@
 package com.itesm.esenciapatrimonio
 
+import android.R.attr
 import android.app.Application
 import android.graphics.Picture
 import android.util.Log
@@ -12,7 +13,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.net.toFile
 import com.parse.*
+import java.io.File
 import java.time.Instant
+import android.R.attr.bitmap
+
+import java.io.ByteArrayOutputStream
+
+
+
 
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
@@ -175,25 +183,41 @@ public class ParseApp /*: Application()*/ {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addPicture(oFile:Uri, fileName:String = "undefined name ${Instant.now().toString()}", pCallback:(ParseObject)->Unit){
+    fun addPicture(oFile:Bitmap, fileName:String = "undefined name ${Instant.now().toString()}", pCallback:(ParseObject)->Unit){
         val newPictureObject = ParseObject("Picture")
-        val oParseFile:ParseFile =  ParseFile(oFile.toFile())
+
+//        val isFile = oFile.isFile
+//        val isExist = oFile.exists()
+        val stream = ByteArrayOutputStream()
+
+        oFile.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
+        val byteArray = stream.toByteArray()
+
+        val oParseFile:ParseFile =  ParseFile(byteArray)
         newPictureObject.put("file", oParseFile)
         newPictureObject.put("image_name", fileName)
 
-        newPictureObject.saveInBackground { e ->
+        oParseFile.saveInBackground(
+            SaveCallback { e ->
+                if(e == null) {
+                    newPictureObject.saveInBackground { e ->
 
-            if (e == null) {
-                //We saved the object and fetching data again
-                if(pCallback != null)
-                {
-                    pCallback(newPictureObject)
+                        if (e == null) {
+                            //We saved the object and fetching data again
+                            if (pCallback != null) {
+                                pCallback(newPictureObject)
+                            }
+                        } else {
+                            //We have an error.We are showing error message here.
+                            Log.d("Parse", "Error: " + e.message)
+                        }
+                    }
                 }
-            } else {
-                //We have an error.We are showing error message here.
-                Log.d("Parse", "Error: " + e.message)
-            }
-        }
+                else{
+                    Log.d("Parse", "Save File Error " + e.message)
+                }
+            })
     }
 
     fun addRestoreSite(oSite:SRestoreSite, pCallback: CallbackGetRestoreSite):Unit{
