@@ -7,17 +7,17 @@
     android:layout_height="match_parent">
 
     <!-- Fondo -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
         app:cardBackgroundColor="#CCFFFFFF"
         app:cardCornerRadius="14dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
         tools:layout_editor_absoluteX="20dp">
 
         <!-- Layout para la carta -->
@@ -28,33 +28,15 @@
             <!-- Título -->
 
             <TextView
-                android:id="@+id/descripcion3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Desde el fondo de nuestros corazones agradecemos tu amable colaboración para hacer que este proyecto siga en crecimiento. 💚"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/continuarBoton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Titulo"
-                tools:ignore="HardcodedText" />
-
-            <TextView
                 android:id="@+id/Titulo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:fontFamily="sans-serif"
-                android:text="¡Gracias por donar!"
+                android:text="Iniciar Sesión"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/descripcion3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,21 +44,33 @@
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:ignore="HardcodedText" />
 
-            <Button
-                android:id="@+id/continuarBoton"
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:elevation="4dp"
-                android:stateListAnimator="@null"
-                android:text="Continuar"
-                android:translationZ="4dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descripcion3"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="48dp"
+                android:text="Google"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Titulo"
+                app:layout_constraintVertical_chainStyle="packed" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

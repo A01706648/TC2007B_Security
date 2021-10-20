@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.SRestoreSite
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminAddSiteBinding
-import com.parse.Parse
 
 class AdminAddSiteFragment: Fragment() {
     private var _binding: FragmentAdminAddSiteBinding? = null
@@ -67,6 +67,15 @@ class AdminAddSiteFragment: Fragment() {
                     ParseApp.addRestoreSite(oNewSite, {listSite-> })
                         // For debug:
                         //Toast.makeText(context, "Salida de coordenadas "+list[0]+" "+list[1], Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(activity,"Sitio agregado exitosamente",Toast.LENGTH_SHORT).show()
+                    val fragmentManager = fragmentManager
+                    val fragmentTransaction = fragmentManager?.beginTransaction()
+
+                    val fragment = AdminMainFragment()
+
+                    fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                    fragmentTransaction?.commit()
                 }
             }
         }

@@ -2,21 +2,12 @@ package com.itesm.esenciapatrimonio
 
 import android.os.Build
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
-import android.graphics.Bitmap
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.appbar.AppBarLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -25,16 +16,11 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.work.*
 import com.google.android.material.navigation.NavigationView
 import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
-import com.itesm.esenciapatrimonio.Permissions
 import com.parse.Parse
 
 class MainActivity : AppCompatActivity() {
 
-    //navigation view
-    private lateinit var topAppBar: Toolbar
-    private lateinit var drawerLayout:DrawerLayout
-    private lateinit var navigationView:NavigationView
-
+    //variable para la configuración del menu de navegacion
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -159,8 +145,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.view_map, R.id.view_advanced_search, R.id.view_about_us, R.id.view_login, R.id.view_donate
-            ), drawerLayout
+                R.id.view_map, R.id.view_advanced_search, R.id.view_about_us, R.id.view_login, R.id.view_donate), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

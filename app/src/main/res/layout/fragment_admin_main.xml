@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,36 +24,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Título -->
-
-            <TextView
-                android:id="@+id/descripcion3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Desde el fondo de nuestros corazones agradecemos tu amable colaboración para hacer que este proyecto siga en crecimiento. 💚"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/continuarBoton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Titulo"
-                tools:ignore="HardcodedText" />
-
             <TextView
                 android:id="@+id/Titulo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:fontFamily="sans-serif"
-                android:text="¡Gracias por donar!"
+                android:text="Administrador"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/descripcion3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,20 +42,30 @@
                 tools:ignore="HardcodedText" />
 
             <Button
-                android:id="@+id/continuarBoton"
+                android:id="@+id/button_add_site"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:elevation="4dp"
-                android:stateListAnimator="@null"
-                android:text="Continuar"
-                android:translationZ="4dp"
+                android:layout_marginBottom="80dp"
+                android:text="Agregar Sitio"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descripcion3"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:name="com.itesm.esenciapatrimonio.ui.AdminAddSiteFragment"
+                tools:layout="@layout/fragment_admin_add_site"/>
+
+            <Button
+                android:id="@+id/button_photos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar Sitio"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_add_site"
+                app:layout_constraintVertical_bias="0.139"
+                android:name="com.itesm.esenciapatrimonio.ui.AdminAZResultsFragment"
+                tools:layout="@layout/fragment_admin_az_results"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

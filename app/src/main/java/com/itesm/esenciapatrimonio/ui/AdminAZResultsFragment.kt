@@ -8,10 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.esenciapatrimonio.*
-import com.itesm.esenciapatrimonio.databinding.FragmentAzResultsBinding
+import com.itesm.esenciapatrimonio.databinding.FragmentAdminAzResultsBinding
 
-class AZResultsFragment: Fragment() {
-    private var _binding: FragmentAzResultsBinding? = null
+
+class AdminAZResultsFragment: Fragment() {
+    private var _binding: FragmentAdminAzResultsBinding? = null
     private val binding get() = _binding!!
 
     //restored site array from data base
@@ -22,7 +23,7 @@ class AZResultsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAzResultsBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminAzResultsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         // Cargar los datos de parse y guaradrlos en el arereglo restoredSite
@@ -44,13 +45,13 @@ class AZResultsFragment: Fragment() {
 
         // Mostrar en la view cada elemento de la lista como boton
         var layoutManager: RecyclerView.LayoutManager? = null
-        var adapter: RecyclerView.Adapter<AZResultAdapter.ViewHolder>? = null
+        var adapter: RecyclerView.Adapter<AdminAZResultAdapter.ViewHolder>? = null
 
         layoutManager = LinearLayoutManager(activity)
         recycler?.layoutManager = layoutManager
 
         //Adaptador del Recycler View
-        adapter = AZResultAdapter(sortedRestoredSite, this)
+        adapter = AdminAZResultAdapter(sortedRestoredSite, this)
         recycler?.adapter = adapter
     }
 

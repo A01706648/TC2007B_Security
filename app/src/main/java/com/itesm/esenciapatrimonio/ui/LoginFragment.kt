@@ -1,24 +1,13 @@
 package com.itesm.esenciapatrimonio.ui
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.parse.SignUpCallback
-import com.parse.Parse
-import com.parse.ParseException
-import com.parse.ParseUser
-import com.parse.LogInCallback
-
-
 import com.itesm.esenciapatrimonio.R
-
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
 
 class LoginFragment: Fragment() {
@@ -37,12 +26,14 @@ class LoginFragment: Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
-        binding.button3.setOnClickListener{
+
+        binding.botonLogin.setOnClickListener{
             val user:String = binding.Usuario.text.toString()
             val password:String = binding.contrasena.text.toString()
 
@@ -50,40 +41,32 @@ class LoginFragment: Fragment() {
         }
     }
 
-
-
-
     fun login(username: String, password: String) {
 
-        var cont:Int = 0
-
-        val Puser:String = "user"
-        val Ppassword:String = "password"
-
-        if(username == ""){
-
-            Toast.makeText(activity,"El usuario es requerido",Toast.LENGTH_SHORT).show()
-        }else if(password == ""){
-
-            Toast.makeText(activity,"La contraseña es requerida",Toast.LENGTH_SHORT).show()
-        }else{
-
-            ParseUser.logInInBackground(username,password,
-                ({ user, e ->
-                    if(user != null) {
-                        //ir al map
-                        Toast.makeText(activity, "Logeado con parse", Toast.LENGTH_LONG).show()
-                        //val fragmentManager = fragmentManager
-                        //val fragmentTransaction = fragmentManager?.beginTransaction()
-                        //val fragment = MapFragment()
-
-                    } else {
-                        Toast.makeText(activity, "Contraseña y/o usuario equivocados parse", Toast.LENGTH_LONG).show()
-                    }
-
-                })
-            )
+        if (username == "" || username == " "){
+            Toast.makeText(activity,"No pusiste un usuario",Toast.LENGTH_SHORT).show()
         }
+        else if (password == "" || password == " "){
+            Toast.makeText(activity,"No pusiste una contraseña",Toast.LENGTH_SHORT).show()
+        }
+        else{
+        // TODO: Parse verify username and password
+            if(username == "patrimonio" && password == "1234"){
+                Toast.makeText(activity,"Inicio de sesión exitoso",Toast.LENGTH_SHORT).show()
+                val fragmentManager = fragmentManager
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+
+                val fragment = AdminMainFragment()
+
+                fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                fragmentTransaction?.commit()
+            }
+            else{
+                Toast.makeText(activity,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
     }
 
 

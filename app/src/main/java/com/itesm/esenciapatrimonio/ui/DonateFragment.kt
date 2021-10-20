@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentDonacionBinding
 
 class DonateFragment: Fragment() {
@@ -53,24 +54,18 @@ class DonateFragment: Fragment() {
             val openURL = Intent(android.content.Intent.ACTION_VIEW)
             openURL.data = Uri.parse(url)
             startActivity(openURL)
-            // TODO hacer que funcione goToThanks()
-        }
 
-        // TODO: Hacer que el usuario vaya a fragment_donacion_gracias
-        /*
-        fun goToThanks(site: SRestoreSite): Boolean {
+            // Ir a la vista de thanks
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
-            val fragment = RestoredSiteFragment()
 
-            TransactionData.restoredSite = mutableListOf(site)
+            Thread.sleep(2_000)
+            val fragment = ThanksDonationFragment()
 
             fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
-            fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.commit()
-            return true
         }
-         */
+
 
         return root
     }
