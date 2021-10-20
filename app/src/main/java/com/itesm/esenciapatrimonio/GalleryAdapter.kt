@@ -59,15 +59,15 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoria.text = categorias[position]
-
+/*
         Picasso.get().load(imagenes_antiguas[position]).into(holder.imagen_antigua)
         Picasso.get().load(imagenes_actuales[position]).into(holder.imagen_actual)
 
-/*
-        holder.imagen_actual.setImageBitmap(ParseApp.TestData.listImageTest[0])
-        holder.imagen_actual.setImageBitmap(ParseApp.TestData.listImageTest[1])
 
  */
+        Picasso.get().load(ParseApp.TestData.listImageTest[0]).into(holder.imagen_antigua)
+        Picasso.get().load(ParseApp.TestData.listImageTest[1]).into(holder.imagen_actual)
+
 
 
         holder.imagen_antigua.setOnClickListener{v: View ->
