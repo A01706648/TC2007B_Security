@@ -1,33 +1,28 @@
 package com.itesm.esenciapatrimonio.ui
 
-import android.app.AlertDialog
-import android.content.Intent
+/*import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.parse.SignUpCallback
-import com.parse.Parse
-import com.parse.ParseException
-import com.parse.ParseUser
-import com.parse.LogInCallback
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.itesm.esenciapatrimonio.databinding.FragmentAboutUsBinding
+import com.itesm.esenciapatrimonio.databinding.FragmentLoginMainBinding
 
-
-import com.itesm.esenciapatrimonio.R
-
-import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
+const val RC_SIGN_IN = 123
 
 class LoginFragment: Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentLoginMainBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
     private val binding get() = _binding!!
-
-    private lateinit var usuario: EditText
-    private lateinit var contrasena: EditText
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,61 +30,75 @@ class LoginFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginMainBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        return binding.root
-    }
+        // Aquí va todo el código
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
-        super.onViewCreated(view, savedInstanceState)
-        binding.button3.setOnClickListener{
-            val user:String = binding.Usuario.text.toString()
-            val password:String = binding.contrasena.text.toString()
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
 
-            login(user,password)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        val mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+
+        binding.signInButton.visibility = View.VISIBLE
+        binding.tvName.visibility = View.GONE
+        binding.signInButton.setSize(SignInButton.SIZE_STANDARD)
+        binding.signInButton.setOnClickListener {
+            val signInIntent = mGoogleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-    }
-
-
-
-
-    fun login(username: String, password: String) {
-
-        var cont:Int = 0
-
-        val Puser:String = "user"
-        val Ppassword:String = "password"
-
-        if(username == ""){
-
-            Toast.makeText(activity,"El usuario es requerido",Toast.LENGTH_SHORT).show()
-        }else if(password == ""){
-
-            Toast.makeText(activity,"La contraseña es requerida",Toast.LENGTH_SHORT).show()
-        }else{
-
-            ParseUser.logInInBackground(username,password,
-                ({ user, e ->
-                    if(user != null) {
-                        //ir al map
-                        Toast.makeText(activity, "Logeado con parse", Toast.LENGTH_LONG).show()
-                        //val fragmentManager = fragmentManager
-                        //val fragmentTransaction = fragmentManager?.beginTransaction()
-                        //val fragment = MapFragment()
-
-                    } else {
-                        Toast.makeText(activity, "Contraseña y/o usuario equivocados parse", Toast.LENGTH_LONG).show()
-                    }
-
-                })
-            )
+        val acct = GoogleSignIn.getLastSignedInAccount(context)
+        if (acct != null) {
+            binding.signInButton.visibility = View.GONE
+            binding.tvName.text = acct.displayName
+            binding.tvName.visibility = View.VISIBLE
         }
-    }
 
+        // TODO: Establecer una cuenta estática que sólo puede acceder
+        // Correo: esenciatestpatrimonio@gmail.com
+        // Pass: M3m3h!123
+
+        return root
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-}
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSingInResult(task)
+        }
+    }
+
+    private fun handleSingInResult(completedTask: Task<GoogleSignInAccount>?) {
+        try {
+            val account = completedTask!!.getResult(ApiException::class.java)
+
+            binding.signInButton.visibility = View.GONE
+            binding.tvName.text = account.displayName
+            binding.tvName.visibility = View.VISIBLE
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            binding.signInButton.visibility = View.VISIBLE
+            binding.tvName.text = ""
+            binding.tvName.visibility = View.GONE
+        }
+    }
+
+}*/

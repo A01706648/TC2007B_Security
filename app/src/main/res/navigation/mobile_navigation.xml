@@ -25,7 +25,7 @@
         android:id="@+id/view_login"
         android:name="com.itesm.esenciapatrimonio.ui.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login_main" />
     <fragment
         android:id="@+id/view_donate"
         android:name="com.itesm.esenciapatrimonio.ui.DonateFragment"

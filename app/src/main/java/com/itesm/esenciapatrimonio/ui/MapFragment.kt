@@ -2,7 +2,6 @@ package com.itesm.esenciapatrimonio.ui
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.Network
 import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.SRestoreSite
-import com.itesm.esenciapatrimonio.TransactionData
+import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentMapBinding
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.Marker
