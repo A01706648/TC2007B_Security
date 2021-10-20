@@ -72,7 +72,7 @@ class MapFragment: Fragment() {
                     //Si el dispositivo esta conectado carga los datos de parse en el mapa
                     oParse.getAllRestoreSite(this::ParseTest_GetRestoreSite)
                 }else {
-                    Toast.makeText(context,"Error de conexion, verifique que su dispositivo este conectado a internet", Toast.LENGTH_SHORT)
+                    Toast.makeText(context,R.string.network_error, Toast.LENGTH_SHORT).show()
                 }
 
                 //comparar de la lista de marcadores el marcador seleccionado
