@@ -64,8 +64,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_add_site"
                 app:layout_constraintVertical_bias="0.139"
-                android:name="com.itesm.esenciapatrimonio.ui.AdminGalleryFragment"
-                tools:layout="@layout/fragment_admin_galeria"/>
+                android:name="com.itesm.esenciapatrimonio.ui.AdminAZResultsFragment"
+                tools:layout="@layout/fragment_admin_az_results"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

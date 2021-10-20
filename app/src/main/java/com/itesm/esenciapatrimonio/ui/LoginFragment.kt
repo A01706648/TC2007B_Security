@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
 
 class LoginFragment: Fragment() {
@@ -52,8 +53,18 @@ class LoginFragment: Fragment() {
         // TODO: Parse verify username and password
             if(username == "patrimonio" && password == "1234"){
                 Toast.makeText(activity,"Inicio de sesión exitoso",Toast.LENGTH_SHORT).show()
+                val fragmentManager = fragmentManager
+                val fragmentTransaction = fragmentManager?.beginTransaction()
 
+                val fragment = AdminMainFragment()
+
+                fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                fragmentTransaction?.commit()
             }
+            else{
+                Toast.makeText(activity,"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }

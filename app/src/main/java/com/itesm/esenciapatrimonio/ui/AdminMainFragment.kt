@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminMainBinding
 
 class AdminMainFragment: Fragment() {
@@ -23,17 +24,22 @@ class AdminMainFragment: Fragment() {
         _binding = FragmentAdminMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        return root
-
-        var  = 0
-
-        binding.
-
-        _binding!!.buttonAddSite.setOnClickListener{
-            code_id = 1
-            pickImageGallery(code_id)
-            selectImage()
+        binding.buttonAddSite.setOnClickListener{
+            val fragmentManager = fragmentManager
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            val fragment = AdminAddSiteFragment()
+            fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            fragmentTransaction?.commit()
         }
+
+        binding.buttonPhotos.setOnClickListener{
+            val fragmentManager = fragmentManager
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            val fragment = AdminAZResultsFragment()
+            fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            fragmentTransaction?.commit()
+        }
+        return root
     }
 
     override fun onDestroyView() {
