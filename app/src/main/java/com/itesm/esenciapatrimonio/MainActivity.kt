@@ -70,12 +70,21 @@ class MainActivity : AppCompatActivity() {
             //oParse.initParse();
 
 //oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
-            ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+            //ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite);
             //val oSite = SRestoreSite(site_name = "TestSite")
             //oParse.addRestoreSite(oSite, this::ParseTest_AddRestoreSite)
             //while(!isSiteAdded){}
             //oParse.deleteRestoreSite("TestSite", this::ParseTest_DeleteSite)
             //oParse.getAllPicture(this::ParseTest_GetPicture)
+            ParseApp.getAllComparePictureBySite("Example2"){listComp ->
+                for(comp in listComp) {
+                    Log.d("Parse", "Compare " + "object id ${comp.objectId}")
+                    Log.d("Parse", "Compare " + "Site ${comp.site_id}")
+                    Log.d("Parse", "Compare " + "Old Pic ${comp.oldPic_id}")
+                    Log.d("Parse", "Compare " + "New Pic ${comp.newPic_id}")
+                    Log.d("Parse", "Compare " + "Description ${comp.description}")
+                }
+            }
         }
 
         override fun doWork(): Result {
@@ -99,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 .applicationId(getString(R.string.back4app_app_id)) // if defined
                 .clientKey(getString(R.string.back4app_client_key))
                 .server(getString(R.string.back4app_server_url))
-                //.enableLocalDataStore()
+                .enableLocalDataStore()
                 .build()
         )
 
@@ -110,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             .getInstance(this)
             .enqueue(ParseTestWorkRequest)
          */
-        ParseApp.dummyInit()
+        ParseApp.init()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

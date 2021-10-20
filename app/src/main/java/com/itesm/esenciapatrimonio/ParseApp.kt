@@ -1,13 +1,25 @@
 package com.itesm.esenciapatrimonio
 
+import android.R.attr
+import android.app.Application
 import android.graphics.Picture
 import android.util.Log
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.net.toFile
 import com.parse.*
+import java.io.File
 import java.time.Instant
+import android.R.attr.bitmap
+
 import java.io.ByteArrayOutputStream
+import java.time.format.DateTimeFormatter
+
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
 typealias CallbackGetPicture = (MutableList<SPicture>)->Unit
@@ -32,10 +44,8 @@ public data class SRestoreSite(var objectId:String = ""
                                 )
 
 public data class SPicture(var objectId:String = ""
-                            , var file:Picture
+                            , var url:String = ""
                             , var image_name:String = ""
-                            , var site_id:String = ""
-                            , var pic_type:EPicType = EPicType.undefined
                             )
 
 public data class SComparePicture(var objectId:String = ""
@@ -67,7 +77,11 @@ public object ParseApp /*: Application()*/ {
     var bIsUpdatedPicture:Boolean = false;
     var bIsUpdatedCompare:Boolean = false;
 
+    //those one are in use
     private lateinit var mapSiteObjectId: MutableMap<String, String>
+    private lateinit var listPicture: MutableList<SPicture>
+    private lateinit var listCompare: MutableList<SComparePicture>
+    private lateinit var listRestoreSite: MutableList<SRestoreSite>
 
 
     fun dummyInit()
@@ -77,22 +91,32 @@ public object ParseApp /*: Application()*/ {
 
     fun init()
     {
+        bIsUpdatedPicture = false
+        bIsUpdatedCompare = false
+        bIsUpdatedSite = false
+
         //Do the get All for all the Picture, Compare and Restore site table
         getAllRestoreSite {listSite ->
             mapSiteObjectId = mutableMapOf()
+            listRestoreSite = mutableListOf()
 
             for(oSite in listSite){
                 mapSiteObjectId[oSite.site_name] = oSite.objectId
+                listRestoreSite.add(oSite)
             }
+
+            bIsUpdatedSite  = true
+        }
+
+        getAllPicture{listPic ->
+
+        }
+
+        getAllComparePicture{listCom ->
+
         }
     }
 
-    fun getPicture(objectId: String, callback: CallbackGetRestoreSite):Unit
-    {
-        var returnPicture:SPicture = SPicture(objectId, Picture(), "","", EPicType.undefined);
-
-
-    }
 
     fun getRestoreSite(objectId: String, pCallback: CallbackGetRestoreSite):Unit
     {
@@ -125,29 +149,11 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
-    fun getComparePicture(objectId: String):SComparePicture
-    {
-        val returnComparePicture:SComparePicture = SComparePicture(
-            objectId
-            , ""
-            , ""
-            , ""
-            , "");
-
-        return returnComparePicture;
-    }
-
-    fun getAllPicture(objectId: String):List<SPicture>
-    {
-        val returnPicture:SPicture = SPicture("", Picture(), "","", EPicType.undefined);
-
-        return listOf(returnPicture);
-    }
-
     private fun getSiteListFromParse(objectList: List<ParseObject>?)
     {
         lateinit var obj:ParseObject
         if (objectList != null) {
+            this.returnRestoreSite = mutableListOf()
             for(obj in objectList){
                 this.returnRestoreSite.add(SRestoreSite(
                     obj.objectId//obj.getString("objectId").toString()
@@ -167,6 +173,104 @@ public object ParseApp /*: Application()*/ {
         {
             Log.d("Parse", "Error: objectList null")
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun addComparePicture(siteName:String, siteDescrip:String, imageNew:Bitmap, imageOld:Bitmap, pCallback:(SComparePicture)->Unit)
+    {
+        val timeStamp = DateTimeFormatter.ISO_INSTANT.format(Instant.now())
+
+        val objImageNew = ParseObject("Picture")
+        val objImageOld = ParseObject("Picture")
+        val streamImageNew = ByteArrayOutputStream()
+        val streamImageOld = ByteArrayOutputStream()
+
+        imageNew.compress(Bitmap.CompressFormat.PNG, 100, streamImageNew)
+        imageOld.compress(Bitmap.CompressFormat.PNG, 100, streamImageOld)
+
+        val byteArrayImageNew = streamImageNew.toByteArray()
+        val byteArrayImageOld = streamImageOld.toByteArray()
+
+        val oParseFileImageNew:ParseFile =  ParseFile("New.png",byteArrayImageNew)
+        val oParseFileImageOld:ParseFile =  ParseFile("Old.png",byteArrayImageOld)
+
+        objImageNew.put("file", oParseFileImageNew)
+        objImageOld.put("file", oParseFileImageOld)
+
+        objImageNew.put("image_name", "new_" + siteName + "_" + timeStamp)
+        objImageOld.put("image_name", "old_" + siteName + "_" + timeStamp)
+
+        //Save Image New
+        oParseFileImageNew.saveInBackground(
+            SaveCallback { e ->
+                if(e == null) {
+                    objImageNew.saveInBackground { e ->
+
+                        if (e == null) {
+                            //Save Image Old
+                            oParseFileImageOld.saveInBackground(
+                                SaveCallback { e ->
+                                    if(e == null) {
+                                        objImageOld.saveInBackground { e ->
+
+                                            if (e == null) {
+                                                //Get Site Obj
+                                                val siteQuery = ParseQuery<ParseObject>("RestoreSite")
+                                                siteQuery.whereEqualTo("site_name", siteName)
+                                                siteQuery.getFirstInBackground { `object`, e ->
+                                                    if (e == null) {
+                                                        if(`object` != null)
+                                                        {
+                                                            //save Compare Object
+                                                            val objCompare = ParseObject("ComparePicture")
+
+                                                            objCompare.put("oldPic_id", objImageOld)
+                                                            objCompare.put("newPic_id", objImageNew)
+                                                            objCompare.put("site_id", `object`)
+                                                            objCompare.put("description", siteDescrip)
+
+                                                            objCompare.saveInBackground { e ->
+                                                                if(e == null){
+                                                                    if(pCallback != null)
+                                                                    {
+                                                                        init()
+                                                                        pCallback(SComparePicture(objCompare.objectId, oParseFileImageOld.url, oParseFileImageNew.url, siteName, siteDescrip))
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    Log.d("Parse", "Error: " + e.message)
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Log.d("Parse", "Can not find the site")
+                                                        }
+                                                    } else {
+                                                        Log.d("Parse", "Error: " + e.message)
+                                                    }
+                                                }
+                                            } else {
+                                                //We have an error.We are showing error message here.
+                                                Log.d("Parse", "Error: " + e.message)
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        Log.d("Parse", "Save File Error " + e.message)
+                                    }
+                                })
+
+                        } else {
+                            //We have an error.We are showing error message here.
+                            Log.d("Parse", "Error: " + e.message)
+                        }
+                    }
+                }
+                else{
+                    Log.d("Parse", "Save File Error " + e.message)
+                }
+            })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -264,7 +368,7 @@ public object ParseApp /*: Application()*/ {
 
     fun getAllRestoreSite(pCallback: CallbackGetRestoreSite):Unit
     {
-        this.returnRestoreSite = mutableListOf(SRestoreSite())
+        this.returnRestoreSite = mutableListOf()
 
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.orderByAscending("site_name");
@@ -365,29 +469,105 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
-    fun getAllComparePicture():List<SComparePicture>
+    fun getAllComparePicture(pCallback:(MutableList<SComparePicture>)->Unit)
     {
-        val returnComparePicture:SComparePicture = SComparePicture(
-            ""
-            , ""
-            , ""
-            , ""
-            , "");
+        var query = ParseQuery.getQuery<ParseObject>("ComparePicture")
+        /*
+        if(this.bIsUpdatedSite)
+        {
+            query.fromLocalDatastore();
+        }*/
 
-        return listOf(returnComparePicture);
+        if(pCallback != null) {
+
+            query.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                if (e == null) {
+                    Log.d("Parse", "Compare " + objectList?.size + " Site")
+
+                    if(objectList != null) {
+                        listCompare = mutableListOf()
+
+                        for (obj in objectList) {
+                            listCompare.add(SComparePicture(obj.objectId
+                                , obj.getParseObject("oldPic_id")?.fetchIfNeeded<ParseObject>()?.getParseFile("file")?.url.toString()
+                                , obj.getParseObject("newPic_id")?.fetchIfNeeded<ParseObject>()?.getParseFile("file")?.url.toString()
+                                , obj.getParseObject("site_id")?.fetchIfNeeded<ParseObject>()?.getString("site_name").toString()
+                                , obj.getString("description").toString()
+                                )
+                            )
+                        }
+
+                        this.bIsUpdatedCompare = true;
+
+                        if(pCallback != null){
+                            pCallback(listCompare)
+                        }
+                    }
+
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
     }
 
-    fun getComparePictureBySite(siteName: String)
+    fun getAllComparePictureBySite(siteName:String, pCallback:(MutableList<SComparePicture>)->Unit)
     {
+        var queryCompare = ParseQuery.getQuery<ParseObject>("ComparePicture")
+        var querySite = ParseQuery.getQuery<ParseObject>("RestoreSite")
 
+        querySite.whereEqualTo("site_name", siteName);
+        queryCompare.whereMatchesQuery("site_id", querySite)
+        /*
+        if(this.bIsUpdatedSite)
+        {
+            query.fromLocalDatastore();
+        }*/
+
+        if(pCallback != null) {
+
+            queryCompare.findInBackground { objectList: List<ParseObject>?, e: ParseException? ->
+                if (e == null) {
+                    Log.d("Parse", "Compare " + objectList?.size + " Site")
+
+                    if(objectList != null) {
+                        listCompare = mutableListOf()
+
+                        for (obj in objectList) {
+                            listCompare.add(SComparePicture(obj.objectId
+                                , obj.getParseObject("oldPic_id")?.fetchIfNeeded<ParseObject>()?.getParseFile("file")?.url.toString()
+                                , obj.getParseObject("newPic_id")?.fetchIfNeeded<ParseObject>()?.getParseFile("file")?.url.toString()
+                                , obj.getParseObject("site_id")?.fetchIfNeeded<ParseObject>()?.getString("site_name").toString()
+                                , obj.getString("description").toString()
+                            )
+                            )
+                        }
+
+                        this.bIsUpdatedCompare = true;
+
+                        if(pCallback != null){
+                            pCallback(listCompare)
+                        }
+                    }
+
+                } else {
+                    Log.d("Parse", "Error: " + e.message)
+                }
+            }
+        }
+
+        return;
     }
 
-    fun getAllPicture(pCallback:CallbackImage)
+
+    fun getAllPicture(pCallback:(MutableList<SPicture>)->Unit)
     {
         //this.returnRestoreSite = mutableListOf(SRestoreSite())
+        this.listPicture = mutableListOf()
 
         var query = ParseQuery.getQuery<ParseObject>("Picture")
-        query.orderByAscending("site_id");
  //       if(this.bIsUpdatedSite)
 //        {
 //            query.fromLocalDatastore();
@@ -410,12 +590,15 @@ public object ParseApp /*: Application()*/ {
                             //val bitmap = BitmapFactory.decodeStream(obj.getParseFile("file").toString().byteInputStream())
                             val imageUrl = obj.getParseFile("file")?.url
                             if(imageUrl != null) {
-                                listImage.add(imageUrl)
+                                //listImage.add(imageUrl)
+                                listPicture.add(SPicture(obj.objectId, imageUrl, obj.getString("image_name").toString()))
                             }
                         }
 
                         listImageTest = listImage
-                        pCallback(listImage)
+                        pCallback(listPicture)
+
+                        bIsUpdatedPicture = true
                     }
                     //this.bIsUpdatedSite = true;
                     //this.getSiteListFromParse(objectList);

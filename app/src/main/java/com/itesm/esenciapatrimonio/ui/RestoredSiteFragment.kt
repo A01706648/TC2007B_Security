@@ -1,9 +1,11 @@
 package com.itesm.esenciapatrimonio.ui
 
 import android.os.Bundle
+// import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Gallery
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.R
@@ -63,6 +65,7 @@ class RestoredSiteFragment: Fragment() {
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
 
+            //val fragment = AdminAddPhotosFragment()
             val fragment = GalleryFragment()
 
             fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
