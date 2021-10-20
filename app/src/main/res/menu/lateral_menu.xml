@@ -5,13 +5,14 @@
     <group
         android:id="@+id/group1"
         android:checkableBehavior="single">
+
         <item
             android:title="Mapa"
             android:id="@+id/view_map"
             android:checked="true"
             app:showAsAction="ifRoom"/>
         <item
-            android:title="Búsqueda avanzada"
+            android:title="Búsqueda A-Z"
             android:id="@+id/view_advanced_search"
             android:checked="true"
             app:showAsAction="ifRoom"/>
@@ -28,11 +29,6 @@
         <item
             android:title="Login"
             android:id="@+id/view_login"
-            android:checked="true"
-            app:showAsAction="ifRoom"/>
-        <item
-            android:title="Registrar"
-            android:id="@+id/RegistrarUsuario"
             android:checked="true"
             app:showAsAction="ifRoom"/>
 
