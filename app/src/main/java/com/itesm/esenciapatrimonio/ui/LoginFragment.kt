@@ -1,24 +1,12 @@
 package com.itesm.esenciapatrimonio.ui
 
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.parse.SignUpCallback
-import com.parse.Parse
-import com.parse.ParseException
-import com.parse.ParseUser
-import com.parse.LogInCallback
-
-
-import com.itesm.esenciapatrimonio.R
-
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
 
 class LoginFragment: Fragment() {

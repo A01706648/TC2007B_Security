@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.databinding.FragmentRegisterUserBinding
-import com.mapbox.android.telemetry.errors.TokenChangeBroadcastReceiver.register
 
 class AdminRegistrarUsuarioFragment: Fragment() {
 

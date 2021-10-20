@@ -1,27 +1,13 @@
 package com.itesm.esenciapatrimonio
 
-import android.R.attr
-import android.app.Application
 import android.graphics.Picture
 import android.util.Log
-import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.Image
-import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.core.net.toFile
 import com.parse.*
-import java.io.File
 import java.time.Instant
-import android.R.attr.bitmap
-
 import java.io.ByteArrayOutputStream
-
-
-
-
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
 typealias CallbackGetPicture = (MutableList<SPicture>)->Unit

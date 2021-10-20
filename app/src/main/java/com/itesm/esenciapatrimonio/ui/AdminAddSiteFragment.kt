@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.SRestoreSite
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminAddSiteBinding
-import com.parse.Parse
 
 class AdminAddSiteFragment: Fragment() {
     private var _binding: FragmentAdminAddSiteBinding? = null

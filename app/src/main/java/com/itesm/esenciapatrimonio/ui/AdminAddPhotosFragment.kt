@@ -1,7 +1,6 @@
 package com.itesm.esenciapatrimonio.ui
 
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -16,12 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
-import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminAddPhotosBinding
-import java.io.File
-import java.net.URI
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AdminAddPhotosFragment: Fragment() {
     lateinit var ImageUri: Uri
