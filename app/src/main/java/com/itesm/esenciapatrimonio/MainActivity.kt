@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             .getInstance(this)
             .enqueue(ParseTestWorkRequest)
          */
-        ParseApp.dummyInit()
+        ParseApp.init()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
