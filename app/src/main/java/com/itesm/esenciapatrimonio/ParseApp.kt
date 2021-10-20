@@ -3,15 +3,16 @@ package com.itesm.esenciapatrimonio
 import android.app.Application
 import android.graphics.Picture
 import android.util.Log
-import com.parse.Parse
-import com.parse.ParseObject
-import com.parse.GetCallback
-import com.parse.ParseQuery
-import com.parse.ParseException
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.Image
+import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.core.net.toFile
+import com.parse.*
+import java.time.Instant
 
 
 typealias CallbackGetRestoreSite = (MutableList<SRestoreSite>)->Unit
@@ -170,6 +171,28 @@ public class ParseApp /*: Application()*/ {
         else
         {
             Log.d("Parse", "Error: objectList null")
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun addPicture(oFile:Uri, fileName:String = "undefined name ${Instant.now().toString()}", pCallback:(ParseObject)->Unit){
+        val newPictureObject = ParseObject("Picture")
+        val oParseFile:ParseFile =  ParseFile(oFile.toFile())
+        newPictureObject.put("file", oParseFile)
+        newPictureObject.put("image_name", fileName)
+
+        newPictureObject.saveInBackground { e ->
+
+            if (e == null) {
+                //We saved the object and fetching data again
+                if(pCallback != null)
+                {
+                    pCallback(newPictureObject)
+                }
+            } else {
+                //We have an error.We are showing error message here.
+                Log.d("Parse", "Error: " + e.message)
+            }
         }
     }
 
@@ -393,5 +416,11 @@ public class ParseApp /*: Application()*/ {
         return;
     }
 
+    fun googleLogin(user:String, tokenString:String)
+    {
+        val authData:Map<String, String> = mapOf("access_token" to tokenString, "id" to user)
+
+        ParseUser.logInWithInBackground("google", authData)
+    }
 
 }
