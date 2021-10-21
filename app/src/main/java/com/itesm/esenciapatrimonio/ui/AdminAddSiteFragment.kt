@@ -57,10 +57,10 @@ class AdminAddSiteFragment: Fragment() {
                 if(list.size < 2 ){
                     Toast.makeText(context, "Falta una coordenada o hay algo mal", Toast.LENGTH_SHORT).show()
                 }
-                else if (list[0] < "-180" || list[0] > "180") {
+                else if (list[0].toDouble() < -90.0 || list[0].toDouble() > 90.0) {
                     Toast.makeText(context, "Coordenada x fuera de rango", Toast.LENGTH_SHORT)
                         .show()
-                } else if (list[1] < "-90" || list[1] > "90") {
+                } else if (list[1].toDouble() < -180.0 || list[1].toDouble() > 180.0) {
                     Toast.makeText(context, "Coordenada y fuera de rango", Toast.LENGTH_SHORT)
                         .show()
                 }
