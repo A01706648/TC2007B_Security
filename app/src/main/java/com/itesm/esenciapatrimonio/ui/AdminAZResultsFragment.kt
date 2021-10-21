@@ -1,9 +1,13 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +30,15 @@ class AdminAZResultsFragment: Fragment() {
         _binding = FragmentAdminAzResultsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Cargar los datos de parse y guaradrlos en el arereglo restoredSite
-        //val parse = ParseApp()
-        ParseApp.getAllRestoreSite(this::getRestoredSite)
+        //Verificar que el dispositivo este conectado a internet o utilizando datos
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        if (activeNetwork != null && activeNetwork.isConnected) {
+            //Si el dispositivo esta conectado carga los datos de parse en el buscador
+            ParseApp.getAllRestoreSite(this::getRestoredSite)
+        }else {
+            Toast.makeText(context,"Error de conexión, verifique que su dispositivo esté conectado a internet", Toast.LENGTH_SHORT).show()
+        }
 
         return root
     }

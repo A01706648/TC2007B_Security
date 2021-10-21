@@ -1,5 +1,8 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +57,13 @@ class AdminAddSiteFragment: Fragment() {
                 if(list.size < 2 ){
                     Toast.makeText(context, "Falta una coordenada o hay algo mal", Toast.LENGTH_SHORT).show()
                 }
+                else if (list[0] < "-180" || list[0] > "180") {
+                    Toast.makeText(context, "Coordenada x fuera de rango", Toast.LENGTH_SHORT)
+                        .show()
+                } else if (list[1] < "-90" || list[1] > "90") {
+                    Toast.makeText(context, "Coordenada y fuera de rango", Toast.LENGTH_SHORT)
+                        .show()
+                }
                 else{
                     val oNewSite = SRestoreSite(site_name = _binding!!.nombreSitio.text.toString(),
                         information = _binding!!.description.text.toString(),
@@ -64,21 +74,29 @@ class AdminAddSiteFragment: Fragment() {
                         coordinate_y = list[1].toDouble())
 
                     //val oParse = ParseApp()
-                    ParseApp.addRestoreSite(oNewSite, {listSite-> })
+                    val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+                    if (activeNetwork != null && activeNetwork.isConnected) {
+                        //Si el dispositivo esta conectado carga los datos de parse en el mapa
+                        ParseApp.addRestoreSite(oNewSite, {listSite-> })
+                        Toast.makeText(activity,"Sitio agregado exitosamente",Toast.LENGTH_SHORT).show()
+                    }else {
+                        Toast.makeText(context,"Error de conexión, Sitio no agregado", Toast.LENGTH_SHORT).show()
+                    }
+
                         // For debug:
                         //Toast.makeText(context, "Salida de coordenadas "+list[0]+" "+list[1], Toast.LENGTH_SHORT).show()
+                    //Verificar que el dispositivo este conectado a internet o utilizando datos
+                        val fragmentManager = fragmentManager
+                        val fragmentTransaction = fragmentManager?.beginTransaction()
 
-                    Toast.makeText(activity,"Sitio agregado exitosamente",Toast.LENGTH_SHORT).show()
-                    val fragmentManager = fragmentManager
-                    val fragmentTransaction = fragmentManager?.beginTransaction()
+                        val fragment = AdminMainFragment()
 
-                    val fragment = AdminMainFragment()
-
-                    fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
-                    fragmentTransaction?.commit()
+                        fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                        fragmentTransaction?.commit()
+                    }
                 }
             }
-        }
 
         return root
     }

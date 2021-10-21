@@ -1,6 +1,9 @@
 package com.itesm.esenciapatrimonio.ui
 
 import android.app.AlertDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -87,6 +90,14 @@ class AdminRestoredSiteFragment: Fragment() {
                 }
             val alert = builder.create()
             alert.show()
+        }
+
+        //Verificar que el dispositivo este conectado a internet o utilizando datos
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        if (activeNetwork != null && activeNetwork.isConnected) {
+        }else {
+            Toast.makeText(context,"Error de conexión", Toast.LENGTH_SHORT).show()
         }
 
         return root

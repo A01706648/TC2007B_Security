@@ -2,8 +2,11 @@ package com.itesm.esenciapatrimonio.ui
 
 import android.app.Activity.RESULT_OK
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -92,6 +95,14 @@ class AdminAddPhotosFragment: Fragment() {
             else{
                 Toast.makeText(context, "Te falta poner algún dato", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        //Verificar que el dispositivo este conectado a internet o utilizando datos
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        if (activeNetwork != null && activeNetwork.isConnected) {
+        }else {
+            Toast.makeText(context,"Error de conexión", Toast.LENGTH_SHORT).show()
         }
 
         return root

@@ -1,13 +1,19 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 // import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Gallery
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentSitioRestauradoBinding
@@ -22,6 +28,7 @@ class RestoredSiteFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentSitioRestauradoBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val site = TransactionData.restoredSite[0];
@@ -72,6 +79,14 @@ class RestoredSiteFragment: Fragment() {
             fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.commit()
 
+        }
+
+        //Verificar que el dispositivo este conectado a internet o utilizando datos
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        if (activeNetwork != null && activeNetwork.isConnected) {
+        }else {
+            Toast.makeText(context,"Error de conexión, verifique que su dispositivo esté conectado a internet", Toast.LENGTH_SHORT).show()
         }
 
         return root
