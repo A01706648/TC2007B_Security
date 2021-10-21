@@ -56,7 +56,7 @@ class RestoredSiteFragment: Fragment() {
 
         _binding!!.verMasDetalles.setOnClickListener {
             _binding!!.verMasDetalles.isVisible = false
-            _binding!!.placeID.isVisible = true
+            _binding!!.placeID.isVisible = false
             _binding!!.dates.isVisible = true
         }
 

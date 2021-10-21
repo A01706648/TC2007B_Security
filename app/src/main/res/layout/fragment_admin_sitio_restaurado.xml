@@ -102,7 +102,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/descripcion"
-                        tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+                        tools:ignore="HardcodedText,TouchTargetSizeCheck"
+                        android:visibility="gone"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -253,7 +254,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/Coordenadas"
                         tools:ignore="HardcodedText"
-                        tools:text="ID del lugar: " />
+                        tools:text="ID del lugar: "
+                        android:visibility="gone"/>
 
                     <!-- Id del lugar -->
                     <TextView
