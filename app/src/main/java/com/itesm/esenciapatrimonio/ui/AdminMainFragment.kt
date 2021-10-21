@@ -29,6 +29,7 @@ class AdminMainFragment: Fragment() {
             val fragmentTransaction = fragmentManager?.beginTransaction()
             val fragment = AdminAddSiteFragment()
             fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.commit()
         }
 
@@ -36,7 +37,9 @@ class AdminMainFragment: Fragment() {
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
             val fragment = AdminAZResultsFragment()
+
             fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.commit()
         }
         return root

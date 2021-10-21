@@ -17,6 +17,10 @@ class LoginFragment: Fragment() {
     private lateinit var usuario: EditText
     private lateinit var contrasena: EditText
 
+    companion object{
+        var isLogin:Boolean = false
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +37,23 @@ class LoginFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
-        binding.botonLogin.setOnClickListener{
-            val user:String = binding.Usuario.text.toString()
-            val password:String = binding.contrasena.text.toString()
+        if(!isLogin) {
+            binding.botonLogin.setOnClickListener {
+                val user: String = binding.Usuario.text.toString()
+                val password: String = binding.contrasena.text.toString()
 
-            login(user,password)
+                login(user, password)
+            }
+        }
+        else{
+            Toast.makeText(activity,"Inicio de sesión exitoso",Toast.LENGTH_SHORT).show()
+            val fragmentManager = fragmentManager
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+
+            val fragment = AdminMainFragment()
+
+            fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            fragmentTransaction?.commit()
         }
     }
 
@@ -52,6 +68,8 @@ class LoginFragment: Fragment() {
         else{
         // TODO: Parse verify username and password
             if(username == "patrimonio" && password == "1234"){
+                isLogin = true
+
                 Toast.makeText(activity,"Inicio de sesión exitoso",Toast.LENGTH_SHORT).show()
                 val fragmentManager = fragmentManager
                 val fragmentTransaction = fragmentManager?.beginTransaction()
@@ -59,6 +77,7 @@ class LoginFragment: Fragment() {
                 val fragment = AdminMainFragment()
 
                 fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                fragmentTransaction?.addToBackStack(null)
                 fragmentTransaction?.commit()
             }
             else{

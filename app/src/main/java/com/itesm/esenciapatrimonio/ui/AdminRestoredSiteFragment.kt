@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminSitioRestauradoBinding
 import com.itesm.esenciapatrimonio.transactions.TransactionData
@@ -74,15 +75,19 @@ class AdminRestoredSiteFragment: Fragment() {
                 .setCancelable(false)
                 .setPositiveButton("SÍ") { dialog, id ->
                     //TODO: Here goes the code to delete the entire site
+                    ParseApp.deleteRestoreSite(TransactionData.restoredSite[0].site_name){siteName ->
 
-
-
-
-
-
-
+                    }
 
                     Toast.makeText(context, "Sitio eliminado", Toast.LENGTH_SHORT).show()
+
+                    Thread.sleep(1_500)
+                    val fragmentManager = fragmentManager
+                    val fragmentTransaction = fragmentManager?.beginTransaction()
+                    val fragment = AdminAZResultsFragment()
+
+                    fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                    fragmentTransaction?.commit()
                 }
                 .setNegativeButton("NO, NO ELIMINAR") { dialog, id ->
                     // Dismiss the dialog
