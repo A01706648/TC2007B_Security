@@ -611,6 +611,27 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
+    fun deleteComparePicture(objectId: String)
+    {
+        var query = ParseQuery.getQuery<ParseObject>("ComparePicture")
+
+        query.getInBackground(objectId) { `object`, e ->
+            if (e == null) {
+                // object will be your game score
+                val objImageOld = `object`.getParseObject("oldPic_id")
+                val objImageNew = `object`.getParseObject("newPic_id")
+                //val fileImageOld = objImageOld?.fetchIfNeeded<ParseObject>()?.getParseFile("file")
+                //val fileImageNew = objImageNew?.fetchIfNeeded<ParseObject>()?.getParseFile("file")
+
+                `object`.delete()
+                objImageOld?.delete()
+                objImageNew?.delete()
+            } else {
+                // something went wrong
+            }
+        }
+    }
+
     fun googleLogin(user:String, tokenString:String)
     {
         val authData:Map<String, String> = mapOf("access_token" to tokenString, "id" to user)
