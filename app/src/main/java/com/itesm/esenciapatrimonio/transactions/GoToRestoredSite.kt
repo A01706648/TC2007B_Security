@@ -18,6 +18,7 @@ class GoToRestoredSite(fragment1: Fragment, fragment2: Fragment) {
         fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, newFragment)
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
+
         Log.d("mensaje", "no hace le commit")
         return true
     }

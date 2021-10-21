@@ -52,6 +52,7 @@ class AdminAZResultsFragment: Fragment() {
 
         //Adaptador del Recycler View
         adapter = AdminAZResultAdapter(sortedRestoredSite, this)
+
         recycler?.adapter = adapter
     }
 

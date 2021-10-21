@@ -75,8 +75,9 @@ class LoginFragment: Fragment() {
                 val fragmentTransaction = fragmentManager?.beginTransaction()
 
                 val fragment = AdminMainFragment()
-                fragmentTransaction?.addToBackStack(null)
+
                 fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                fragmentTransaction?.addToBackStack(null)
                 fragmentTransaction?.commit()
             }
             else{
