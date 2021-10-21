@@ -21,7 +21,7 @@
         android:id="@+id/view_donate"
         app:showAsAction="never"/>
     <item
-        android:title="Login"
+        android:title="Administrador"
         android:id="@+id/view_login"
         app:showAsAction="never"/>
 

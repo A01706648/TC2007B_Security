@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/view_advanced_search"
         android:name="com.itesm.esenciapatrimonio.ui.AZResultsFragment"
-        android:label="Búsqueda Avanzada"
+        android:label="Búsqueda A-Z"
         tools:layout="@layout/fragment_az_results"/>
     <fragment
         android:id="@+id/view_about_us"
@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/view_login"
         android:name="com.itesm.esenciapatrimonio.ui.LoginFragment"
-        android:label="Login"
+        android:label="Administrador"
         tools:layout="@layout/fragment_login_main" />
     <fragment
         android:id="@+id/view_donate"
