@@ -26,66 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     var context: Context = this
 
-
-
-    class ParseTestWorker(appContext: Context, workerParams: WorkerParameters):
-        Worker(appContext, workerParams){
-        fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
-        {
-            lateinit var oSite:SRestoreSite;
-
-            for(oSite in listRestoreSite)
-            {
-                Log.d("Parse", "ObjectId ${oSite.objectId}");
-                Log.d("Parse", "SiteName ${oSite.site_name}");
-                Log.d("Parse", "X ${oSite.coordinate_x}");
-                Log.d("Parse", "Y ${oSite.coordinate_y}");
-            }
-        }
-
-        var isSiteAdded = false
-
-        fun ParseTest_AddRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit
-        {
-            lateinit var oSite:SRestoreSite;
-
-            for(oSite in listRestoreSite)
-            {
-                Log.d("Parse", "Add Site Name: ${oSite.site_name}")
-            }
-
-            isSiteAdded = true
-        }
-
-        fun ParseTest_GetPicture(listImage:MutableList<String>):Unit{
-            Log.d("Parse", "Images Number ${listImage.size}")
-        }
-
-        fun ParseTest_DeleteSite(siteName:String):Unit{
-            Log.d("Parse", "Site Delete:" + siteName)
-        }
-
-        fun ParseTest_Test(){
-            //val oParse = ParseApp();
-            //oParse.initParse();
-
-//oParse.getRestoreSite("oxLgAoPbTk", this::ParseTest_GetRestoreSite);
-            ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite);
-            //val oSite = SRestoreSite(site_name = "TestSite")
-            //oParse.addRestoreSite(oSite, this::ParseTest_AddRestoreSite)
-            //while(!isSiteAdded){}
-            //oParse.deleteRestoreSite("TestSite", this::ParseTest_DeleteSite)
-            //oParse.getAllPicture(this::ParseTest_GetPicture)
-        }
-
-        override fun doWork(): Result {
-
-            ParseTest_Test()
-
-            return Result.success()
-        }
-    }
-
     /**
      * Android onCreate
      */

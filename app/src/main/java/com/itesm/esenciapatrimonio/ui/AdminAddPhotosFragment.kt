@@ -68,29 +68,22 @@ class AdminAddPhotosFragment: Fragment() {
             // Revisa si entra el texto
             //Log.d(TAG, "Holaaaaaaa "+ _binding!!.tipoFoto.text.toString())
             if (triggerActual == 1 && triggerAntigua == 1 && _binding!!.tipoFoto.text.toString() != "") {
-                //TODO: Code to send images and string to database
+                // The following code uploads the image to the database
+                //Verificar que el dispositivo este conectado a internet o utilizando datos
+                val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
 
-                    //uploadImage()
+                if (activeNetwork != null && activeNetwork.isConnected){
 
-                //val oParse = ParseApp()
-                    /*
-                ParseApp.addPicture(imageNow, "imageNowTest"){
-                    obj -> Log.d("Parse", "Save file Now")
-                }
-
-                ParseApp.addPicture(imageOld, "imageNowTest"){
-                        obj -> Log.d("Parse", "Save file old")
-                }
-                     */
-                ParseApp.addComparePicture(TransactionData.restoredSite[0].site_name, _binding!!.tipoFoto.text.toString(), imageNow, imageOld){
-                    Compare ->
+                    ParseApp.addComparePicture(TransactionData.restoredSite[0].site_name, _binding!!.tipoFoto.text.toString(), imageNow, imageOld){
+                            Compare ->
+                    }
+                    Toast.makeText(context,"Subiendo...", Toast.LENGTH_SHORT).show()
 
                 }
-
-
-
-                _binding!!.imagenAntigua
-                _binding!!.imagenActual
+                else{
+                    Toast.makeText(context,"Error de conexión", Toast.LENGTH_SHORT).show()
+                }
 
             }
             else{
@@ -98,27 +91,10 @@ class AdminAddPhotosFragment: Fragment() {
             }
         }
 
-        //Verificar que el dispositivo este conectado a internet o utilizando datos
-        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-        if (activeNetwork != null && activeNetwork.isConnected) {
-        }else {
-            Toast.makeText(context,"Error de conexión", Toast.LENGTH_SHORT).show()
-        }
-
         return root
     }
-/*
-    private fun uploadImage() {
 
-        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-        val now = Date()
-        val filename = formatter.format(now)
 
-        val storage
-
-    }
-*/
     private fun selectImage() {
         val intent = Intent()
         intent.type = "image/*"
@@ -127,18 +103,7 @@ class AdminAddPhotosFragment: Fragment() {
         startActivityForResult(intent, 100)
 
     }
-/*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 100 && resultCode == RESULT_OK){
 
-            ImageUri = data?.data!!
-            _binding!!.imagenActual.setImageURI(data?.data)
-
-        }
-
-    }
-    */
 
     private fun pickImageGallery(code_id: Int) {
         val intent = Intent(Intent.ACTION_PICK)

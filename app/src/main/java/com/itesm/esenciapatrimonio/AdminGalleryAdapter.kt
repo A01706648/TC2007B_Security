@@ -1,5 +1,8 @@
 package com.itesm.esenciapatrimonio
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.text.TextUtils.replace
 import android.view.LayoutInflater
 import android.view.View
@@ -118,11 +121,11 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
             }
         }
 */
-        holder.imagen_antigua.setOnClickListener{v: View ->
+        holder.imagen_antigua.setOnClickListener{
             listener?.onClick(imagenes_antiguas[position])
         }
 
-        holder.imagen_actual.setOnClickListener{v: View ->
+        holder.imagen_actual.setOnClickListener{
             listener?.onClick(imagenes_actuales[position])
         }
 
@@ -130,14 +133,25 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
             val builder = android.app.AlertDialog.Builder(it.context)
             builder.setMessage("¿Estás seguro de eliminar las imágenes?")
                 .setCancelable(false)
-                .setPositiveButton("SÍ") { dialog, id ->
+                .setPositiveButton("SÍ") { _, _ ->
                     //TODO: Here goes the code to delete the images with the string
-                    ParseApp.deleteComparePicture(compareObjIdex_list[position])
 
+                    val cm = it.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
 
-                    Toast.makeText(it.context, "Imágenes eliminadas", Toast.LENGTH_SHORT).show()
+                    if (activeNetwork != null && activeNetwork.isConnected){
+
+                        ParseApp.deleteComparePicture(compareObjIdex_list[position])
+                        Toast.makeText(it.context,"Eliminando...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(it.context, "Imágenes eliminadas", Toast.LENGTH_SHORT).show()
+
+                    }
+                    else{
+                        Toast.makeText(it.context,"Error de conexión", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
-                .setNegativeButton("NO, NO ELIMINARLAS") { dialog, id ->
+                .setNegativeButton("NO, NO ELIMINARLAS") { dialog, _ ->
                     // Dismiss the dialog
                     dialog.dismiss()
                 }
