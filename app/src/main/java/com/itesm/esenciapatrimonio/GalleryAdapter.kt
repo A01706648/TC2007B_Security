@@ -111,11 +111,11 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
             }
         }
 */
-        holder.imagen_antigua.setOnClickListener{v: View ->
+        holder.imagen_antigua.setOnClickListener{
             listener?.onClick(imagenes_antiguas[position])
         }
 
-        holder.imagen_actual.setOnClickListener{v: View ->
+        holder.imagen_actual.setOnClickListener{
             listener?.onClick(imagenes_actuales[position])
         }
     }
