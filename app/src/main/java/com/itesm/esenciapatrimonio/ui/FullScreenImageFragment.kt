@@ -8,6 +8,13 @@ import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.databinding.FragmentFullscreenImageBinding
 import com.squareup.picasso.Picasso
 
+/**
+ * @author e-corp
+ *
+ * Fragmento donde el administrador podra hacer login en la aplicación
+ * para contar con los beneficios de admin.
+ */
+
 class FullScreenImageFragment(private val imageURL: String): Fragment() {
 
     private var _binding: FragmentFullscreenImageBinding? = null
@@ -16,6 +23,9 @@ class FullScreenImageFragment(private val imageURL: String): Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

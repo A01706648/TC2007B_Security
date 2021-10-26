@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // This part works only for checking the login status
+        // Esta parte funciona sólo para comprobar el estado de inicio de sesión.
         if (!isLogin){
             binding.botonLogin.setOnClickListener {
                 val cm = it.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -82,7 +82,7 @@ class LoginFragment : Fragment() {
             }
         }
         else{
-            // Go to the admin space
+            // Si el login fue exitoso redirecciona a la vista de AdminMainFragment.
             Toast.makeText(activity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
@@ -112,10 +112,10 @@ class LoginFragment : Fragment() {
                     false
                 )
             ) {
-                // Global variable to don't login again while the app stays opened
+                // Variable global para no iniciar sesión de nuevo mientras la aplicación permanece abierta.
                 isLogin = true
 
-                // Go to the admin space
+                //Ir al espacio de administración.
                 Toast.makeText(activity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                 val fragmentManager = fragmentManager
                 val fragmentTransaction = fragmentManager?.beginTransaction()
