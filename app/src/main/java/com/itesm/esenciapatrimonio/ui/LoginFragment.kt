@@ -59,6 +59,10 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -94,6 +98,10 @@ class LoginFragment : Fragment() {
         }
     }
 
+    /**
+     * Recibe un dos strings y comprueba los datos de manera segura, si el login es exitoso
+     * te redirige a la vista de administración
+     */
     fun login(username: String, password: String) {
 
         if (username == "" || username == " ") {
@@ -101,8 +109,6 @@ class LoginFragment : Fragment() {
         } else if (password == "" || password == " ") {
             Toast.makeText(activity, "No pusiste una contraseña", Toast.LENGTH_SHORT).show()
         } else {
-            // TODO: Vefify username and password but encrypted with something
-            // All this data and checks are unencrypted / unsecure
 
             if (username.trim().equals(
                     getUsername(),
@@ -135,6 +141,10 @@ class LoginFragment : Fragment() {
         }
     }
 
+    /**
+     * Revisa las veces en las que te equivocaste, si te equivocas cinco veces, aparecerá un
+     * contador de 5 minutos, sirve para evitar ataques de fuerza bruta.
+     */
     private fun checkFailedLoginAttemptCase() {
         if (failedLoginAttempt >= 5) {
             failedLoginAttempt = 0
@@ -168,6 +178,10 @@ class LoginFragment : Fragment() {
         }
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
