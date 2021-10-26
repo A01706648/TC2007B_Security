@@ -1,10 +1,16 @@
 package com.itesm.esenciapatrimonio.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.AdminGalleryAdapter
+import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminMainBinding
 
@@ -47,13 +53,21 @@ class AdminMainFragment: Fragment() {
         // Botón que al seleccionarlo nos redirecciona a la vista de AdminAzResultsFragment
         // para editar el sitio.
         binding.buttonPhotos.setOnClickListener{
-            val fragmentManager = fragmentManager
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            val fragment = AdminAZResultsFragment()
+            val cm = it.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+            if (activeNetwork != null && activeNetwork.isConnected){
 
-            fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.commit()
+                val fragmentManager = fragmentManager
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+                val fragment = AdminAZResultsFragment()
+
+                fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+                fragmentTransaction?.addToBackStack(null)
+                fragmentTransaction?.commit()
+            }
+            else{
+                Toast.makeText(it.context,"Error de conexión", Toast.LENGTH_SHORT).show()
+            }
         }
         return root
     }

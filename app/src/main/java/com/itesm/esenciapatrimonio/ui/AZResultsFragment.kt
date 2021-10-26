@@ -16,6 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.itesm.esenciapatrimonio.*
 import com.itesm.esenciapatrimonio.databinding.FragmentAzResultsBinding
 
+/**
+ * @author e-corp
+ *
+ * Fragmento que ordena los sitios restaurados de la base de datos alfabéticamente
+ * y los muestra como lista de manera vertical
+ */
+
 class AZResultsFragment: Fragment() {
     private var _binding: FragmentAzResultsBinding? = null
     private val binding get() = _binding!!
@@ -46,8 +53,14 @@ class AZResultsFragment: Fragment() {
         return root
     }
 
+<<<<<<< HEAD
     /*
     Funcion para obetener los datos de parse.
+=======
+    /**
+     * Funcion para obetener los datos de parse
+     * @param listRestoredSite Lista de objetos tipo SRestoredSite
+>>>>>>> e4bd5a9b772643706cce01a8dfb2bb8eb88f0d7c
      */
     fun getRestoredSite(listRestoredSite:MutableList<SRestoreSite>):Unit{
         // Ordenar los datos de restoredSite por nombre

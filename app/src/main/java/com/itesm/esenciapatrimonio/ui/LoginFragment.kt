@@ -1,6 +1,9 @@
 package com.itesm.esenciapatrimonio.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -9,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.itesm.esenciapatrimonio.AdminGalleryAdapter
+import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
 
@@ -60,14 +65,25 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // This part works only for checking the login status
-        if (!isLogin) {
+        if (!isLogin){
             binding.botonLogin.setOnClickListener {
-                val user: String = binding.Usuario.text.toString()
-                val password: String = binding.contrasena.text.toString()
+                val cm = it.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
 
-                login(user, password)
+                if (activeNetwork != null && activeNetwork.isConnected){
+
+                    val user: String = binding.Usuario.text.toString()
+                    val password: String = binding.contrasena.text.toString()
+
+                    login(user, password)
+
+                }
+                else{
+                    Toast.makeText(it.context,"Error de conexión", Toast.LENGTH_SHORT).show()
+                }
             }
-        } else {
+        }
+        else{
             // Go to the admin space
             Toast.makeText(activity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
             val fragmentManager = fragmentManager

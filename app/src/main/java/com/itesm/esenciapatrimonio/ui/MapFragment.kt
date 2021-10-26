@@ -23,6 +23,14 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 
+/**
+ * @author e-corp
+ *
+ * Fragmento que despliega el mapa en la interfaz principal
+ * Se carga un estilo de mapa desde Mapbox
+ * El mapa es navegable
+ */
+
 class MapFragment: Fragment() {
 
     private var _binding: FragmentMapBinding? = null
@@ -36,6 +44,9 @@ class MapFragment: Fragment() {
     lateinit var restoredSite: MutableList<SRestoreSite>
     lateinit var restoredSiteMarkers: MutableList<Marker>
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -100,9 +111,14 @@ class MapFragment: Fragment() {
         return root
     }
 
-    /*
+    /**
      * Por cada sitio restaurado en la base de datos se agrega
+<<<<<<< HEAD
      * un marcador poniendo las coordenadas guardadas, el nombre y el id.
+=======
+     * un marcador poniendo las coordenadas guardadas, el nombre y el id
+     * @param listRestoreSite lista de objetos tipo SRestoredSite
+>>>>>>> e4bd5a9b772643706cce01a8dfb2bb8eb88f0d7c
      */
     fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit{
         restoredSite = listRestoreSite

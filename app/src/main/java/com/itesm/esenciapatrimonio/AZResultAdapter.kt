@@ -37,7 +37,7 @@ class AZResultAdapter(sortedRestoredSite: List<SRestoreSite>,  fragment: AZResul
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
         holder.titulo.text = listRestoredSite[i].site_name
         holder.descripcion.text = listRestoredSite[i].information
-        holder.boton.setOnClickListener{v: View ->
+        holder.boton.setOnClickListener{
         //llevar a la view del sitio restaurado correspondiente
             //Sobreescribimos el objeto TransactionData con el sitio restaurado seleccionado
             TransactionData.restoredSite = mutableListOf(listRestoredSite[i])
