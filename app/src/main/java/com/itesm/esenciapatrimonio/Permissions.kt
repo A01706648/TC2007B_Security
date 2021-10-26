@@ -8,7 +8,7 @@ import androidx.core.app.ActivityCompat
 
 class Permissions() {
     /**
-     * Permisos para la aplucación
+     * Permisos para la aplicación
      */
 
     fun requestPermissions(context: Context){
