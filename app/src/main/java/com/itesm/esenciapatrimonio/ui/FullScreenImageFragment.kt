@@ -8,14 +8,22 @@ import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.databinding.FragmentFullscreenImageBinding
 import com.squareup.picasso.Picasso
 
+/**
+ * @author e-corp
+ *
+ * Fragmento donde muestra la imagen completa.
+ */
+
 class FullScreenImageFragment(private val imageURL: String): Fragment() {
 
     private var _binding: FragmentFullscreenImageBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // Esta propiedad sólo es válida entre onCreateView y onDestroyView.
     private val binding get() = _binding!!
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

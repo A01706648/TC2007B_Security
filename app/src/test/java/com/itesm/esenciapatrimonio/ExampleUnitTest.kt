@@ -1,7 +1,6 @@
 package com.itesm.esenciapatrimonio
 
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**

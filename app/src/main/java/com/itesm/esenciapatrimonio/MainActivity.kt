@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -13,10 +12,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.*
 import com.google.android.material.navigation.NavigationView
 import com.itesm.esenciapatrimonio.databinding.ActivityMainBinding
 import com.parse.Parse
+
+/**
+ * @author e-corp
+ * En el main se establece el menu de navegación
+ * en el cual se agrupan los fragmentos principales
+ */
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Android onCreate
+     * Se establece la interfaz principal (mapa)
+     * y se inicializa Parse
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,12 +89,21 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    /**
+     * Despliega el menu en la vista
+     * @param menu que contiene todos los elementos del menu
+     * @return true
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         return true
     }
 
+    /**
+     * Controlador de la navegación
+     * Establece en donde se van a inflar las views de los fragmentos
+     */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

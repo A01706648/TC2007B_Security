@@ -10,7 +10,6 @@ import com.itesm.esenciapatrimonio.transactions.GoToRestoredSite
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.ui.AdminAZResultsFragment
 import com.itesm.esenciapatrimonio.ui.AdminRestoredSiteFragment
-import com.itesm.esenciapatrimonio.ui.RestoredSiteFragment
 
 /**
  * Clase que crea el RecyclerView para los resultados de A a la Z en modo administrador

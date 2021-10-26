@@ -12,15 +12,21 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.itesm.esenciapatrimonio.AdminGalleryAdapter
-import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
+
+/**
+ * @author e-corp
+ *
+ * Fragmento donde el administrador podra hacer login en la aplicación
+ * para contar con los beneficios de admin.
+ */
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
+    // Array del usuario y la contraseña.
     private lateinit var usuario: EditText
     private lateinit var contrasena: EditText
 
@@ -39,6 +45,9 @@ class LoginFragment : Fragment() {
         System.loadLibrary("keys")
     }
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,7 +62,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // This part works only for checking the login status
+        // Esta parte funciona sólo para comprobar el estado de inicio de sesión.
         if (!isLogin){
             binding.botonLogin.setOnClickListener {
                 val cm = it.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -73,7 +82,7 @@ class LoginFragment : Fragment() {
             }
         }
         else{
-            // Go to the admin space
+            // Si el login fue exitoso redirecciona a la vista de AdminMainFragment.
             Toast.makeText(activity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
@@ -103,10 +112,10 @@ class LoginFragment : Fragment() {
                     false
                 )
             ) {
-                // Global variable to don't login again while the app stays opened
+                // Variable global para no iniciar sesión de nuevo mientras la aplicación permanece abierta.
                 isLogin = true
 
-                // Go to the admin space
+                //Ir al espacio de administración.
                 Toast.makeText(activity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                 val fragmentManager = fragmentManager
                 val fragmentTransaction = fragmentManager?.beginTransaction()

@@ -3,7 +3,6 @@ package com.itesm.esenciapatrimonio
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.text.TextUtils.replace
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.esenciapatrimonio.transactions.TransactionData
-import com.itesm.esenciapatrimonio.ui.FullScreenImageFragment
-import com.itesm.esenciapatrimonio.ui.GalleryFragment
 import com.squareup.picasso.Picasso
 
 /**

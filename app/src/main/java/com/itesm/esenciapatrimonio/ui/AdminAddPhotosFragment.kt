@@ -1,7 +1,6 @@
 package com.itesm.esenciapatrimonio.ui
 
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,7 +9,6 @@ import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +17,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.ParseApp
-import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminAddPhotosBinding
 import com.itesm.esenciapatrimonio.transactions.TransactionData
-import com.mapbox.mapboxsdk.utils.Compare
-import java.io.File
-import java.net.URI
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Fragmento que despiega la vista para añadir fotografías en el modo administrador

@@ -11,17 +11,26 @@ import com.itesm.esenciapatrimonio.*
 import com.itesm.esenciapatrimonio.databinding.FragmentGaleriaBinding
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 
+/**
+ * @author e-corp
+ *
+ * Fragmento donde el usuario puede ver la galeria de imagenes del sitio restaurado.
+ */
+
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGaleriaBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // Esta propiedad sólo es válida entre onCreateView y onDestroyView.
     private val binding get() = _binding!!
 
+    // Array de sitio restaurado desde la base de datos.
     lateinit var site: SRestoreSite
     lateinit var listCompare:MutableList<SComparePicture>
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
