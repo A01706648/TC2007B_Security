@@ -54,7 +54,15 @@ public data class SComparePicture(var objectId:String = ""
                                     , var site_id:String = ""
                                     , var description:String = ""
                                     )
-
+/**
+ * This is the object of the ParseApp,
+ * It will handle the parse library,
+ * communicate withe the Back4App cloud platform,
+ * in order to save/get/delete the object
+ * in the table of Picture, RestoreSite and ComparePicture
+ *
+ * @author Wenguang Hu
+ * */
 public object ParseApp /*: Application()*/ {
     /*
     override fun onCreate()
@@ -83,12 +91,17 @@ public object ParseApp /*: Application()*/ {
     private lateinit var listCompare: MutableList<SComparePicture>
     private lateinit var listRestoreSite: MutableList<SRestoreSite>
 
-
+/*
     fun dummyInit()
     {
 
     }
+ */
 
+    /**
+     * it init the Parse library, and get all the all the network data to the
+     * @param
+     * */
     fun init()
     {
         bIsUpdatedPicture = false
@@ -117,7 +130,11 @@ public object ParseApp /*: Application()*/ {
         }
     }
 
-
+    /**
+     * get the Restore Site by the ObjectId
+     * @param objectId the objectId in the Parse Database
+     * @param pCallback the callback will be called when the parse succeed, and return the list of the site to it
+     * */
     fun getRestoreSite(objectId: String, pCallback: CallbackGetRestoreSite):Unit
     {
         returnRestoreSite = mutableListOf(SRestoreSite(objectId = objectId))
@@ -175,6 +192,14 @@ public object ParseApp /*: Application()*/ {
         }
     }
 
+    /**
+     * Create a new ComparePicture object
+     * @param siteName the name of the site
+     * @param siteDescrip the description of the compare picture
+     * @param imageNew the bitmap of the image of site's new picture
+     * @param imageOld the bitmap of the image of site's old picture
+     * @param pCallback the callback will be called when pare save is done, and return the Compare Structure of the data
+     * */
     @RequiresApi(Build.VERSION_CODES.O)
     fun addComparePicture(siteName:String, siteDescrip:String, imageNew:Bitmap, imageOld:Bitmap, pCallback:(SComparePicture)->Unit)
     {
@@ -273,6 +298,12 @@ public object ParseApp /*: Application()*/ {
             })
     }
 
+    /**
+     * add the single picture to the Picture table
+     * @param oFile the bitmap of the file need to be added
+     * @param fileName the file name of the picture
+     * @param pCallback the callback will be called when the save image finished, return the parse object of the picture
+     * */
     @RequiresApi(Build.VERSION_CODES.O)
     fun addPicture(oFile:Bitmap, fileName:String = "undefined name ${Instant.now().toString()}", pCallback:(ParseObject)->Unit){
         val newPictureObject = ParseObject("Picture")
@@ -311,6 +342,11 @@ public object ParseApp /*: Application()*/ {
             })
     }
 
+    /**
+     * Add the restore site to the RestoreSite table
+     * @param oSite the structure contain the new site information
+     * @param pCallback the callback will be called when the save operation is finished
+     * */
     fun addRestoreSite(oSite:SRestoreSite, pCallback: CallbackGetRestoreSite):Unit{
         val newSiteObject = ParseObject("RestoreSite")
 
@@ -337,6 +373,11 @@ public object ParseApp /*: Application()*/ {
         }
     }
 
+    /**
+     * Delete the specific site in the RestoreSite table
+     * @param siteName the name of the site which we need to delete
+     * @param pCallback the callback will be called when the delete operation is done, it will get the siteName as parameter
+     * */
     fun deleteRestoreSite(siteName:String, pCallback:CallbackDeleteSite){
         var query = ParseQuery.getQuery<ParseObject>("RestoreSite")
         query.whereEqualTo("site_name", siteName);
@@ -366,6 +407,10 @@ public object ParseApp /*: Application()*/ {
         }
     }
 
+    /**
+     * Get all the list of the site in RestoreSite table
+     * @param pCallback the callback will be called when the operation is done, return a list of SRestoreSite as parameter
+     * */
     fun getAllRestoreSite(pCallback: CallbackGetRestoreSite):Unit
     {
         this.returnRestoreSite = mutableListOf()
@@ -395,6 +440,7 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
+    /*
     fun getAllRestoreSiteByName(siteName:String, pCallback: CallbackGetRestoreSite):Unit
     {
         this.returnRestoreSite = mutableListOf(SRestoreSite())
@@ -468,7 +514,12 @@ public object ParseApp /*: Application()*/ {
 
         return;
     }
+    */
 
+    /**
+     * Get all the object in the ComparePicture table
+     * @param pCallback when the get operation is done, the call back will be called, pass the list of the SComparePicture as parameter
+     * */
     fun getAllComparePicture(pCallback:(MutableList<SComparePicture>)->Unit)
     {
         var query = ParseQuery.getQuery<ParseObject>("ComparePicture")
@@ -513,6 +564,11 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
+    /**
+     * get all the Compare Picture of the same site
+     * @param siteName the name of the site
+     * @param pCallback the callback will be called after the operation is done, pass the list of SComparePicture as parameter
+     * */
     fun getAllComparePictureBySite(siteName:String, pCallback:(MutableList<SComparePicture>)->Unit)
     {
         var queryCompare = ParseQuery.getQuery<ParseObject>("ComparePicture")
@@ -561,7 +617,10 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
-
+    /**
+     * get all the picture in Picture table
+     * @param pCallback the callback will be called after operation is done, pass the list of SPicture as parameter
+     * */
     fun getAllPicture(pCallback:(MutableList<SPicture>)->Unit)
     {
         //this.returnRestoreSite = mutableListOf(SRestoreSite())
@@ -611,6 +670,10 @@ public object ParseApp /*: Application()*/ {
         return;
     }
 
+    /**
+     * Delete the Compare Picture object by the ObjectId
+     * @param objectId the object id of the ComparePicture object
+     * */
     fun deleteComparePicture(objectId: String)
     {
         var query = ParseQuery.getQuery<ParseObject>("ComparePicture")
@@ -632,10 +695,13 @@ public object ParseApp /*: Application()*/ {
         }
     }
 
+    /*
     fun googleLogin(user:String, tokenString:String)
     {
         val authData:Map<String, String> = mapOf("access_token" to tokenString, "id" to user)
 
         ParseUser.logInWithInBackground("google", authData)
     }
+    */
+
 }
