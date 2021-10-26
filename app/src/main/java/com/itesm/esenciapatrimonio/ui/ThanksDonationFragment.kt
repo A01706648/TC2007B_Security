@@ -7,6 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.databinding.FragmentDonacionGraciasBinding
 
+/**
+ * @author e-corp
+ *
+ * Fragmento donde se le da un agradecimiento al usuario por donar.
+ */
+
 class ThanksDonationFragment: Fragment() {
 
     private var _binding: FragmentDonacionGraciasBinding? = null
@@ -15,6 +21,9 @@ class ThanksDonationFragment: Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
