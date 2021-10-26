@@ -10,7 +10,6 @@ import com.itesm.esenciapatrimonio.transactions.GoToRestoredSite
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.ui.AdminAZResultsFragment
 import com.itesm.esenciapatrimonio.ui.AdminRestoredSiteFragment
-import com.itesm.esenciapatrimonio.ui.RestoredSiteFragment
 
 class AdminAZResultAdapter(sortedRestoredSite: List<SRestoreSite>,  fragment: AdminAZResultsFragment) : RecyclerView.Adapter<AdminAZResultAdapter.ViewHolder>() {
 

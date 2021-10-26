@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.esenciapatrimonio.*
@@ -53,34 +51,24 @@ class AZResultsFragment: Fragment() {
         return root
     }
 
-<<<<<<< HEAD
-    /*
-    Funcion para obetener los datos de parse.
-=======
     /**
      * Funcion para obetener los datos de parse
      * @param listRestoredSite Lista de objetos tipo SRestoredSite
->>>>>>> e4bd5a9b772643706cce01a8dfb2bb8eb88f0d7c
      */
     fun getRestoredSite(listRestoredSite:MutableList<SRestoreSite>):Unit{
         // Ordenar los datos de restoredSite por nombre
         sortedRestoredSite = listRestoredSite.sortedBy { it.site_name }
-
-        // Variable para controlar el elemento de recycler view.
+        //variable para controlar el elemento de recycler view
         val recycler = view?.findViewById<RecyclerView>(R.id.recycler_azResult)
-
-        // Mostrar en la view cada elemento de la lista como boton.
+        // Mostrar en la view cada elemento de la lista como boton
         var layoutManager: RecyclerView.LayoutManager? = null
         var adapter: RecyclerView.Adapter<AZResultAdapter.ViewHolder>? = null
-
         layoutManager = LinearLayoutManager(activity)
         recycler?.layoutManager = layoutManager
-
-        // Adaptador del Recycler View.
+        //Adaptador del Recycler View
         adapter = AZResultAdapter(sortedRestoredSite, this)
         recycler?.adapter = adapter
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
