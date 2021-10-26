@@ -14,6 +14,13 @@ import com.itesm.esenciapatrimonio.transactions.TransactionData
 
 class AdminGalleryFragment : Fragment() {
 
+    /**
+     * Fragmento que despiega la vista de galería para administrador
+     * permite ver las fotografías, eliminarlas e ir a la vista para
+     * añadir imágenes nuevas.
+     * @author e-corp
+     */
+
     private var _binding: FragmentAdminGaleriaBinding? = null
 
     // This property is only valid between onCreateView and
@@ -23,6 +30,10 @@ class AdminGalleryFragment : Fragment() {
     lateinit var site: SRestoreSite
     lateinit var listCompare:MutableList<SComparePicture>
 
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,6 +91,10 @@ class AdminGalleryFragment : Fragment() {
         return root
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

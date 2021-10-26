@@ -21,6 +21,11 @@ import com.itesm.esenciapatrimonio.ui.FullScreenImageFragment
 import com.itesm.esenciapatrimonio.ui.GalleryFragment
 import com.squareup.picasso.Picasso
 
+/**
+ * Clase que crea el RecyclerView para mostrar la galería en modo administrador
+ * @author e-corp
+ * @param sortedRestoredSite
+ */
 class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(){
 
     private var listener: AdminGalleryAdapterClickEvents? = null
@@ -33,6 +38,10 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
         fun onClick(url: String)
     }
 
+    /**
+     * Crea un objeto común a todas las instancias de la clase y contiene los arrays que se necesitan para
+     * crear los objetos del recyclerview a partir de las imágenes antiguas y nuevas
+     */
     companion object {
         private lateinit var categorias: Array<String>// = arrayOf("Card 1")
 
@@ -46,6 +55,9 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
     )*/
         private lateinit var compareObjIdex_list:MutableList<String>
 
+        /**
+         * Inicualiza los datos de acuerdo con lo obtenido a través de parse
+         */
         fun initData()
         {
             val listCategorias:MutableList<String> = mutableListOf()
@@ -66,16 +78,16 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
         }
     }
 
-
-
     private var listCompare :MutableList<SComparePicture> ?= null
 
+    /**
+     * Describe el item view y los metadatos que contienen las variables en el RecyclerView.
+     */
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         var imagen_antigua : ImageView
         var imagen_actual : ImageView
         var categoria : TextView
         var deleteButton: Button
-
 
         init{
             imagen_antigua = itemView.findViewById(R.id.imagenAntigua)
@@ -86,6 +98,10 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
 
     }
 
+    /**
+     * Devuelve una vista de un elemento. Usamos inflate() para crear una vista a partir del layout XML
+     * @return ViewGroup
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_admin_gallery_block, parent, false)
@@ -98,29 +114,18 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
         return ViewHolder(v)
     }
 
+    /**
+     * Personaliza un elemento de tipo ViewHolder. Desde ese ViewHolder el sistema se encarga
+     * de crear la vista que se pondrá en cada elemento del RecyclerView y al final con el
+     * getItemCount se identificará el número de elementos que se van a crear en el Recycler.
+     * @param holder
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoria.text = categorias[position]
 
         Picasso.get().load(imagenes_antiguas[position]).into(holder.imagen_antigua)
         Picasso.get().load(imagenes_actuales[position]).into(holder.imagen_actual)
 
-        /*
-        Picasso.get().load(ParseApp.listImageTest[0]).into(holder.imagen_antigua)
-        Picasso.get().load(ParseApp.listImageTest[1]).into(holder.imagen_actual)
-         */
-
-        /*Wait until the listComp is fetched by Parse*/
-        /*
-        while(listCompare == null){;}
-        if(listCompare != null) {
-            if (listCompare?.size != 0) {
-                Picasso.get().load(listCompare!![position % listCompare!!.size].oldPic_id)
-                    .into(holder.imagen_antigua)
-                Picasso.get().load(listCompare!![position % listCompare!!.size].newPic_id)
-                    .into(holder.imagen_actual)
-            }
-        }
-*/
         holder.imagen_antigua.setOnClickListener{
             listener?.onClick(imagenes_antiguas[position])
         }
@@ -160,6 +165,10 @@ class AdminGalleryAdapter: RecyclerView.Adapter<AdminGalleryAdapter.ViewHolder>(
         }
     }
 
+    /**
+     * Regresa el numero de elementos para crear cada item del RecyclerView
+     * @return int
+     */
     override fun getItemCount(): Int {
         return categorias.size
     }

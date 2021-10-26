@@ -6,6 +6,10 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 
+/**
+ * Pide los permisos que tiene que usar la aplicación
+ * @author e-corp
+ */
 class Permissions() {
     /**
      * Permisos para la aplucación

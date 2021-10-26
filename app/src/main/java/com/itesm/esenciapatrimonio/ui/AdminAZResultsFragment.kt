@@ -15,6 +15,12 @@ import com.itesm.esenciapatrimonio.*
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminAzResultsBinding
 
 
+/**
+ * Fragmento que despiega la vista para ver los sitios de la A a la Z
+ * en modo administrador (sirve para redirigir a un sitio en modo admin)
+ * @author e-corp
+ */
+
 class AdminAZResultsFragment: Fragment() {
     private var _binding: FragmentAdminAzResultsBinding? = null
     private val binding get() = _binding!!
@@ -22,6 +28,10 @@ class AdminAZResultsFragment: Fragment() {
     //restored site array from data base
     lateinit var sortedRestoredSite: List<SRestoreSite>
 
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,8 +53,9 @@ class AdminAZResultsFragment: Fragment() {
         return root
     }
 
-    /*
-    Funcion para obetener los datos de parse
+    /**
+     * Funcion para obetener los datos de parse y mostrar el listado de los sitios restaurados
+     * @param MutableList
      */
     fun getRestoredSite(listRestoredSite:MutableList<SRestoreSite>):Unit{
         // Ordenar los datos de restoredSite por nombre
@@ -66,6 +77,10 @@ class AdminAZResultsFragment: Fragment() {
         recycler?.adapter = adapter
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -28,6 +28,11 @@ import java.net.URI
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Fragmento que despiega la vista para añadir fotografías en el modo administrador
+ * @author e-corp
+ */
+
 class AdminAddPhotosFragment: Fragment() {
     lateinit var ImageUri: Uri
 
@@ -41,6 +46,11 @@ class AdminAddPhotosFragment: Fragment() {
     var triggerActual = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
+
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,13 +65,11 @@ class AdminAddPhotosFragment: Fragment() {
         _binding!!.imagenAntigua.setOnClickListener{
             code_id = 1
             pickImageGallery(code_id)
-            selectImage()
         }
 
         _binding!!.imagenActual.setOnClickListener{
             code_id = 2
             pickImageGallery(code_id)
-            selectImage()
         }
 
         _binding!!.imageUpload.setOnClickListener{
@@ -94,30 +102,25 @@ class AdminAddPhotosFragment: Fragment() {
         return root
     }
 
-
-    private fun selectImage() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-
-        startActivityForResult(intent, 100)
-
-    }
-
-
+    /**
+     * Sirve para seleccionar una imagen de la galería
+     * @param code_id
+     */
     private fun pickImageGallery(code_id: Int) {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        //val intent = Intent()
-        //intent.type = "image/*"
-        //intent.action = Intent.ACTION_GET_CONTENT
+
         startActivityForResult(intent, code_id)
     }
 
     lateinit var imageNow:Bitmap
     lateinit var imageOld:Bitmap
 
-
+    /**
+     * Establece la imagen seleccionada en la view y en otra variable que
+     * servirá para subir ambas imágenes al servidor dependiendo del requestCode
+     * @param requestCode, data
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK){
@@ -133,6 +136,10 @@ class AdminAddPhotosFragment: Fragment() {
         }
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

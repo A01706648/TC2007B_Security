@@ -16,6 +16,11 @@ import com.itesm.esenciapatrimonio.ui.FullScreenImageFragment
 import com.itesm.esenciapatrimonio.ui.GalleryFragment
 import com.squareup.picasso.Picasso
 
+/**
+ * Clase que crea el RecyclerView para mostrar la galería
+ * @author e-corp
+ * @param sortedRestoredSite
+ */
 class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
 
     private var listener: GalleryAdapterClickEvents? = null
@@ -28,6 +33,10 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
         fun onClick(url: String)
     }
 
+    /**
+     * Crea un objeto común a todas las instancias de la clase y contiene los arrays que se necesitan para
+     * crear los objetos del recyclerview a partir de las imágenes antiguas y nuevas
+     */
     companion object {
         private lateinit var categorias: Array<String>// = arrayOf("Card 1")
 
@@ -40,6 +49,9 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
         "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80"
     )*/
 
+        /**
+         * Inicualiza los datos de acuerdo con lo obtenido a través de parse
+         */
         fun initData()
         {
             val listCategorias:MutableList<String> = mutableListOf()
@@ -58,10 +70,11 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
         }
     }
 
-
-
     private var listCompare :MutableList<SComparePicture> ?= null
 
+    /**
+     * Describe el item view y los metadatos que contienen las variables en el RecyclerView.
+     */
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         var imagen_antigua : ImageView
         var imagen_actual : ImageView
@@ -76,6 +89,10 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
 
     }
 
+    /**
+     * Devuelve una vista de un elemento. Usamos inflate() para crear una vista a partir del layout XML
+     * @return ViewGroup
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_gallery_block, parent, false)
@@ -88,6 +105,12 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
         return ViewHolder(v)
     }
 
+    /**
+     * Personaliza un elemento de tipo ViewHolder. Desde ese ViewHolder el sistema se encarga
+     * de crear la vista que se pondrá en cada elemento del RecyclerView y al final con el
+     * getItemCount se identificará el número de elementos que se van a crear en el Recycler.
+     * @param holder
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoria.text = categorias[position]
 
@@ -120,6 +143,10 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryAdapter.ViewHolder>(){
         }
     }
 
+    /**
+     * Regresa el numero de elementos para crear cada item del RecyclerView
+     * @return int
+     */
     override fun getItemCount(): Int {
         return categorias.size
     }

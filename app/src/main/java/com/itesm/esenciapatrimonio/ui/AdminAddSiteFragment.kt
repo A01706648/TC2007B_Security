@@ -14,6 +14,12 @@ import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.SRestoreSite
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminAddSiteBinding
 
+/**
+ * Fragmento que despiega la vista para añadir un sitio a la base de datos
+ * dentro de este fragmento está toda la lógica para realizar el proceso.
+ * @author e-corp
+ */
+
 class AdminAddSiteFragment: Fragment() {
     private var _binding: FragmentAdminAddSiteBinding? = null
 
@@ -21,6 +27,11 @@ class AdminAddSiteFragment: Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,8 +40,6 @@ class AdminAddSiteFragment: Fragment() {
 
         _binding = FragmentAdminAddSiteBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
 
         _binding!!.botonAgregar.setOnClickListener{
             if(_binding!!.nombreSitio.text.toString() == ""){
@@ -101,6 +110,10 @@ class AdminAddSiteFragment: Fragment() {
         return root
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -11,11 +11,19 @@ import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.ui.AZResultsFragment
 import com.itesm.esenciapatrimonio.ui.RestoredSiteFragment
 
+/**
+ * Clase que crea el RecyclerView para los resultados de A a la Z
+ * @author e-corp
+ * @param sortedRestoredSite
+ */
 class AZResultAdapter(sortedRestoredSite: List<SRestoreSite>,  fragment: AZResultsFragment) : RecyclerView.Adapter<AZResultAdapter.ViewHolder>() {
 
     private val azFragment = fragment
     private val listRestoredSite = sortedRestoredSite
 
+    /**
+     * Describe el item view y los metadatos que contienen las variables en el RecyclerView.
+     */
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titulo : TextView
         var descripcion : TextView
@@ -28,12 +36,22 @@ class AZResultAdapter(sortedRestoredSite: List<SRestoreSite>,  fragment: AZResul
         }
     }
 
+    /**
+     * Devuelve una vista de un elemento. Usamos inflate() para crear una vista a partir del layout XML
+     * @return ViewGroup
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_az_results, parent, false)
         return ViewHolder(v)
     }
 
+    /**
+     * Personaliza un elemento de tipo ViewHolder. Desde ese ViewHolder el sistema se encarga
+     * de crear la vista que se pondrá en cada elemento del RecyclerView y al final con el
+     * getItemCount se identificará el número de elementos que se van a crear en el Recycler.
+     * @param holder
+     */
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
         holder.titulo.text = listRestoredSite[i].site_name
         holder.descripcion.text = listRestoredSite[i].information
@@ -46,6 +64,10 @@ class AZResultAdapter(sortedRestoredSite: List<SRestoreSite>,  fragment: AZResul
         }
     }
 
+    /**
+     * Regresa el numero de elementos para crear cada item del RecyclerView
+     * @return int
+     */
     override fun getItemCount(): Int {
         return listRestoredSite.size
     }

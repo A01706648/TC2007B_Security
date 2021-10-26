@@ -16,11 +16,24 @@ import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminSitioRestauradoBinding
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 
+/**
+ * Fragmento que que despliega la vista para ver el sitio restaurado en modo administrador,
+ * permite eliminar el sitio restaurado completamente, ver la información general y accesar
+ * a la vista de galería de imágenes de administrador desde aquí.
+ *
+ * Estaba planeado poder editar la información como el título y descripción pero no alcanzamos
+ * el código ya está hecho, sólo falta conectarlo con parse y la base de datos.
+ * @author e-corp
+ */
 class AdminRestoredSiteFragment: Fragment() {
 
     private var _binding: FragmentAdminSitioRestauradoBinding? = null
     private val binding get() = _binding!!
 
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,7 +87,7 @@ class AdminRestoredSiteFragment: Fragment() {
             builder.setMessage("¿Estás seguro de eliminar el sitio?")
                 .setCancelable(false)
                 .setPositiveButton("SÍ") { dialog, id ->
-                    //TODO: Here goes the code to delete the entire site
+                    // Aquí va el código para eliminar el sitio
                     ParseApp.deleteRestoreSite(TransactionData.restoredSite[0].site_name){siteName ->
 
                     }
@@ -101,11 +114,20 @@ class AdminRestoredSiteFragment: Fragment() {
         val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         if (activeNetwork != null && activeNetwork.isConnected) {
-        }else {
+        }
+        else{
             Toast.makeText(context,"Error de conexión", Toast.LENGTH_SHORT).show()
         }
 
         return root
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

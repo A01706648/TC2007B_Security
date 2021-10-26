@@ -14,6 +14,11 @@ import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminMainBinding
 
+/**
+ * Fragmento que despiega la vista principal del menú de administración
+ * @author e-corp
+ */
+
 class AdminMainFragment: Fragment() {
     private var _binding: FragmentAdminMainBinding? = null
 
@@ -21,6 +26,10 @@ class AdminMainFragment: Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    /**
+     * Infla la view de acuerdo a lo que se tiene que renderizar con la lógica de lo que debería
+     * de suceder dentro del fragmento una vez que se inicia dentro de la actividad.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,6 +68,10 @@ class AdminMainFragment: Fragment() {
         return root
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
