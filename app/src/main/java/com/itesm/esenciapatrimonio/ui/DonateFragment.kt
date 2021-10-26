@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentDonacionBinding
@@ -65,21 +66,22 @@ class DonateFragment: Fragment() {
         // Botón que al seleccionarlo nos redirecciona a la vista de ThanksDonationFragment
         // para agradecer por la donación.
         _binding!!.botonDonar.setOnClickListener{
-            val openURL = Intent(android.content.Intent.ACTION_VIEW)
-            openURL.data = Uri.parse(url)
-            startActivity(openURL)
+
+            //val openURL = Intent(android.content.Intent.ACTION_VIEW)
+            //openURL.data = Uri.parse(url)
+            //startActivity(openURL)
+            Toast.makeText(context,"¡Próximamente!", Toast.LENGTH_SHORT).show()
 
             // Ir a la vista de thanks
-            val fragmentManager = fragmentManager
-            val fragmentTransaction = fragmentManager?.beginTransaction()
+            //val fragmentManager = fragmentManager
+            //val fragmentTransaction = fragmentManager?.beginTransaction()
 
-            Thread.sleep(2_000)
-            val fragment = ThanksDonationFragment()
+            //Thread.sleep(2_000)
+            //val fragment = ThanksDonationFragment()
 
-            fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
-            fragmentTransaction?.commit()
+            //fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
+            //fragmentTransaction?.commit()
         }
-
 
         return root
     }

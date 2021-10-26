@@ -13,10 +13,8 @@ import com.itesm.esenciapatrimonio.transactions.TransactionData
 
 /**
  * @author e-corp
- *
  * Fragmento donde el usuario puede ver la galeria de imagenes del sitio restaurado.
  */
-
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGaleriaBinding? = null
