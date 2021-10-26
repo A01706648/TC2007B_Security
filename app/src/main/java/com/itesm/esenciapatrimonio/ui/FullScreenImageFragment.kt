@@ -11,16 +11,14 @@ import com.squareup.picasso.Picasso
 /**
  * @author e-corp
  *
- * Fragmento donde el administrador podra hacer login en la aplicación
- * para contar con los beneficios de admin.
+ * Fragmento donde muestra la imagen completa.
  */
 
 class FullScreenImageFragment(private val imageURL: String): Fragment() {
 
     private var _binding: FragmentFullscreenImageBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // Esta propiedad sólo es válida entre onCreateView y onDestroyView.
     private val binding get() = _binding!!
 
     /**

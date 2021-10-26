@@ -14,8 +14,7 @@ import com.itesm.esenciapatrimonio.transactions.TransactionData
 /**
  * @author e-corp
  *
- * Fragmento donde el administrador podra hacer login en la aplicación
- * para contar con los beneficios de admin.
+ * Fragmento donde el usuario puede ver la galeria de imagenes del sitio restaurado.
  */
 
 class GalleryFragment : Fragment() {
