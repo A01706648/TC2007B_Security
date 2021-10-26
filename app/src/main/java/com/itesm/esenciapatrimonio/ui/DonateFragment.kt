@@ -10,10 +10,20 @@ import androidx.fragment.app.Fragment
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentDonacionBinding
 
+/**
+ * @author e-corp
+ *
+ * Fragmento donde el usuario puede poner la cantidad que desea donar
+ * y al picarle al botón de donar lo redirecciona a la página de PayPal.
+ */
+
 class DonateFragment: Fragment() {
     private var _binding: FragmentDonacionBinding? = null
     private val binding get() = _binding!!
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +43,7 @@ class DonateFragment: Fragment() {
 
         texto.text = "$"+money+" "+curr
 
+        // Botón para reducir la cantidad de la donación.
         _binding!!.botonMenos.setOnClickListener {
             if (money == 5){
                 // Hacer nada
@@ -44,12 +55,15 @@ class DonateFragment: Fragment() {
             }
         }
 
+        // Botón para aumentar la cantidad de la donación
         _binding!!.botonMas.setOnClickListener {
             money += 5
             texto.text = "$"+money+" "+curr
             url = "https://paypal.me/FoxWare/"+money+curr
         }
 
+        // Botón que al seleccionarlo nos redirecciona a la vista de ThanksDonationFragment
+        // para agradecer por la donación.
         _binding!!.botonDonar.setOnClickListener{
             val openURL = Intent(android.content.Intent.ACTION_VIEW)
             openURL.data = Uri.parse(url)

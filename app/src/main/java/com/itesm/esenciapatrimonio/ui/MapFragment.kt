@@ -36,11 +36,11 @@ class MapFragment: Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    //components
+    // Componentes.
     private var mapView: MapView? = null
     private var parseCallbackUse_MapboxMap: MapboxMap? = null
 
-    //restored site array from database
+    // Array de sitio restaurado desde la base de datos.
     lateinit var restoredSite: MutableList<SRestoreSite>
     lateinit var restoredSiteMarkers: MutableList<Marker>
 
@@ -62,7 +62,9 @@ class MapFragment: Fragment() {
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync { mapboxMap ->
             mapboxMap.setStyle(getString(R.string.map_style)) {
-                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
+
+                // Mapa está configurado y el estilo se ha cargado.
+                // Ahora puede agregar datos o hacer otros ajustes en el mapa.
                 val locationOne = LatLng(20.76853263116804, -100.46317287806771)
                 val locationTwo = LatLng(20.49847887794351, -100.35621872052026)
 
@@ -72,22 +74,22 @@ class MapFragment: Fragment() {
                     .build()
                 mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10));
 
-                // Llama a Parse para cargar los datos
+                // Llama a Parse para cargar los datos.
                 this.parseCallbackUse_MapboxMap = mapboxMap
-                //val oParse = ParseApp();
 
-                //Verificar que el dispositivo este conectado a internet o utilizando datos
+                // Verificar que el dispositivo este conectado a internet o utilizando datos.
                 val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
                 if (activeNetwork != null && activeNetwork.isConnected) {
-                    //Si el dispositivo esta conectado carga los datos de parse en el mapa
+
+                    // Si el dispositivo esta conectado carga los datos de parse en el mapa.
                     ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite)
                 }else {
-                    Toast.makeText(context,"Error de conexión, verifique que su dispositivo esté conectado a internet", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Error de conexión, verifique que su dispositivo esté conectado a internet", Toast.LENGTH_SHORT).show()
                 }
 
-                //comparar de la lista de marcadores el marcador seleccionado
-                //obteniendo el indice llevar al sitio correspondiente
+                // Comparar de la lista de marcadores el marcador seleccionado.
+                // Obteniendo el indice llevar al sitio correspondiente.
                 mapboxMap.setOnMarkerClickListener { marker ->
                     var index: Int = 0
 
@@ -96,8 +98,8 @@ class MapFragment: Fragment() {
                             index = i
                         }
                     }
-                    //una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente
-                    //los datos son guardados en un objeto TransactionData para utilizarlos en el constructor del sitio restaurado
+                    // Una vez obtenido el indice se lleva a la vista del sitio restaurado correspondiente.
+                    // Los datos son guardados en un objeto TransactionData para utilizarlos en el constructor del sitio restaurado.
                     TransactionData.restoredSite = mutableListOf(restoredSite[index])
                     GoToRestoredSite(this, RestoredSiteFragment()).makeTransaction()
                 }
@@ -111,8 +113,12 @@ class MapFragment: Fragment() {
 
     /**
      * Por cada sitio restaurado en la base de datos se agrega
+<<<<<<< HEAD
+     * un marcador poniendo las coordenadas guardadas, el nombre y el id.
+=======
      * un marcador poniendo las coordenadas guardadas, el nombre y el id
      * @param listRestoreSite lista de objetos tipo SRestoredSite
+>>>>>>> e4bd5a9b772643706cce01a8dfb2bb8eb88f0d7c
      */
     fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit{
         restoredSite = listRestoreSite
@@ -133,7 +139,7 @@ class MapFragment: Fragment() {
     }
 
     /**
-     * Map Lidecycle Methods
+     * Map Lifecycle Methods.
      */
     override fun onStart() {
         super.onStart()

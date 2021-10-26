@@ -12,15 +12,21 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.itesm.esenciapatrimonio.AdminGalleryAdapter
-import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentLoginBinding
+
+/**
+ * @author e-corp
+ *
+ * Fragmento donde el administrador podra hacer login en la aplicación
+ * para contar con los beneficios de admin.
+ */
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
+    // Array del usuario y la contraseña.
     private lateinit var usuario: EditText
     private lateinit var contrasena: EditText
 
@@ -39,6 +45,9 @@ class LoginFragment : Fragment() {
         System.loadLibrary("keys")
     }
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

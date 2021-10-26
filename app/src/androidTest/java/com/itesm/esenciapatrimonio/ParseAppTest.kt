@@ -1,12 +1,8 @@
 package com.itesm.esenciapatrimonio
 
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.parse.Parse
-import junit.framework.TestCase
 import org.junit.After
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull

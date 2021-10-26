@@ -4,16 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-// import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Gallery
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.transactions.TransactionData
 import com.itesm.esenciapatrimonio.databinding.FragmentSitioRestauradoBinding

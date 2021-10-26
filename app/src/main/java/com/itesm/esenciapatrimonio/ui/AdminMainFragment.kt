@@ -9,18 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.itesm.esenciapatrimonio.AdminGalleryAdapter
-import com.itesm.esenciapatrimonio.ParseApp
 import com.itesm.esenciapatrimonio.R
 import com.itesm.esenciapatrimonio.databinding.FragmentAdminMainBinding
+
+/**
+ * @author e-corp
+ *
+ * Fragmento donde el administrador al pulsar cualquiera de los dos botones
+ * lo manda a la vista de agregar sitio o editar sitio.
+ */
 
 class AdminMainFragment: Fragment() {
     private var _binding: FragmentAdminMainBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // Esta propiedad sólo es válida entre onCreateView y onDestroyView.
     private val binding get() = _binding!!
 
+    /**
+     * Método onCreate que infla la vista en la interfaz establecida por el fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +37,8 @@ class AdminMainFragment: Fragment() {
         _binding = FragmentAdminMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Botón que al seleccionarlo nos redirecciona a la vista de AdminAddSiteFragment
+        // para agregar un nuevo sitio.
         binding.buttonAddSite.setOnClickListener{
             val fragmentManager = fragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
@@ -39,6 +48,8 @@ class AdminMainFragment: Fragment() {
             fragmentTransaction?.commit()
         }
 
+        // Botón que al seleccionarlo nos redirecciona a la vista de AdminAzResultsFragment
+        // para editar el sitio.
         binding.buttonPhotos.setOnClickListener{
             val cm = it.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
