@@ -79,7 +79,6 @@ class AdminRegistrarUsuarioFragment: Fragment() {
 
     }
 
-
     /**
      * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
      * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso

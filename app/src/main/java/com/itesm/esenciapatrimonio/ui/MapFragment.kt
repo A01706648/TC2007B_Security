@@ -113,12 +113,9 @@ class MapFragment: Fragment() {
 
     /**
      * Por cada sitio restaurado en la base de datos se agrega
-<<<<<<< HEAD
      * un marcador poniendo las coordenadas guardadas, el nombre y el id.
-=======
      * un marcador poniendo las coordenadas guardadas, el nombre y el id
      * @param listRestoreSite lista de objetos tipo SRestoredSite
->>>>>>> e4bd5a9b772643706cce01a8dfb2bb8eb88f0d7c
      */
     fun ParseTest_GetRestoreSite(listRestoreSite:MutableList<SRestoreSite>):Unit{
         restoredSite = listRestoreSite

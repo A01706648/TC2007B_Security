@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
  * Pide los permisos que tiene que usar la aplicación
  * @author e-corp
  */
+
 class Permissions() {
     /**
      * Permisos para la aplicación

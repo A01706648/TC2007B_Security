@@ -49,6 +49,7 @@ class GalleryFragment : Fragment() {
         //layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recycla.layoutManager = layoutManager
 
+        // Compara las imagenes de la base de datos
         ParseApp.getAllComparePictureBySite(site.site_name){listComp->
             listCompare = listComp
 
@@ -58,14 +59,14 @@ class GalleryFragment : Fragment() {
             val adapter = GalleryAdapter()
             recycla.adapter = adapter
 
+            // Función que utiliza el fragmento de FullScreenImageFragment
+            // para mostrar la imagen del sitio restaurado.
             adapter.setListener(object : GalleryAdapter.GalleryAdapterClickEvents {
                 override fun onClick(url: String) {
 
                     val fragmentManager = fragmentManager
                     val fragmentTransaction = fragmentManager?.beginTransaction()
-
                     val fragment = FullScreenImageFragment(url)
-
                     fragmentTransaction?.replace(R.id.nav_host_fragment_content_main, fragment)
                     fragmentTransaction?.addToBackStack(null)
                     fragmentTransaction?.commit()
@@ -76,6 +77,10 @@ class GalleryFragment : Fragment() {
         return root
     }
 
+    /**
+     * Es la llamada para limpiar lo que hay en el fragmento antes de que sea destruído
+     * puede ser llamado automáticamente por el sistema cuando ya esto no está en uso
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
