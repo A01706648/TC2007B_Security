@@ -35,6 +35,8 @@ class ParseAppTest : AppCompatActivity()//: TestCase()
                     .enableLocalDataStore()
                     .build()
             )
+
+            ParseApp.init()
     }
 
     @After
@@ -45,18 +47,45 @@ class ParseAppTest : AppCompatActivity()//: TestCase()
     @Test
     @Throws(Exception::class)
     fun getAllRestoreSite(){
-        ParseApp.getAllRestoreSite(this::ParseTest_GetRestoreSite);
+        ParseApp.getAllRestoreSite(){listRestoreSite ->
+            lateinit var oSite:SRestoreSite;
+
+            assertNotNull(listRestoreSite)
+            assertNotEquals(listRestoreSite?.size, 0)
+        }
     }
 
     @Test
     @Throws(Exception::class)
-    fun insertRestoreSite(){
+    fun addRestoreSite(){
+        val site = SRestoreSite(site_name = "Test")
+        ParseApp.addRestoreSite(site){listSite ->
+            assertNotNull(listSite)
+            assertNotEquals(listSite?.size, 0)
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun deleteRestoreSite(){
 
     }
 
     @Test
     @Throws(Exception::class)
-    fun modifyRestoreSite(){
+    fun addCompare(){
+
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun deleteCompare(){
+
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun getCompareBySite(){
 
     }
 }
